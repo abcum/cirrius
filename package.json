@@ -1,0 +1,21 @@
+{
+  "name": "magnifio",
+  "version": "1.0.0",
+  "description": "Magnifio package installer",
+  "directories": {
+    "doc": "doc"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abcum/magnifio.git"
+  },
+  "author": "Tobie Morgan Hitchcock <tobie@abcum.com> (http://abcum.com/)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/abcum/magnifio/issues"
+  },
+  "homepage": "https://github.com/abcum/magnifio#readme"
+}
