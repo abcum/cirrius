@@ -1,0 +1,14 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Joe Bloggs",
+      "work": "Abcum",
+      "email": "info@abcum.com",
+      "dob": "2016-04-24T17:20:12.076Z",
+      "address": "6 Downing Street",
+      "city": "London",
+      "optedin": true
+    }
+  ]
+}
