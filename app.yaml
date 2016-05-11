@@ -1,0 +1,37 @@
+runtime: go
+version: alpha
+api_version: go1
+application: online-platforms-app
+
+default_expiration: "5m"
+
+inbound_services:
+  - warmup
+
+skip_files:
+
+  - cli/*
+  - cnf/*
+  - doc/*
+  - log/*
+  - npm/*
+  - util/*
+  - build/*
+  - vendor/*
+
+handlers:
+
+- url: /npm
+  static_dir: npm/
+  application_readable: true
+
+- url: /tpl
+  static_dir: tpl/
+  application_readable: true
+
+- url: /tst
+  static_dir: tst/
+  application_readable: true
+
+- url: /.*
+  script: _go_app
