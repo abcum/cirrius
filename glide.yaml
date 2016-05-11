@@ -1,0 +1,22 @@
+package: github.com/abcum/magnifio
+import:
+- package: github.com/abcum/fibre
+  subpackages:
+  - mw
+- package: github.com/abcum/logrus
+- package: github.com/abcum/orbit
+- package: github.com/mgutz/ansi
+- package: github.com/robertkrimen/otto
+- package: github.com/russross/blackfriday
+- package: github.com/satori/go.uuid
+- package: github.com/spf13/cobra
+- package: github.com/tdewolff/minify
+  subpackages:
+  - css
+  - html
+  - js
+  - json
+  - svg
+  - xml
+- package: github.com/yosssi/gcss
+- package: github.com/SKAhack/go-shortid
