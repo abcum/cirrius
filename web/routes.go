@@ -38,6 +38,18 @@ func routes(s *fibre.Fibre) {
 	mime.AddExtensionType(".gcss", "text/css")
 	mime.AddExtensionType(".mock", "application/json")
 
+	// --------------------------------------------------
+	// Endpoint for health checks
+	// --------------------------------------------------
+
+	s.Get("/info", func(c *fibre.Context) error {
+		return c.Code(200)
+	})
+
+	// --------------------------------------------------
+	// Endpoint for all other requests
+	// --------------------------------------------------
+
 	s.Any("/*", func(c *fibre.Context) (err error) {
 
 		// if c.Request().URL().Host == "127.0.0.1" {
