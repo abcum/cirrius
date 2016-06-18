@@ -1,8 +1,8 @@
 hash: 18facd8202ce745221086e62465eb0242fe137b6e822dcf2be53987add9fdc07
-updated: 2016-06-17T12:41:49.60987342+01:00
+updated: 2016-06-18T14:48:30.761557719+01:00
 imports:
 - name: github.com/abcum/fibre
-  version: 3b36abad257fe40072d4bc96e7133e0deb7bd77e
+  version: a9935884e184e19609bb72cf55de88023c2b5648
   subpackages:
   - mw
 - name: github.com/abcum/logrus
@@ -10,7 +10,7 @@ imports:
 - name: github.com/abcum/orbit
   version: ebe5b548ded659d493b6dbc6bb2e9dd9a384c8a5
 - name: github.com/dgrijalva/jwt-go
-  version: d2709f9f1f31ebcda9651b03077758c1f3a0018c
+  version: f0777076321ab64f6efc15a82d9d23b98539b943
 - name: github.com/golang/protobuf
   version: 0c1f6d65b5a189c2250d10e71a5506f06f9fa0a0
   subpackages:
@@ -73,7 +73,7 @@ imports:
 - name: github.com/yvasiyarov/newrelic_platform_go
   version: 9c099fbc30e90de5bb5c5f94aa5fd08f2daeaacd
 - name: golang.org/x/net
-  version: d7bf3545bb0dacf009c535b3d3fbf53ac0a339ab
+  version: 1961d9def2b2d7a28d7958926d2457d05a178ecd
   subpackages:
   - netutil
   - context
@@ -98,7 +98,7 @@ imports:
 - name: gopkg.in/tylerb/graceful.v1
   version: 84177357ab104029f9237abcb52339a7b80760ef
 - name: gopkg.in/vmihailenco/msgpack.v2
-  version: 6915de5f21af6f5bcd2517da00d99c5131bb1da7
+  version: fb304c4e56fe15c4128a7e49d8dfab719c998b5b
   subpackages:
   - codes
 devImports: []
