@@ -106,9 +106,8 @@ install:
 
 .PHONY: ember
 ember: 
-	cd gui/
 	npm install -g bower
 	npm install -g ember-cli
-	npm cache clean && bower cache clean
-	npm install && bower install
-	ember build -prod -o ../app/
+	cd gui && npm cache clean && bower cache clean
+	cd gui && npm install && bower install
+	cd gui && ember build -prod -o ../app/
