@@ -1,0 +1,59 @@
+# -----------------------------------
+
+general:
+    branches:
+        only:
+            - master
+
+# -----------------------------------
+
+machine:
+    timezone:
+        UTC
+    services:
+        - docker
+
+# -----------------------------------
+
+checkout:
+    post:
+        # git tags are used to generate build info which is baked into the
+        # binary, but unfortunately it is not possible to fetch all tags
+        # without also unshallowing the checkout, so we must do both.
+        - git fetch --unshallow --tags
+        # GOPATH is cached, so we need to clean out the version from the previous
+        # run or the subsequent `mv` will fail.
+        - rm -rf         "${GOPATH%%:*}/src/github.com/abcum/magnifio"
+        - mkdir -p       "${GOPATH%%:*}/src/github.com/abcum/"
+        - mv ~/magnifio  "${GOPATH%%:*}/src/github.com/abcum/"
+        - ln -s          "${GOPATH%%:*}/src/github.com/abcum/magnifio" ~/magnifio
+
+# -----------------------------------
+
+dependencies:
+    override:
+        - npm install -g bower
+        - npm install -g ember-cli
+        - npm cache clean && bower cache clean
+        - npm install && bower install
+        - ember build -prod
+        - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+        - go get -u github.com/Masterminds/glide
+
+# -----------------------------------
+
+test:
+    override:
+        - make test
+        - make build
+        - docker build -t abcum/magnifio .
+        - docker run -d abcum/magnifio start; sleep 15
+
+# -----------------------------------
+
+deployment:
+
+    deploy:
+        branch: master
+        commands:
+            - docker push abcum/magnifio
