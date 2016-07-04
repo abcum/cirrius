@@ -31,5 +31,8 @@ magnifio
 # Other
 # -----------------------------------
 
-data/
+app/
+dev/
 vendor/
+node_modules/
+bower_components/

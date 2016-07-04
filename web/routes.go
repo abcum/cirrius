@@ -53,11 +53,11 @@ func routes(s *fibre.Fibre) {
 	s.Any("/*", func(c *fibre.Context) (err error) {
 
 		// if c.Request().URL().Host == "127.0.0.1" {
-		// 	return c.File("tpl", c.Param("*"))
+		// 	return c.File("app", c.Param("*"))
 		// }
 
 		// if c.Request().URL().Host == "app.magnif.io" {
-		// 	return c.File("tpl", c.Param("*"))
+		// 	return c.File("app", c.Param("*"))
 		// }
 
 		// info, err := load("main.node")

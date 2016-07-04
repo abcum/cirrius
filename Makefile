@@ -99,3 +99,16 @@ install: clean
 install: glide
 install:
 	CGO_ENABLED=0 $(GO) install -a -v -ldflags '$(LDF)'
+
+# The `make ember` command compiles
+# the ember project, and outputs
+# the build files in the app folder.
+
+.PHONY: ember
+ember: 
+	cd gui/
+	npm install -g bower
+	npm install -g ember-cli
+	npm cache clean && bower cache clean
+	npm install && bower install
+	ember build -prod -o ../app/
