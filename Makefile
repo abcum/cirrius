@@ -41,16 +41,6 @@ convey:
 	@echo "Run 'go get -u -v github.com/smartystreets/goconvey'"
 	goconvey -packages 5 -port 5000 -poll 1s -excludedDirs 'build,doc,npm,gui,tst,vendor'
 
-# The `make test` command runs all
-# tests, found within all sub-folders
-# in the project folder.
-
-.PHONY: test
-test: clean
-test:
-	rm -rf vendor
-	$(GO) test `glide novendor`
-
 # The `make glide` command ensures that
 # all imported dependencies are synced
 # and located within the vendor folder.
@@ -58,6 +48,16 @@ test:
 .PHONY: glide
 glide:
 	glide update
+
+# The `make test` command runs all
+# tests, found within all sub-folders
+# in the project folder.
+
+.PHONY: test
+test: clean
+test: glide
+test:
+	$(GO) test `glide novendor`
 
 # The `make clean` command cleans
 # all object, build, and test files
@@ -87,7 +87,7 @@ build: LDF += $(shell GOPATH=${GOPATH} build/flags.sh)
 build: clean
 build: glide
 build:
-	$(GO) build -v -ldflags '$(LDF)'
+	CGO_ENABLED=0 $(GO) build -a -v -ldflags '$(LDF)'
 
 # The `make install` command compiles
 # the build flags, gets the project
@@ -98,4 +98,4 @@ install: LDF += $(shell GOPATH=${GOPATH} build/flags.sh)
 install: clean
 install: glide
 install:
-	$(GO) install -v -ldflags '$(LDF)'
+	CGO_ENABLED=0 $(GO) install -a -v -ldflags '$(LDF)'
