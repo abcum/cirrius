@@ -2,7 +2,7 @@
 
 The web gui for Cirrius built using ember.js.
 
-[![](https://img.shields.io/circleci/token/adb5ca379a334a4011fa894275c312fe35833d6d/project/abcum/cirrius/master.svg?style=flat-square)](https://circleci.com/gh/abcum/cirrius) [![](https://img.shields.io/badge/ember-2.6.2-orange.svg?style=flat-square)](https://github.com/abcum/cirrius) [![](https://img.shields.io/badge/license-Commercial-blue.svg?style=flat-square)](https://github.com/abcum/cirrius) 
+[![](https://img.shields.io/circleci/token/adb5ca379a334a4011fa894275c312fe35833d6d/project/abcum/cirrius/master.svg?style=flat-square)](https://circleci.com/gh/abcum/cirrius) [![](https://img.shields.io/badge/ember-2.6.2-orange.svg?style=flat-square)](https://github.com/abcum/cirrius) [![](https://img.shields.io/badge/license-Commercial-00bfff.svg?style=flat-square)](https://github.com/abcum/cirrius) 
 
 #### Setup
 
