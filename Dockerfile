@@ -3,8 +3,8 @@ FROM alpine:3.4
 RUN apk add --no-cache ca-certificates
 
 ADD app app/
-ADD magnifio .
+ADD cirrius .
 
 EXPOSE 80 443
 
-ENTRYPOINT ["/magnifio"]
+ENTRYPOINT ["/cirrius"]

@@ -18,7 +18,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/abcum/magnifio/log"
+	"github.com/abcum/cirrius/log"
 )
 
 func setup() {

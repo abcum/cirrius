@@ -16,7 +16,7 @@
 
 package main
 
-import "github.com/abcum/magnifio/cli"
+import "github.com/abcum/cirrius/cli"
 
 func main() {
 	cli.Init()

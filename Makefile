@@ -25,12 +25,12 @@ default:
 	@$(MAKE) -pRrq -f $(lastword $(MAKEFILE_LIST)) : 2>/dev/null | awk -v RS= -F: '/^# File/,/^# Finished Make data base/ {if ($$1 !~ "^[#.]") {print "  - " $$1}}' | sort
 
 # The `make kill` command ensures that
-# any hanging magnifio processes are force
+# any hanging cirrius processes are force
 # killed. Useful in development.
 
 .PHONY: kill
 kill:
-	pkill -9 -f magnifio
+	pkill -9 -f cirrius
 
 # The `make convey` command downloads
 # or updates 'goconvey', and runs the

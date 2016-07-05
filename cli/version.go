@@ -21,7 +21,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/abcum/magnifio/util/build"
+	"github.com/abcum/cirrius/util/build"
 )
 
 var versionCmd = &cobra.Command{

@@ -1,7 +1,7 @@
 {
-  "name": "magnifio",
+  "name": "cirrius",
   "version": "1.0.0",
-  "description": "Magnifio package installer",
+  "description": "Cirrius package installer",
   "directories": {
     "doc": "doc"
   },
@@ -10,12 +10,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/abcum/magnifio.git"
+    "url": "git+https://github.com/abcum/cirrius.git"
   },
   "author": "Tobie Morgan Hitchcock <tobie@abcum.com> (http://abcum.com/)",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/abcum/magnifio/issues"
+    "url": "https://github.com/abcum/cirrius/issues"
   },
-  "homepage": "https://github.com/abcum/magnifio#readme"
+  "homepage": "https://github.com/abcum/cirrius#readme"
 }

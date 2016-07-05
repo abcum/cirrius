@@ -23,10 +23,10 @@ checkout:
         - git fetch --unshallow --tags
         # GOPATH is cached, so we need to clean out the version from the previous
         # run or the subsequent `mv` will fail.
-        - rm -rf         "${GOPATH%%:*}/src/github.com/abcum/magnifio"
+        - rm -rf         "${GOPATH%%:*}/src/github.com/abcum/cirrius"
         - mkdir -p       "${GOPATH%%:*}/src/github.com/abcum/"
-        - mv ~/magnifio  "${GOPATH%%:*}/src/github.com/abcum/"
-        - ln -s          "${GOPATH%%:*}/src/github.com/abcum/magnifio" ~/magnifio
+        - mv ~/cirrius   "${GOPATH%%:*}/src/github.com/abcum/"
+        - ln -s          "${GOPATH%%:*}/src/github.com/abcum/cirrius" ~/cirrius
 
 # -----------------------------------
 
@@ -43,8 +43,8 @@ test:
         - make test
         - make build
         - make ember
-        - docker build -t abcum/magnifio .
-        - docker run -d abcum/magnifio start; sleep 15
+        - docker build -t abcum/cirrius .
+        - docker run -d abcum/cirrius start; sleep 15
 
 # -----------------------------------
 
@@ -53,4 +53,4 @@ deployment:
     deploy:
         branch: master
         commands:
-            - docker push abcum/magnifio
+            - docker push abcum/cirrius

@@ -1,28 +1,28 @@
-hash: 18facd8202ce745221086e62465eb0242fe137b6e822dcf2be53987add9fdc07
-updated: 2016-06-18T14:48:30.761557719+01:00
+hash: 4e3037c74ed28f0a3df8083b79f78470cdbbddd9b3b5a3ee4ac7e33fda5cbe11
+updated: 2016-07-05T21:32:09.514287425+01:00
 imports:
 - name: github.com/abcum/fibre
-  version: a9935884e184e19609bb72cf55de88023c2b5648
+  version: ca1ece157198830ef50e00494ddf9d75ddf58ed4
   subpackages:
   - mw
 - name: github.com/abcum/logrus
   version: 119b6994c03cc9597e8c1873a47d715e34b5ed9a
 - name: github.com/abcum/orbit
-  version: ebe5b548ded659d493b6dbc6bb2e9dd9a384c8a5
+  version: 744738cc511d40fe85ad1a9eec0f58145a9d38e3
 - name: github.com/dgrijalva/jwt-go
-  version: f0777076321ab64f6efc15a82d9d23b98539b943
+  version: 01aeca54ebda6e0fbfafd0a524d234159c05ec20
 - name: github.com/golang/protobuf
-  version: 0c1f6d65b5a189c2250d10e71a5506f06f9fa0a0
+  version: 3852dcfda249c2097355a6aabb199a28d97b30df
   subpackages:
   - proto
 - name: github.com/gorilla/websocket
-  version: a68708917c6a4f06314ab4e52493cc61359c9d42
+  version: 54f9decdbfb3fe254c5df3d5aa234480989f4af0
 - name: github.com/inconshreveable/mousetrap
   version: 76626ae9c91c4f2a10f34cad8ce83ea42c93bb75
 - name: github.com/mgutz/ansi
   version: c286dcecd19ff979eeb73ea444e479b903f2cfcb
 - name: github.com/robertkrimen/otto
-  version: 610cd3ae864b5f0977234663966e6108c63b0f8e
+  version: c41cf547e08c4a88c36859766ece30dd178d7bc1
   subpackages:
   - ast
   - dbg
@@ -39,7 +39,7 @@ imports:
 - name: github.com/SKAhack/go-shortid
   version: 24d054c393feb4d0a6514de8a9951a26fedf0d85
 - name: github.com/spf13/cobra
-  version: bc81c21bd0d8be5ba2d6630a505d79d4467566e7
+  version: 6a8bd97bdb1fc0d08a83459940498ea49d3e8c93
 - name: github.com/spf13/pflag
   version: 367864438f1b1a3c7db4da06a2f55b144e6784e0
 - name: github.com/tdewolff/buffer
@@ -73,16 +73,16 @@ imports:
 - name: github.com/yvasiyarov/newrelic_platform_go
   version: 9c099fbc30e90de5bb5c5f94aa5fd08f2daeaacd
 - name: golang.org/x/net
-  version: 1961d9def2b2d7a28d7958926d2457d05a178ecd
+  version: b400c2eff1badec7022a8c8f5bea058b6315eed7
   subpackages:
   - netutil
   - context
 - name: golang.org/x/sys
-  version: 62bee037599929a6e9146f29d10dd5208c43507d
+  version: a408501be4d17ee978c04a618e7a1b22af058c0e
   subpackages:
   - unix
 - name: google.golang.org/appengine
-  version: 7f59a8c76b8594d06044bfe0bcbe475cb2020482
+  version: 267c27e7492265b84fc6719503b14a1e17975d79
   subpackages:
   - datastore
   - internal
@@ -90,15 +90,16 @@ imports:
   - internal/app_identity
   - internal/modules
   - internal/base
+  - internal/log
   - internal/remote_api
 - name: gopkg.in/sourcemap.v1
   version: 8cd1e2e0ddc78dcb4511bcb184d23171bed15c67
   subpackages:
   - base64vlq
 - name: gopkg.in/tylerb/graceful.v1
-  version: 84177357ab104029f9237abcb52339a7b80760ef
+  version: ecde8c8f16df93a994dda8936c8f60f0c26c28ab
 - name: gopkg.in/vmihailenco/msgpack.v2
-  version: fb304c4e56fe15c4128a7e49d8dfab719c998b5b
+  version: 585b09497e708217121c79a5aa185647b757605a
   subpackages:
   - codes
 devImports: []

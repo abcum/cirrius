@@ -19,12 +19,12 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/abcum/magnifio/web"
+	"github.com/abcum/cirrius/web"
 )
 
 var startCmd = &cobra.Command{
 	Use:   "start",
-	Short: "Start the magnifio server",
+	Short: "Start the cirrius server",
 	PreRun: func(cmd *cobra.Command, args []string) {
 		fmt.Print(logo)
 	},

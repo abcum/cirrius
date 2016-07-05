@@ -1,5 +1,6 @@
-package: github.com/abcum/magnifio
+package: github.com/abcum/cirrius
 import:
+- package: github.com/SKAhack/go-shortid
 - package: github.com/abcum/fibre
   subpackages:
   - mw
@@ -19,4 +20,3 @@ import:
   - svg
   - xml
 - package: github.com/yosssi/gcss
-- package: github.com/SKAhack/go-shortid

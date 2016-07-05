@@ -19,14 +19,14 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/abcum/magnifio/cnf"
+	"github.com/abcum/cirrius/cnf"
 )
 
 var opts *cnf.Options
 
 var mainCmd = &cobra.Command{
-	Use:   "magnifio",
-	Short: "Magnifio server",
+	Use:   "cirrius",
+	Short: "Cirrius server",
 }
 
 func init() {

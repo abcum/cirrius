@@ -19,8 +19,9 @@ package web
 import (
 	"github.com/abcum/fibre"
 	"github.com/abcum/fibre/mw"
-	"github.com/abcum/magnifio/cnf"
-	"github.com/abcum/magnifio/log"
+
+	"github.com/abcum/cirrius/cnf"
+	"github.com/abcum/cirrius/log"
 )
 
 // Setup sets up the server for remote connections
@@ -53,7 +54,7 @@ func Setup(opts *cnf.Options) (err error) {
 	// Setup newrelic integration
 
 	s.Use(mw.Newrelic(&mw.NewrelicOpts{
-		Name:    []byte("Magnifio"),
+		Name:    []byte("Cirrius"),
 		License: []byte(opts.Logging.Newrelic),
 	}))
 
