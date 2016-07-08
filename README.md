@@ -20,6 +20,7 @@ Cirrius is a scalable, and highly-available, web and microservice platform.
 	- Build services using GCSS
 	- Build services using JSON
 	- Build services using HTML
+	- Build services using Markdown
 	- Build services using Javascript
 	- Build services using Handlebars
 - Automatic **optimisation** of resources
