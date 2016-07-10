@@ -21,35 +21,156 @@ import (
 
 func init() {
 
-	process := map[string]interface{}{}
+	orbit.OnInit(func(ctx *orbit.Orbit) {
 
-	// pid is set to 0
-	process["pid"] = 0
+		process := map[string]interface{}{
 
-	// env returns an empty object
-	process["env"] = map[string]interface{}{}
+			"abort": func(call otto.FunctionCall) otto.Value {
+				return otto.UndefinedValue()
+			},
 
-	// arch imitates 64bit
-	process["arch"] = "x64"
+			"arch": "x64",
 
-	// platform imitates linux
-	process["platform"] = "linux"
+			"argv": []string{},
 
-	// version defaults to 1.0.0
-	process["version"] = "1.0.0"
+			"chdir": func(call otto.FunctionCall) otto.Value {
+				return otto.UndefinedValue()
+			},
 
-	process["cwd"] = func(call otto.FunctionCall) otto.Value {
-		return otto.UndefinedValue()
-	}
+			"config": map[string]interface{}{},
 
-	process["nextTick"] = func(call otto.FunctionCall) otto.Value {
-		return otto.UndefinedValue()
-	}
+			"connected": false,
 
-	process["memoryUsage"] = func(call otto.FunctionCall) otto.Value {
-		return otto.UndefinedValue()
-	}
+			"cpuUsage": func(call otto.FunctionCall) otto.Value {
+				return otto.UndefinedValue()
+			},
 
-	orbit.Def("process", process)
+			"cwd": func(call otto.FunctionCall) otto.Value {
+				return otto.UndefinedValue()
+			},
+
+			"disconnect": func(call otto.FunctionCall) otto.Value {
+				return otto.UndefinedValue()
+			},
+
+			"env": map[string]interface{}{},
+
+			"emitWarning": func(call otto.FunctionCall) otto.Value {
+				return otto.UndefinedValue()
+			},
+
+			"execArgv": []string{},
+
+			"execPath": otto.UndefinedValue(),
+
+			"exit": func(call otto.FunctionCall) otto.Value {
+				ctx.Interrupt <- func() {}
+				return otto.UndefinedValue()
+			},
+
+			"exitCode": func(call otto.FunctionCall) otto.Value {
+				return otto.UndefinedValue()
+			},
+
+			"getegid": func(call otto.FunctionCall) otto.Value {
+				return otto.UndefinedValue()
+			},
+
+			"geteuid": func(call otto.FunctionCall) otto.Value {
+				return otto.UndefinedValue()
+			},
+
+			"getgid": func(call otto.FunctionCall) otto.Value {
+				return otto.UndefinedValue()
+			},
+
+			"getgroups": func(call otto.FunctionCall) otto.Value {
+				return otto.UndefinedValue()
+			},
+
+			"getuid": func(call otto.FunctionCall) otto.Value {
+				return otto.UndefinedValue()
+			},
+
+			"hrtime": func(call otto.FunctionCall) otto.Value {
+				return otto.UndefinedValue()
+			},
+
+			"initgroups": func(call otto.FunctionCall) otto.Value {
+				return otto.UndefinedValue()
+			},
+
+			"kill": func(call otto.FunctionCall) otto.Value {
+				return otto.UndefinedValue()
+			},
+
+			"mainModule": "",
+
+			"memoryUsage": func(call otto.FunctionCall) otto.Value {
+				return otto.UndefinedValue()
+			},
+
+			"nextTick": func(call otto.FunctionCall) otto.Value {
+				obj, _ := ctx.Get("setImmediate")
+				obj.Call(obj, call.ArgumentList)
+				return otto.UndefinedValue()
+			},
+
+			"pid": 0,
+
+			"platform": "linux",
+
+			"release": map[string]interface{}{
+				"name":       "Cirrius",
+				"lts":        otto.UndefinedValue(),
+				"libUrl":     otto.UndefinedValue(),
+				"sourceUrl":  otto.UndefinedValue(),
+				"headersUrl": otto.UndefinedValue(),
+			},
+
+			"setegid": func(call otto.FunctionCall) otto.Value {
+				return otto.UndefinedValue()
+			},
+
+			"seteuid": func(call otto.FunctionCall) otto.Value {
+				return otto.UndefinedValue()
+			},
+
+			"setgid": func(call otto.FunctionCall) otto.Value {
+				return otto.UndefinedValue()
+			},
+
+			"setgroups": func(call otto.FunctionCall) otto.Value {
+				return otto.UndefinedValue()
+			},
+
+			"setuid": func(call otto.FunctionCall) otto.Value {
+				return otto.UndefinedValue()
+			},
+
+			"stderr": otto.UndefinedValue(),
+
+			"stdin": otto.UndefinedValue(),
+
+			"stdout": otto.UndefinedValue(),
+
+			"title": "",
+
+			"umask": func(call otto.FunctionCall) otto.Value {
+				return otto.UndefinedValue()
+			},
+
+			"uptime": func(call otto.FunctionCall) otto.Value {
+				return otto.UndefinedValue()
+			},
+
+			"version": "1.0.0",
+
+			"versions": map[string]interface{}{},
+		}
+
+		ctx.Def("process", process)
+
+	})
 
 }
