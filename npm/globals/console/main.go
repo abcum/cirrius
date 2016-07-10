@@ -16,11 +16,51 @@ package console
 
 import (
 	"log"
+	"strconv"
+	"strings"
 	"time"
 
 	"github.com/abcum/orbit"
 	"github.com/robertkrimen/otto"
 )
+
+type logv struct {
+	kind string
+	fold string
+	file string
+	line int64
+	char int64
+	args []otto.Value
+	vars []interface{}
+}
+
+func save(kind string, call otto.FunctionCall, vars ...interface{}) {
+
+	fold, _ := call.Otto.Get("__dirname")
+	fost, _ := fold.ToString()
+
+	file, _ := call.Otto.Get("__filename")
+	fist, _ := file.ToString()
+
+	loca := strings.Split(call.CallerLocation()[12:], ":")
+	line, _ := strconv.ParseInt(loca[0], 10, 0)
+	char, _ := strconv.ParseInt(loca[1], 10, 0)
+
+	line -= 1 // Account for injected module header
+
+	data := logv{
+		kind: kind,
+		fold: fost,
+		file: fist,
+		line: line,
+		char: char,
+		vars: vars,
+		args: call.ArgumentList,
+	}
+
+	log.Printf("console.%s: %v in %s%s at %d:%d with vars %v", data.kind, data.args, data.fold, data.file, data.line, data.char, data.vars)
+
+}
 
 func init() {
 
@@ -30,60 +70,61 @@ func init() {
 
 		timers := make(map[string]time.Time)
 
-		console := map[string]interface{}{}
+		console := map[string]interface{}{
 
-		console["log"] = func(call otto.FunctionCall) otto.Value {
-			log.Printf("console.log: %v on %s", call.ArgumentList, call.CallerLocation())
-			return otto.UndefinedValue()
+			"log": func(call otto.FunctionCall) otto.Value {
+				save("log", call)
+				return otto.UndefinedValue()
+			},
+
+			"info": func(call otto.FunctionCall) otto.Value {
+				save("info", call)
+				return otto.UndefinedValue()
+			},
+
+			"warn": func(call otto.FunctionCall) otto.Value {
+				save("warn", call)
+				return otto.UndefinedValue()
+			},
+
+			"error": func(call otto.FunctionCall) otto.Value {
+				save("error", call)
+				return otto.UndefinedValue()
+			},
+
+			"debug": func(call otto.FunctionCall) otto.Value {
+				save("debug", call)
+				return otto.UndefinedValue()
+			},
+
+			"trace": func(call otto.FunctionCall) otto.Value {
+				save("trace", call)
+				return otto.UndefinedValue()
+			},
+
+			"time": func(call otto.FunctionCall) otto.Value {
+				timers[call.Argument(0).String()] = time.Now()
+				return otto.UndefinedValue()
+			},
+
+			"stop": func(call otto.FunctionCall) otto.Value {
+				name := call.Argument(0).String()
+				amnt := time.Since(timers[name])
+				delete(timers, name)
+				save("time", call, name, amnt)
+				return otto.UndefinedValue()
+			},
+
+			"timeEnd": func(call otto.FunctionCall) otto.Value {
+				name := call.Argument(0).String()
+				amnt := time.Since(timers[name])
+				delete(timers, name)
+				save("time", call, name, amnt)
+				return otto.UndefinedValue()
+			},
 		}
 
-		console["info"] = func(call otto.FunctionCall) otto.Value {
-			log.Printf("console.info: %v", call.ArgumentList)
-			return otto.UndefinedValue()
-		}
-
-		console["warn"] = func(call otto.FunctionCall) otto.Value {
-			log.Printf("console.warn: %v", call.ArgumentList)
-			return otto.UndefinedValue()
-		}
-
-		console["error"] = func(call otto.FunctionCall) otto.Value {
-			log.Printf("console.error: %v", call.ArgumentList)
-			return otto.UndefinedValue()
-		}
-
-		console["debug"] = func(call otto.FunctionCall) otto.Value {
-			log.Printf("console.debug: %v", call.ArgumentList)
-			return otto.UndefinedValue()
-		}
-
-		console["trace"] = func(call otto.FunctionCall) otto.Value {
-			log.Printf("console.trace: %v", call.ArgumentList)
-			return otto.UndefinedValue()
-		}
-
-		console["time"] = func(call otto.FunctionCall) otto.Value {
-			timers[call.Argument(0).String()] = time.Now()
-			return otto.UndefinedValue()
-		}
-
-		console["stop"] = func(call otto.FunctionCall) otto.Value {
-			name := call.Argument(0).String()
-			amnt := time.Since(timers[name])
-			delete(timers, name)
-			log.Printf("%s: %s", name, amnt)
-			return otto.UndefinedValue()
-		}
-
-		console["timeEnd"] = func(call otto.FunctionCall) otto.Value {
-			name := call.Argument(0).String()
-			amnt := time.Since(timers[name])
-			delete(timers, name)
-			log.Printf("%s: %s", name, amnt)
-			return otto.UndefinedValue()
-		}
-
-		ctx.Set("console", console)
+		ctx.Def("console", console)
 
 	})
 
