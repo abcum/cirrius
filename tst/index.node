@@ -1,1 +1,18 @@
-Hi
+console.time("test")
+
+setTimeout(function() {
+	console.log("...")
+	asd
+	// require("temp")
+	console.stop("test")
+}, 250);
+
+// var asd = "asd";
+
+setTimeout(function() {
+	context.display.json({text:"This is some data"})
+}, 500, "1", "2", "asd")
+
+console.log("qwd")
+
+return "qwdqwd"

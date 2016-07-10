@@ -1,3 +1,7 @@
+console.log('JAVASCRIPT - main.node:', __dirname, __filename)
+require("temp")
+
+/*
 console.log("Hi there")
 
 var uuid = require('uuid')
@@ -8,7 +12,14 @@ module.exports = function(context) {
 	// 	console.log("as")
 	// }, 5000)
 
-	return context.success( uuid.v4() )
+	// return context.display.json( uuid.v4() )
+
+	// context.success( uuid.v4() )
+
+	console.log(context)
+	console.log(module.exports)
+
+	return uuid.v4()
 	
 }
 
@@ -16,7 +27,7 @@ module.exports = function(context) {
 // 	console.log('Secondary', one, two, three)	
 // }
 
-/*
+
 
 // console.log(version)
 // console.log(version, version, version)
