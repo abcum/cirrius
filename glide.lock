@@ -1,5 +1,5 @@
 hash: 4e3037c74ed28f0a3df8083b79f78470cdbbddd9b3b5a3ee4ac7e33fda5cbe11
-updated: 2016-07-05T21:32:09.514287425+01:00
+updated: 2016-07-10T22:10:05.501574059+01:00
 imports:
 - name: github.com/abcum/fibre
   version: ca1ece157198830ef50e00494ddf9d75ddf58ed4
@@ -8,7 +8,7 @@ imports:
 - name: github.com/abcum/logrus
   version: 119b6994c03cc9597e8c1873a47d715e34b5ed9a
 - name: github.com/abcum/orbit
-  version: 744738cc511d40fe85ad1a9eec0f58145a9d38e3
+  version: 165797e8d1d73df4f67fb93584350927173ed823
 - name: github.com/dgrijalva/jwt-go
   version: 01aeca54ebda6e0fbfafd0a524d234159c05ec20
 - name: github.com/golang/protobuf
@@ -39,7 +39,7 @@ imports:
 - name: github.com/SKAhack/go-shortid
   version: 24d054c393feb4d0a6514de8a9951a26fedf0d85
 - name: github.com/spf13/cobra
-  version: 6a8bd97bdb1fc0d08a83459940498ea49d3e8c93
+  version: a272c3cbd5ff80a5bf5c5603df50183f9f3f7324
 - name: github.com/spf13/pflag
   version: 367864438f1b1a3c7db4da06a2f55b144e6784e0
 - name: github.com/tdewolff/buffer
@@ -73,9 +73,8 @@ imports:
 - name: github.com/yvasiyarov/newrelic_platform_go
   version: 9c099fbc30e90de5bb5c5f94aa5fd08f2daeaacd
 - name: golang.org/x/net
-  version: b400c2eff1badec7022a8c8f5bea058b6315eed7
+  version: f841c39de738b1d0df95b5a7187744f0e03d8112
   subpackages:
-  - netutil
   - context
 - name: golang.org/x/sys
   version: a408501be4d17ee978c04a618e7a1b22af058c0e
@@ -97,9 +96,26 @@ imports:
   subpackages:
   - base64vlq
 - name: gopkg.in/tylerb/graceful.v1
-  version: ecde8c8f16df93a994dda8936c8f60f0c26c28ab
+  version: b7036639dd221029fd52e5dc7b78f34545463678
 - name: gopkg.in/vmihailenco/msgpack.v2
   version: 585b09497e708217121c79a5aa185647b757605a
   subpackages:
   - codes
-devImports: []
+testImports:
+- name: github.com/gopherjs/gopherjs
+  version: 090403452ab6979e3b7c054ceb7ee23da91b2ae4
+  subpackages:
+  - js
+- name: github.com/jtolds/gls
+  version: 8ddce2a84170772b95dd5d576c48d517b22cac63
+- name: github.com/smartystreets/assertions
+  version: 2063fd1cc7c975db70502811a34b06ad034ccdf2
+  subpackages:
+  - internal/go-render/render
+  - internal/oglematchers
+- name: github.com/smartystreets/goconvey
+  version: 4622128e06c77c0174e17a7f0ed2db19a989b473
+  subpackages:
+  - convey
+  - convey/reporting
+  - convey/gotest
