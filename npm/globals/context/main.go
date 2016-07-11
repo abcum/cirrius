@@ -34,7 +34,7 @@ func init() {
 				"host":  session.Request().URL().Host,
 				"path":  session.Request().URL().Path,
 				"query": session.Request().URL().Query,
-				"head":  session.Request().Header(),
+				"head":  session.Head(),
 				"body":  session.Body(),
 				"ip":    session.IP(),
 			},
