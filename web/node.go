@@ -20,7 +20,10 @@ import (
 
 	// Load globals
 	_ "github.com/abcum/cirrius/npm/globals/console"
-	_ "github.com/abcum/cirrius/npm/globals/output"
+	_ "github.com/abcum/cirrius/npm/globals/context"
+	_ "github.com/abcum/cirrius/npm/globals/dns"
+	_ "github.com/abcum/cirrius/npm/globals/os"
+	_ "github.com/abcum/cirrius/npm/globals/path"
 	_ "github.com/abcum/cirrius/npm/globals/process"
 	_ "github.com/abcum/cirrius/npm/globals/promise"
 

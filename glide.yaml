@@ -20,3 +20,4 @@ import:
   - svg
   - xml
 - package: github.com/yosssi/gcss
+- package: github.com/miekg/dns

@@ -1,5 +1,5 @@
-hash: 4e3037c74ed28f0a3df8083b79f78470cdbbddd9b3b5a3ee4ac7e33fda5cbe11
-updated: 2016-07-10T22:10:05.501574059+01:00
+hash: d20796aae7f498088c656ba2c7c7390783177574154556562f28a85c968e38dc
+updated: 2016-07-11T12:57:04.249766247+01:00
 imports:
 - name: github.com/abcum/fibre
   version: ca1ece157198830ef50e00494ddf9d75ddf58ed4
@@ -16,11 +16,13 @@ imports:
   subpackages:
   - proto
 - name: github.com/gorilla/websocket
-  version: 54f9decdbfb3fe254c5df3d5aa234480989f4af0
+  version: a836c37014dbbf0d1e871d04531b851fcbdeb22d
 - name: github.com/inconshreveable/mousetrap
   version: 76626ae9c91c4f2a10f34cad8ce83ea42c93bb75
 - name: github.com/mgutz/ansi
   version: c286dcecd19ff979eeb73ea444e479b903f2cfcb
+- name: github.com/miekg/dns
+  version: 5d001d020961ae1c184f9f8152fdc73810481677
 - name: github.com/robertkrimen/otto
   version: c41cf547e08c4a88c36859766ece30dd178d7bc1
   subpackages:
@@ -96,7 +98,7 @@ imports:
   subpackages:
   - base64vlq
 - name: gopkg.in/tylerb/graceful.v1
-  version: b7036639dd221029fd52e5dc7b78f34545463678
+  version: d7d7a205e779a4738d38eda0671fff8bfc965f14
 - name: gopkg.in/vmihailenco/msgpack.v2
   version: 585b09497e708217121c79a5aa185647b757605a
   subpackages:
