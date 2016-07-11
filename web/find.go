@@ -27,7 +27,6 @@ type info struct {
 	path string
 	fold string
 	file string
-	name string
 	extn string
 	mime string
 	data []byte
@@ -71,20 +70,19 @@ func find(files ...string) (*info, error) {
 
 	for _, file := range files {
 
-		file = path.Join("tst", file)
+		full := path.Join("tst", file)
 
-		if hand, err := os.Stat(file); err == nil {
+		if hand, err := os.Stat(full); err == nil {
 
-			if !hand.IsDir() && path.Base(file)[0] != '.' {
+			if !hand.IsDir() && path.Base(full)[0] != '.' {
 
 				info := &info{}
 				info.path = path.Clean(file)
 				info.fold = path.Dir(info.path)
 				info.file = path.Base(info.path)
 				info.extn = path.Ext(info.path)
-				info.name = info.path[0 : len(info.path)-len(info.extn)]
 				info.mime = mime.TypeByExtension(info.extn)
-				info.data, _ = ioutil.ReadFile(info.path)
+				info.data, _ = ioutil.ReadFile(full)
 
 				return info, err
 
