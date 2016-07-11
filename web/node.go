@@ -69,7 +69,7 @@ func init() {
 		if err != nil {
 			return code, file, err
 		}
-		return info.data, info.fold, err
+		return info.data, info.path, err
 	})
 
 }
