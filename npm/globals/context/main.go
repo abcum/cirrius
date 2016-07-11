@@ -177,6 +177,8 @@ func init() {
 
 		ctx.Def("context", context)
 
+		ctx.Def("cirrius", context)
+
 	})
 
 }
