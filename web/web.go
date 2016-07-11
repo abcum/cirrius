@@ -27,7 +27,7 @@ import (
 // Setup sets up the server for remote connections
 func Setup(opts *cnf.Options) (err error) {
 
-	log.WithPrefix("web").Infof("Starting web server on %s", opts.Conn.Http)
+	log.WithPrefix("web").Infof("Starting web server on %s", opts.Conn.Web)
 
 	s := fibre.Server(opts)
 
@@ -60,7 +60,13 @@ func Setup(opts *cnf.Options) (err error) {
 
 	// Run the server
 
-	s.Run(opts.Conn.Http)
+	if len(opts.Cert.Crt) == 0 || len(opts.Cert.Key) == 0 {
+		s.Run(opts.Conn.Web)
+	}
+
+	if len(opts.Cert.Crt) != 0 && len(opts.Cert.Key) != 0 {
+		s.Run(opts.Conn.Web, opts.Cert.Crt, opts.Cert.Key)
+	}
 
 	return nil
 

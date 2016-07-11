@@ -38,7 +38,6 @@ var startCmd = &cobra.Command{
 
 func init() {
 
-	startCmd.PersistentFlags().IntVar(&opts.Port.Http, "port-http", 80, "The port on which to serve the http server.")
-	startCmd.PersistentFlags().IntVar(&opts.Port.Https, "port-https", 443, "The port on which to serve the https server.")
+	startCmd.PersistentFlags().IntVar(&opts.Port.Web, "port-web", 80, "The port on which to serve the web server.")
 
 }

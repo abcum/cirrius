@@ -19,23 +19,20 @@ type Options struct {
 	DB struct {
 		Host string // Surreal host to connect to
 		Port string // Surreal port to connect to
-		Base string // Base key to use in KV stores
-	}
-
-	Node struct {
-		Host   string // Node hostname
-		Name   string // Name of this node
-		Region string // Region that this node is located
 	}
 
 	Port struct {
-		Http  int // Http port
-		Https int // Https port
+		Web int // Web port as an number
 	}
 
 	Conn struct {
-		Http  string // Http port
-		Https string // Https port
+		Web string // Web port as a string
+	}
+
+	Cert struct {
+		Crt string // File location of server crt
+		Key string // File location of server key
+		Pem string // File location of server pem
 	}
 
 	Logging struct {

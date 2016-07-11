@@ -16,44 +16,53 @@ package cli
 
 import (
 	"fmt"
-	"os"
 
 	"github.com/abcum/cirrius/log"
+	"github.com/abcum/cirrius/util/cert"
 )
 
 func setup() {
 
-	// Ensure that the default
-	// node details are defined
+	// --------------------------------------------------
+	// Ports
+	// --------------------------------------------------
 
-	if opts.Node.Host == "" {
-		opts.Node.Host, _ = os.Hostname()
+	// Specify default port
+	if opts.Port.Web == 0 {
+		opts.Port.Web = 80
 	}
 
-	if opts.Node.Name == "" {
-		opts.Node.Name = opts.Node.Host
+	// Ensure port number is valid
+	if opts.Port.Web < 0 || opts.Port.Web > 65535 {
+		log.Fatal("Please specify a valid port number for --port-web")
 	}
 
-	// Ensure the defined ports
-	// are within range
+	// Store the ports in host:port string format
+	opts.Conn.Web = fmt.Sprintf(":%d", opts.Port.Web)
 
-	if opts.Port.Http == opts.Port.Https {
-		log.Fatal("Defined ports must be different")
+	// --------------------------------------------------
+	// Certs
+	// --------------------------------------------------
+
+	if opts.Cert.Pem != "" {
+
+		if opts.Cert.Key != "" || opts.Cert.Crt != "" {
+			log.Fatal("You can not specify --cert-pem with --cert-key or --cert-crt")
+		}
+
+		err := cert.Extract(opts.Cert.Pem, "cert.key", "cert.crt")
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		opts.Cert.Key = "cert.key"
+		opts.Cert.Crt = "cert.crt"
+
 	}
 
-	if opts.Port.Http > 65535 {
-		log.Fatal("Please specify a valid port number for --port-http")
-	}
-
-	if opts.Port.Https > 65535 {
-		log.Fatal("Please specify a valid port number for --port-https")
-	}
-
-	// Define the listen string
-	// with host:port format
-
-	opts.Conn.Http = fmt.Sprintf(":%d", opts.Port.Http)
-	opts.Conn.Https = fmt.Sprintf(":%d", opts.Port.Https)
+	// --------------------------------------------------
+	// Logging
+	// --------------------------------------------------
 
 	// Ensure that the specified
 	// logging level is allowed
