@@ -76,7 +76,14 @@ func init() {
 
 func processNode(c *fibre.Context, name string, input []byte) (val interface{}, err error) {
 
-	ret, err := orbit.Run(input) // TODO Need to pass in fibre request context here
+	// New orbit instance
+	orb := orbit.New(0)
+
+	// Set fibre instance
+	orb.Vars["fibre"] = c
+
+	// Run orbit instance
+	ret, err := orb.Run(name, input)
 	if err != nil {
 		return nil, err
 	}
