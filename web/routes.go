@@ -72,14 +72,8 @@ func routes(s *fibre.Fibre) {
 
 		if info.extn == ".node" {
 
-			res, err := processNode(c, info.data)
-
-			if err != nil {
-				s.Logger().Info(err)
-				return err
-			}
-
-			return c.JSON(200, res)
+			_, err := processNode(c, info.path, info.data)
+			return err
 
 		} else {
 
@@ -105,7 +99,6 @@ func routes(s *fibre.Fibre) {
 		}
 
 		if err != nil {
-			s.Logger().Info(err)
 			return err
 		}
 
