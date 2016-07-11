@@ -60,6 +60,10 @@ func init() {
 		// Finish runtime id
 	})
 
+	orbit.OnFail(func(ctx *orbit.Orbit, err error) {
+		// Log runtime error on context
+	})
+
 	orbit.OnFile(func(ctx *orbit.Orbit, files []string) (code interface{}, file string, err error) {
 		info, err := find(files...) // TODO Need to use fibre request context here
 		if err != nil {
