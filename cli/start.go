@@ -38,6 +38,8 @@ var startCmd = &cobra.Command{
 
 func init() {
 
+	startCmd.PersistentFlags().StringVarP(&opts.Surreal, "surreal", "s", "api.surreal.io", "Host and port of surreal server.")
+
 	startCmd.PersistentFlags().StringVar(&opts.Cert.Crt, "cert-crt", "", "Path to the server certificate. Needed in secure mode.")
 	startCmd.PersistentFlags().StringVar(&opts.Cert.Key, "cert-key", "", "Path to the server private key. Needed in secure mode.")
 

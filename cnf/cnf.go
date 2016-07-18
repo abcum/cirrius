@@ -16,10 +16,7 @@ package cnf
 
 // Options defines global configuration options
 type Options struct {
-	DB struct {
-		Host string // Surreal host to connect to
-		Port string // Surreal port to connect to
-	}
+	Surreal string // Surreal host:port to connect to
 
 	Port struct {
 		Web int // Web port as an number
