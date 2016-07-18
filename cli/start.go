@@ -40,7 +40,6 @@ func init() {
 
 	startCmd.PersistentFlags().StringVar(&opts.Cert.Crt, "cert-crt", "", "Path to the server certificate. Needed in secure mode.")
 	startCmd.PersistentFlags().StringVar(&opts.Cert.Key, "cert-key", "", "Path to the server private key. Needed in secure mode.")
-	startCmd.PersistentFlags().StringVar(&opts.Cert.Pem, "cert-pem", "", "The PEM encoded certificate and private key data. Use this as an alternative to the --cert-crt and --cert-key flags.")
 
 	startCmd.PersistentFlags().IntVar(&opts.Port.Web, "port-web", 80, "The port on which to serve the web server.")
 
