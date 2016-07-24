@@ -46,11 +46,11 @@ go get github.com/abcum/cirrius
 #### Running
 
 ```bash
-cirrius start --port-http 80 --port-https 443 --log-level debug
+cirrius start --port 8080 --log-level debug
 ```
 
 #### Deployment
 
 ```bash
-docker run --name cirrius abcum/cirrius start --port-http 80 --port-https 443 --log-level debug
+docker run --name cirrius abcum/cirrius start --port 8080 log-level debug
 ```
