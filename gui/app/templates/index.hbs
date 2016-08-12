@@ -1,0 +1,12 @@
+<div class='top-bar'>
+	<div class='top-bar-text'>Projects</div>
+</div>
+<div class='cirrius-main cirrius-main-sec'>
+	<div class='cirrius-main-projects'>
+		{{#each model as |project|}}
+	        <div class='cirrius-main-projects-project' {{action (route 'project' project)}}>
+	           {{project.fullname}}
+ 	        </div>
+		{{/each}}
+	</div>
+</div>

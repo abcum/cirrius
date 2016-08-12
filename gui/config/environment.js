@@ -1,47 +1,83 @@
 /* jshint node: true */
 
 module.exports = function(environment) {
-  var ENV = {
-    modulePrefix: 'gui',
-    environment: environment,
-    baseURL: '/',
-    locationType: 'auto',
-    EmberENV: {
-      FEATURES: {
-        // Here you can enable experimental features on an ember canary build
-        // e.g. 'with-controller': true
-      }
-    },
+	
+	var ENV = {
+	
+		modulePrefix: 'gui',
+		environment: environment,
+		baseURL: '/',
+		locationType: 'auto',
 
-    APP: {
-      // Here you can pass flags/options to your application instance
-      // when it is created
-    }
-  };
+		editables: {
+            includeTags: true,
+            includeComments: true,
+            includeBrackets: true,
+            includeWhitespace: true,
+            modes: [ "htmlmixed", "css",  "sass",  "javascript",  "markdown",  "handlebars", "sql" ],
+        },
+		
+		// Set ember flags / options for the
+        // ember runtime application
+        // environment
 
-  if (environment === 'development') {
-    // ENV.APP.LOG_RESOLVER = true;
-    // ENV.APP.LOG_ACTIVE_GENERATION = true;
-    // ENV.APP.LOG_TRANSITIONS = true;
-    // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
-    // ENV.APP.LOG_VIEW_LOOKUPS = true;
-  }
+        APP: { },
 
-  if (environment === 'test') {
-    // Testem prefers this...
-    ENV.baseURL = '/';
-    ENV.locationType = 'none';
+        // Set experimental ember features
+        // to be used when using ember
+        // canary builds
 
-    // keep test console output quieter
-    ENV.APP.LOG_ACTIVE_GENERATION = false;
-    ENV.APP.LOG_VIEW_LOOKUPS = false;
+        EmberENV: { FEATURES: { } },
 
-    ENV.APP.rootElement = '#ember-testing';
-  }
+	};
 
-  if (environment === 'production') {
+	if (environment === 'development') {
+		
+		ENV.APP.BINDINGS = false;
+        ENV.APP.LOG_RESOLVER = false;
+        ENV.APP.LOG_TRANSITIONS = false;
+        ENV.APP.LOG_VIEW_LOOKUPS = false;
+        ENV.APP.LOG_ACTIVE_GENERATION = false;
+        ENV.APP.LOG_TRANSITIONS_INTERNAL = false;
 
-  }
+        ENV.APP.RAISE_ON_DEPRECATION = false;
+        ENV.APP.LOG_STACKTRACE_ON_DEPRECATION = false;
 
-  return ENV;
+	}
+
+	if (environment === 'test') {
+		
+		// Testem prefers this...
+		ENV.baseURL = '/';
+		ENV.locationType = 'none';
+		ENV.APP.rootElement = '#ember-testing';
+
+		ENV.APP.BINDINGS = false;
+        ENV.APP.LOG_RESOLVER = false;
+        ENV.APP.LOG_TRANSITIONS = false;
+        ENV.APP.LOG_VIEW_LOOKUPS = false;
+        ENV.APP.LOG_ACTIVE_GENERATION = false;
+        ENV.APP.LOG_TRANSITIONS_INTERNAL = false;
+
+        ENV.APP.RAISE_ON_DEPRECATION = false;
+        ENV.APP.LOG_STACKTRACE_ON_DEPRECATION = false;
+
+	}
+
+	if (environment === 'production') {
+
+		ENV.APP.BINDINGS = false;
+        ENV.APP.LOG_RESOLVER = false;
+        ENV.APP.LOG_TRANSITIONS = false;
+        ENV.APP.LOG_VIEW_LOOKUPS = false;
+        ENV.APP.LOG_ACTIVE_GENERATION = false;
+        ENV.APP.LOG_TRANSITIONS_INTERNAL = false;
+
+        ENV.APP.RAISE_ON_DEPRECATION = false;
+        ENV.APP.LOG_STACKTRACE_ON_DEPRECATION = false;
+
+	}
+
+	return ENV;
+
 };

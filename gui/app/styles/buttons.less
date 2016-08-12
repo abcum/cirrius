@@ -1,0 +1,350 @@
+@border-button-gray:#CFCFCF;
+@border-button-red:#CFCFCF;
+@border-button-blue:#CFCFCF;
+@border-button-green:#CFCFCF;
+@border-button-yellow:#CFCFCF;
+@border-button-turquoise:#CFCFCF;
+
+@button-gray:#CFCFCF;
+@border-button-red:#CFCFCF;
+@border-button-blue:#CFCFCF;
+@border-button-green:#CFCFCF;
+@border-button-yellow:#CFCFCF;
+@border-button-turquoise:#CFCFCF;
+
+.button {
+
+	.sizing();
+	float:left;
+	height:27px;
+	font-size:12px;
+	line-height:25px;
+	.corners-all(1px);
+	padding:0 18px 0 18px;
+	cursor:default !important;
+	border:1px solid @border-button-gray;
+	font-family: 'Lucida Grande', 'Lucida Sans Unicode', Arial, Verdana, sans-serif;
+	white-space:nowrap;
+	color:#666666;
+	background-color:#ffffff;
+	position:relative;
+	margin:6px 0 6px 0;
+
+	& * {
+		pointer-events:none;
+	}
+
+	&:after {
+		left:0;
+		bottom:0;
+		width:0px;
+		height:3px;
+		content:'';
+		position:absolute;
+		pointer-events:none;
+		background-color:rgba(255, 97, 97, 1);
+	}
+
+	&.holding {
+
+		&:after {
+			width:100%;
+			.transition(width, 500ms, linear, 0s);
+		}
+
+	}
+
+	&.candelete {
+
+		&:after {
+			width:100%;
+			background-color:rgba(35, 219, 0, 0.95);
+			.transition(width, 500ms, linear, 0s);
+		}
+		
+	}
+
+	&:active, &:hover, &:focus {
+		color:#323232;
+	}
+
+	i {
+		float:left;
+		height:95%;
+		display:block;
+		margin:0 8px 0 -5px;
+	}
+
+	&-disabled, &[perms='false'] {
+		opacity:0.3;
+	}
+
+	&-large {
+		height:34px;
+		font-size:14px;
+		line-height:33px;
+		text-align:center;
+		padding:0 20px 0 20px;
+	}
+
+	&-huge {
+		.corners-all(5px);
+		font-size:18px;
+		text-align:center;
+		padding:8px 30px 8px 30px;
+	}
+
+	&-icon {
+		i {
+			margin:0;
+		}
+	}
+
+	&-centre {
+		text-align:center;
+		i {
+			margin:0;
+			width:100%;
+		}
+	}
+
+	&-space-left {
+		margin-left:8px;
+	}
+
+	&-space-right {
+		margin-right:8px;
+	}
+
+	&-back {
+
+		margin-left:10px;
+		border-width:1px 1px 1px 0;
+
+		&:before {
+
+			top:3px;
+			left:-10px;
+			width:18px;
+			height:18px;
+
+			content:'';
+			z-index:0;
+			display:block;
+			position:absolute;
+			background-color:#ffffff;
+			-moz-transform: rotate(45deg);
+			-webkit-transform: rotate(45deg);
+			-o-transform: rotate(45deg);
+			transform: rotate(45deg);
+			border:1px solid @border-button-gray;
+			border-width:0 0 1px 1px;
+
+		}
+
+	}
+
+	&:hover, &:hover:before {
+		text-decoration:none;
+		background-color:#F5F5F5;
+	}
+
+	&:active, &:active:before {
+		text-decoration:none;
+		background-color:#e0e0e0;
+	}
+
+	&-special {
+
+		color:#ffffff;
+		text-shadow:0 -1px 0 rgba(0, 0, 0, 0.25);
+
+		&:hover {
+			color:#ffffff;
+		}
+
+		&:active {
+			.shadow-inside( 0, 0, 5px, rgba(0,0,0,0.15) );
+		}
+
+		&-main {
+			background-color: @colour-main;
+			border:1px solid rgba(0,0,0,0.1);
+			&:hover { background-color: darken(@colour-main, 2.5%); }
+		}
+
+		&-red {
+			background-color: @colour-red;
+			border:1px solid darken(@colour-red, 12.5%);
+			&:hover { background-color: darken(@colour-red, 5%); }
+		}
+
+		&-blue {
+			background-color: @colour-blue;
+			border:1px solid darken(@colour-blue, 12.5%);
+			&:hover { background-color: darken(@colour-blue, 5%); }
+		}
+
+		&-green {
+			background-color: @colour-green;
+			border:1px solid darken(@colour-green, 12.5%);
+			&:hover { background-color: darken(@colour-green, 5%); }
+		}
+
+		&-black {
+			background-color: @colour-black;
+			border:1px solid darken(@colour-black, 12.5%);
+			&:hover { background-color: darken(@colour-black, 5%); }
+		}
+
+		&-yellow {
+			background-color: @colour-yellow;
+			border:1px solid darken(@colour-yellow, 12.5%);
+			&:hover { background-color: darken(@colour-yellow, 5%); }
+		}
+
+		&-turquoise {
+			background-color: @colour-turquoise;
+			border:1px solid darken(@colour-turquoise, 12.5%);
+			&:hover { background-color: darken(@colour-turquoise, 5%); }
+		}
+
+		&-pastel-red {
+			background-color: @colour-pastel-red;
+			border:1px solid darken(@colour-pastel-red, 12.5%);
+			&:hover { background-color: darken(@colour-pastel-red, 5%); }
+		}
+
+		&-pastel-blue {
+			background-color: @colour-pastel-blue;
+			border:1px solid darken(@colour-pastel-blue, 12.5%);
+			&:hover { background-color: darken(@colour-pastel-blue, 5%); }
+		}
+
+		&-pastel-green {
+			background-color: @colour-pastel-green;
+			border:1px solid darken(@colour-pastel-green, 12.5%);
+			&:hover { background-color: darken(@colour-pastel-green, 5%); }
+		}
+
+	}
+
+	&.button-block {
+		width:100%;
+		float:none;
+		display:block;
+		text-align:center;
+		margin:0 auto 0 auto;
+	}
+
+	&.left {
+		float:left;
+	}
+
+	&.right {
+		float:right;
+	}
+
+}
+
+.button-group {
+
+	display:inline-block;
+	// margin-right:8px !important;
+
+	.button {
+		margin-left:0 !important;
+		margin-right:0 !important;
+		border-width:1px 0 1px 1px;
+		.corners-all(0);
+	}
+
+	.button:first-of-type {
+		.corners-some(0, 0, 1px, 1px);
+	}
+
+	.button:last-of-type {
+		border-width:1px 1px 1px 1px;
+		.corners-some(1px, 1px, 0, 0);
+	}
+
+	.button:first-of-type:last-of-type {
+		.corners-all(1px);
+	}
+
+	&:first-of-type {
+		margin-left:0 !important;
+	}
+
+	&:last-of-type {
+		margin-right:0 !important;
+	}
+
+	&.space-left {
+		margin-left:8px !important;
+	}
+
+	&.space-right {
+		margin-right:8px !important;
+	}
+
+}
+
+.button-collection {
+
+	height:32px;
+	margin:0 0 4px 0;
+	.corners-all(1px);
+	border-right:1px solid @border-button-gray;
+
+	.button-collection-item {
+
+		.sizing();
+		margin:0;
+		float:left;
+		height:100%;
+		border-right:0;
+		font-size:12px;
+		.corners-all(0);
+		line-height:30px;
+		display:inline-block;
+
+		&:first-of-type {
+			.corners-some(0, 0, 1px, 1px);
+		}
+
+		&:last-of-type {
+			.corners-some(1px, 1px, 0, 0);
+		}
+
+	}
+
+}
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++
+// GENERAL
+// ++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.lefttmost {
+margin-left:0 !important;
+}
+
+.rightmost {
+margin-right:0 !important;
+}
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++
+// KEYFRAMES
+// ++++++++++++++++++++++++++++++++++++++++++++++++++
+
+@-webkit-keyframes button-pulsate-green {
+	50% {
+		.shadow-outside(0, 0, 15px, #58bd52);
+	}
+}
+
+@-webkit-keyframes button-pulsate-red {
+	50% {
+		.shadow-outside(0, 0, 15px, #bd5252);
+	}
+}

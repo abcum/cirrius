@@ -1,0 +1,47 @@
+{{hot-key key="n" ctrl=true onpress=(action 'create')}}
+
+<div class='top-bar'>
+	<div class='top-bar-text'>
+		<a{{action (route 'project')}}>{{model.fullname}}</a>
+		{{#if (eq domain.route 'project.analytics')}} <slash>/</slash> Analytics {{/if}}
+		{{#if (eq domain.route 'project.settings')}} <slash>/</slash> Settings {{/if}}
+		{{#if (eq domain.route 'project.requests.index')}} <slash>/</slash> Console {{/if}}
+		{{#if file.model}}
+			{{#each (split '/' file.model.path) as |dir|}}
+				<slash>/</slash> {{dir}}
+			{{/each}}
+		{{/if}}
+	</div>
+</div>
+<div class='cirrius-main cirrius-main-sec'>
+	<div class='cirrius-main-list-sec'>
+		<div class='cirrius-main-list-sec-bar'>
+			<div class='button'>
+				<i class='color-green' {{action 'create'}}>&#xE145;</i>
+			</div>
+			<div class='cirrius-main-bars-text'>
+				{{model.files.length}} files
+			</div>
+		</div>
+		<div class='cirrius-main-list-sec-list'>
+			<div class='cirrius-main-list-sec-list-title'>Main</div>
+			<div class='cirrius-main-list-sec-list-item {{if (eq domain.route 'project.analytics') 'selected'}}' {{action (route 'analytics')}}>
+				<i>&#xE6E1;</i>
+				Analytics
+			</div>
+			<div class='cirrius-main-list-sec-list-item' {{action (route 'settings')}}>
+				<i>&#xE8B8;</i>
+				Settings
+			</div>
+			<div class='cirrius-main-list-sec-list-item' {{action (route 'requests')}}>
+				<i>&#xE896;</i>
+				Console
+			</div>
+			<div class='cirrius-main-list-sec-list-title'>Files</div>
+			{{tree-view files=model.files path="path" onselect=(route 'file')}}
+		</div>
+	</div>
+	<div class='cirrius-main-big-sec'>
+		{{outlet}}
+	</div>
+</div>

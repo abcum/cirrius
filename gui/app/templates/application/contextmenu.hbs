@@ -1,0 +1,24 @@
+{{#context-menu x=x y=y close=(action 'close')}}
+
+    <div class="OnlinePlatforms-contextmenu-option" {{action 'back'}}>Back</div>
+    <div class="OnlinePlatforms-contextmenu-option" {{action 'forward'}}>Forward</div>
+    <div class="OnlinePlatforms-contextmenu-option" {{action 'reload'}}>Reload</div>
+
+    {{#if session.live}}
+
+	    <div class="OnlinePlatforms-contextmenu-gap"></div>
+
+	    <div class="OnlinePlatforms-contextmenu-option {{if storage.demo 'OnlinePlatforms-contextmenu-option-disabled'}}" {{action 'exit'}}>Logout</div>
+
+    {{/if}}
+
+    <div class="OnlinePlatforms-contextmenu-gap"></div>
+
+    <div class="OnlinePlatforms-contextmenu-option {{if storage.beta 'OnlinePlatforms-contextmenu-option-check'}}" {{action 'beta'}}>Beta mode</div>
+    <div class="OnlinePlatforms-contextmenu-option {{if storage.demo 'OnlinePlatforms-contextmenu-option-check'}}" {{action 'demo'}}>Demo mode</div>
+
+    <div class="OnlinePlatforms-contextmenu-gap"></div>
+
+    <div class="OnlinePlatforms-contextmenu-option OnlinePlatforms-contextmenu-option-disabled">© Abcum Ltd</div>
+
+{{/context-menu}}

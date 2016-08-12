@@ -1,0 +1,12 @@
+<div class='cirrius-main-bar'>
+	<div class='button' {{action 'delete'}}>
+		<i class='color-blue'>&#xE872;</i>
+	</div>
+	<div class='cirrius-main-bars-text'>
+		{{editable-text value=model.path onchange=(action (mut model.path)) filter="[a-zA-Z0-9.-_]" placeholder="Enter a file name..."}}
+	</div>
+</div>
+
+<div class='cirrius-main-big-sec-content'>
+	{{editable-code value=model.content onchange=(action (mut model.content))}}
+</div>

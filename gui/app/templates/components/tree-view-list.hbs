@@ -1,0 +1,17 @@
+{{#each-in tree.fo as |folder subtree|}}
+    
+    <div class='cirrius-main-list-sec-list-item' {{action 'folder' subtree}}>
+        <i>&#xE2C7;</i>{{folder}}
+    </div>
+
+    {{#if subtree.show}}
+        {{tree-view-list tree=subtree onselect=attrs.onselect}}
+    {{/if}}
+
+{{/each-in}}
+
+{{#each-in tree.fi as |path file|}}
+    <div class='cirrius-main-list-sec-list-item' {{action "file" file}}>
+        {{path}}
+    </div>
+{{/each-in}}
