@@ -25,9 +25,8 @@ import (
 
 func init() {
 
-	orbit.OnInit(func(ctx *orbit.Orbit) {
-
-		path := map[string]interface{}{
+	orbit.Add("path", func(ctx *orbit.Orbit) (otto.Value, error) {
+		return ctx.ToValue(map[string]interface{}{
 
 			"basename": func(call otto.FunctionCall) (val otto.Value) {
 				if len(call.ArgumentList) == 1 {
@@ -150,9 +149,7 @@ func init() {
 			"sep": "/",
 
 			"win32": otto.UndefinedValue(),
-		}
-
-		ctx.Def("path", path)
+		})
 
 	})
 

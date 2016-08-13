@@ -21,9 +21,8 @@ import (
 
 func init() {
 
-	orbit.OnInit(func(ctx *orbit.Orbit) {
-
-		dns := map[string]interface{}{
+	orbit.Add("dns", func(ctx *orbit.Orbit) (otto.Value, error) {
+		return ctx.ToValue(map[string]interface{}{
 
 			"getServers": func(call otto.FunctionCall) (val otto.Value) {
 				val, _ = otto.ToValue([]string{"8.8.8.8", "8.8.4.4"})
@@ -89,9 +88,7 @@ func init() {
 			"setServers": func(call otto.FunctionCall) otto.Value {
 				return otto.UndefinedValue()
 			},
-		}
-
-		ctx.Def("dns", dns)
+		})
 
 	})
 

@@ -21,9 +21,8 @@ import (
 
 func init() {
 
-	orbit.OnInit(func(ctx *orbit.Orbit) {
-
-		os := map[string]interface{}{
+	orbit.Add("os", func(ctx *orbit.Orbit) (otto.Value, error) {
+		return ctx.ToValue(map[string]interface{}{
 
 			"EOL": "\n",
 
@@ -86,9 +85,7 @@ func init() {
 			"userInfo": func(call otto.FunctionCall) otto.Value {
 				return otto.UndefinedValue()
 			},
-		}
-
-		ctx.Def("os", os)
+		})
 
 	})
 

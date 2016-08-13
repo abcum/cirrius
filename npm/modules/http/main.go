@@ -21,9 +21,8 @@ import (
 
 func init() {
 
-	orbit.OnInit(func(ctx *orbit.Orbit) {
-
-		http := map[string]interface{}{
+	orbit.Add("http", func(ctx *orbit.Orbit) (otto.Value, error) {
+		return ctx.ToValue(map[string]interface{}{
 
 			"get": func(call otto.FunctionCall) (val otto.Value) {
 				return otto.UndefinedValue()
@@ -32,10 +31,7 @@ func init() {
 			"request": func(call otto.FunctionCall) otto.Value {
 				return otto.UndefinedValue()
 			},
-		}
-
-		ctx.Def("http", http)
-
+		})
 	})
 
 }
