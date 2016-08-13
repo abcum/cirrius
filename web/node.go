@@ -22,6 +22,8 @@ import (
 	_ "github.com/abcum/cirrius/npm/globals/console"
 	_ "github.com/abcum/cirrius/npm/globals/context"
 	_ "github.com/abcum/cirrius/npm/globals/dns"
+	_ "github.com/abcum/cirrius/npm/globals/http"
+	_ "github.com/abcum/cirrius/npm/globals/https"
 	_ "github.com/abcum/cirrius/npm/globals/os"
 	_ "github.com/abcum/cirrius/npm/globals/path"
 	_ "github.com/abcum/cirrius/npm/globals/process"
