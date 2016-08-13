@@ -34,7 +34,7 @@ type logv struct {
 	vars []interface{}
 }
 
-func save(kind string, call otto.FunctionCall, vars ...interface{}) {
+func output(kind string, call otto.FunctionCall, vars ...interface{}) {
 
 	fold, _ := call.Otto.Get("__dirname")
 	fost, _ := fold.ToString()
@@ -73,32 +73,32 @@ func init() {
 		console := map[string]interface{}{
 
 			"log": func(call otto.FunctionCall) otto.Value {
-				save("log", call)
+				output("log", call)
 				return otto.UndefinedValue()
 			},
 
 			"info": func(call otto.FunctionCall) otto.Value {
-				save("info", call)
+				output("info", call)
 				return otto.UndefinedValue()
 			},
 
 			"warn": func(call otto.FunctionCall) otto.Value {
-				save("warn", call)
+				output("warn", call)
 				return otto.UndefinedValue()
 			},
 
 			"error": func(call otto.FunctionCall) otto.Value {
-				save("error", call)
+				output("error", call)
 				return otto.UndefinedValue()
 			},
 
 			"debug": func(call otto.FunctionCall) otto.Value {
-				save("debug", call)
+				output("debug", call)
 				return otto.UndefinedValue()
 			},
 
 			"trace": func(call otto.FunctionCall) otto.Value {
-				save("trace", call)
+				output("trace", call)
 				return otto.UndefinedValue()
 			},
 
@@ -111,7 +111,7 @@ func init() {
 				name := call.Argument(0).String()
 				amnt := time.Since(timers[name])
 				delete(timers, name)
-				save("time", call, name, amnt)
+				output("time", call, name, amnt)
 				return otto.UndefinedValue()
 			},
 
@@ -119,7 +119,7 @@ func init() {
 				name := call.Argument(0).String()
 				amnt := time.Since(timers[name])
 				delete(timers, name)
-				save("time", call, name, amnt)
+				output("time", call, name, amnt)
 				return otto.UndefinedValue()
 			},
 		}
