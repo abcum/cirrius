@@ -70,7 +70,7 @@ func find(files ...string) (*info, error) {
 
 	for _, file := range files {
 
-		full := path.Join("tst", file)
+		full := path.Join("dev", file)
 
 		if hand, err := os.Stat(full); err == nil {
 
