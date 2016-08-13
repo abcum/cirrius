@@ -36,7 +36,6 @@ func routes(s *fibre.Fibre) {
 	mime.AddExtensionType(".sass", "text/css")
 	mime.AddExtensionType(".scss", "text/css")
 	mime.AddExtensionType(".gcss", "text/css")
-	mime.AddExtensionType(".mock", "application/json")
 
 	// --------------------------------------------------
 	// Endpoint for health checks
