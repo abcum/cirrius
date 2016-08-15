@@ -20,6 +20,7 @@ npm+=('deepmerge:::index.js')
 npm+=('hashids:::dist/hashids.min.js')
 npm+=('immutable:::dist/immutable.min.js')
 npm+=('jsondiffpatch:::public/build/jsondiffpatch-full.min.js')
+npm+=('jsonic:::jsonic-min.js')
 npm+=('merge:::merge.min.js')
 npm+=('moment:::min/moment.min.js')
 npm+=('odiff:::dist/odiff.umd.js')
@@ -29,6 +30,8 @@ npm+=('qs:::dist/qs.js')
 npm+=('semver:::semver.js')
 npm+=('sugar:::dist/sugar.min.js')
 npm+=('validator:::validator.min.js')
+
+npm cache clean && bower cache clean
 
 for index in "${bow[@]}" ; do
 
@@ -40,8 +43,6 @@ for index in "${bow[@]}" ; do
     	if [ ! -f "$folder/npm/modules/$name/$version.js" ]; then
 
             echo "--- $name"#"$version"
-
-            # bower cache clean
 
 			cd $folder
 			bower install $name"#"$version
@@ -66,12 +67,10 @@ for index in "${npm[@]}" ; do
 
             echo "--- $name"@"$version"
 
-            # npm cache clean
-
 			cd $folder
 			npm install $name"@"$version
 			cd "$folder/node_modules/$name"
-			cp "$path" "$folder/npm/modules/$name/$version.js" || { echo 'File not found'; exit 1; }
+			cp "$path" "$folder/npm/modules/$name/$version.js" ; # || { echo 'File not found'; exit 1; }
 			rm -rf "$folder/node_modules/$name"
 
 		fi
