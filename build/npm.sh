@@ -15,6 +15,7 @@ bow+=('underscore:::underscore-min.js')
 npm=()
 npm+=('accounting:::accounting.min.js')
 npm+=('chance:::dist/chance.min.js')
+npm+=('dateformat:::lib/dateformat.js')
 npm+=('deepmerge:::index.js')
 npm+=('hashids:::dist/hashids.min.js')
 npm+=('immutable:::dist/immutable.min.js')
@@ -24,6 +25,8 @@ npm+=('moment:::min/moment.min.js')
 npm+=('odiff:::dist/odiff.umd.js')
 npm+=('promiz:::promiz.min.js')
 npm+=('q:::q.js')
+npm+=('qs:::dist/qs.js')
+npm+=('semver:::semver.js')
 npm+=('sugar:::dist/sugar.min.js')
 npm+=('validator:::validator.min.js')
 
@@ -77,7 +80,7 @@ for index in "${npm[@]}" ; do
 
 done
 
-# rm -rf "$folder/bower_components/"
-# rm -rf "$folder/node_modules/"
+rm -rf "$folder/bower_components/"
+rm -rf "$folder/node_modules/"
 
 exit 0
