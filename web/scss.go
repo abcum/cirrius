@@ -14,24 +14,10 @@
 
 package web
 
-import (
-// "bytes"
-// "github.com/wellington/go-libsass"
-)
-
 func processScss(input []byte) (output []byte, err error) {
 
 	input = incl(input, "css")
 
 	return input, nil
-
-	// w := new(bytes.Buffer)
-	// r := bytes.NewReader(input)
-
-	// com, err := libsass.New(w, r)
-
-	// err = com.Run()
-
-	// return w.Bytes(), err
 
 }
