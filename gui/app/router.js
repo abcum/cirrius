@@ -12,9 +12,8 @@ Router.map(function() {
 			this.route('file', { resetNamespace: true, path: '/:file_id' });
 			this.route('analytics', { resetNamespace: true });
 			this.route('settings', { resetNamespace: true });
-
-			this.route('requests', { path: '/requests' }, function() {
-				this.route('request', { path: '/:request_id' });
+			this.route('requests', { resetNamespace: true }, function() {
+				this.route('request', { resetNamespace: true, path: '/:request_id' });
 			});
 		});
 
@@ -24,7 +23,6 @@ Router.map(function() {
 	this.route('register');
 	this.route('logout');
 
-	this.route('request');
 });
 
 export default Router;

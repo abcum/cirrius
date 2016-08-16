@@ -177,8 +177,10 @@ font-size:18pt !important;
 }
 
 .color {
-	&-green {color:#4BFC2A;}
-	&-blue {color:#26C0FD;}
+	&-green { color:#4BFC2A; }
+	&-blue { color:#26C0FD; }
+	&-red { color:#ff0000; }
+	&-yellow { color:#FFFF00; }
 }
 
 .cirrius-full {
@@ -328,36 +330,85 @@ font-size:18pt !important;
 	}
 
 	&-requests {
-		padding:0 0 0 0;
 
 		.request {
-			// display:inline-block;
+			height:40px;
+			line-height:40px;
 			border-bottom:1px solid #454b59;
-			padding:10px;
+			position:relative;
 
-			.item {
-				margin-right:20px;
-				// border:1px solid red;
+			&:nth-child(odd) { background: darken(#242930, 2%); }
+			&:hover { background-color:#191d21; }
 
-				&-right {
-					float:right;
+			.col {
+				text-overflow:ellipsis;
+				overflow:hidden;
+				white-space: nowrap;
+				position:absolute;
+				right:0;
+				top:0;
+				bottom:0;
+				left:0;
+				text-align:center;
+
+				&-logs {
+					left:10px;
+					width:30px;
 				}
 
-				&.s500 {
-					color:#ff0000;
+				&-status-icon {
+					width:30px;
+					left:40px;
 				}
 
-				&.s400 {
-					color:#ff0000;
+				&-time {
+					width:300px;
+					left:80px;
 				}
 
-				&.s200 {
-					color:#4BFC2A;
+				&-status {
+					width:50px;
+					left:380px;
 				}
 
+				&-method {
+					width:100px;
+					left:430px;
+				}
+
+				&-size {
+					width:100px;
+					left:530px;
+				}
+
+				&-url {
+					left:630px;
+					right:100px;
+					text-align:left;
+					padding-left:10px;
+				}
+
+				&-duration {
+					text-align:right;
+					padding:0 20px 0 0;
+					right:0;
+				}
+
+				i {
+					font-size: 18px;
+					vertical-align: -20%;
+				}
 			}
+		}
 
+		&-logs {
 
+			.log {
+				height:40px;
+				line-height:40px;
+				border-bottom:1px solid #454b59;
+				position:relative;
+			}
 		}
 	}
 

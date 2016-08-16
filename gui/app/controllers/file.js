@@ -2,9 +2,7 @@ import Ember from "ember";
 
 export default Ember.Controller.extend({
 
-    temp: 'askdjanskdjanksjdn',
-    
-    // Ember.RouteMixin, Ember.RmenuMixin, Ember.SelectableMixin, 
+    // Ember.RouteMixin, Ember.RmenuMixin, Ember.SelectableMixin,
 
     // search: '',
 

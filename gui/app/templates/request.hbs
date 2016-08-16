@@ -1,1 +1,27 @@
-{{outlet}}
+<div class='cirrius-main-bar'>
+	<div class='cirrius-main-bars-text'>
+		{{model.time}}
+	</div>
+</div>
+
+<div class='cirrius-main-big-sec-content'>
+	<div class='cirrius-main-requests-logs'>
+		{{#each model.logs as |item|}}
+			<div class='log'>
+
+				{{#if (eq item.type "time")}}
+					{{object-at 0 item.args}}: {{duration (object-at 1 item.args)}}
+				{{else}}
+					{{item.id}}
+					{{item.type}}
+					{{item.fold}}
+					{{item.file}}
+					{{item.line}}
+					{{item.char}}
+					{{item.args}}
+				{{/if}}
+
+			</div>
+		{{/each}}
+	</div>
+</div>

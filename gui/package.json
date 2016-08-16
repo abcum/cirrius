@@ -21,7 +21,7 @@
   "devDependencies": {
     "@abcum/ember-domain": "git+https://github.com/abcum/ember-domain.git#baf85f0eb61bae56e52d43e8caf189dc63df465c",
     "@abcum/ember-editables": "git+https://github.com/abcum/ember-editables.git#fd5bc1852838b3d639b482d2748f0a8e580d4f3c",
-    "@abcum/ember-helpers": "git+https://github.com/abcum/ember-helpers.git#771cf2e28719de66ccf7106453aa11ba12d957a8",
+    "@abcum/ember-helpers": "git+https://github.com/abcum/ember-helpers.git#3fa502fdcc1f380eaba3692d0b257b446dcf3ca0",
     "@abcum/ember-hotkey": "git+https://github.com/abcum/ember-hotkey.git#9b2c03ae8e72414cbd721283693796faf8a1d5ab",
     "@abcum/ember-inputs": "git+https://github.com/abcum/ember-inputs.git#3ba2918277cf7e6119d835e581fa353bf6953314",
     "@abcum/ember-storage": "git+https://github.com/abcum/ember-storage.git#bc007262867e174f197745ba137e6f3b600d34cf",

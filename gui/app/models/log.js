@@ -23,8 +23,6 @@ export default DS.Model.extend({
         defaultValue: ''
     }),
 
-    args: DS.attr('string', {
-        defaultValue: ''
-    }),
+    args: DS.attr(),
 
 }).reopenClass(Fixtures);

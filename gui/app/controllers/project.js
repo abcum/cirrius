@@ -3,8 +3,9 @@ import Ember from "ember";
 export default Ember.Controller.extend({
 
     file: Ember.inject.controller(),
+    request: Ember.inject.controller(),
 
-    // Ember.RouteMixin, Ember.RmenuMixin, Ember.SelectableMixin, 
+    // Ember.RouteMixin, Ember.RmenuMixin, Ember.SelectableMixin,
 
     // search: '',
 

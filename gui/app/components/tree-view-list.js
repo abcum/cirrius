@@ -6,14 +6,10 @@ export default Ember.Component.extend({
 
 	actions: {
 
-		folder(subtree) {
-			Ember.set(subtree, 'show', !Ember.get(subtree, 'show'));
-		},
-
 		file(file) {
 			this.sendAction('onselect', file);
 		},
 
 	}
-	
+
 });
