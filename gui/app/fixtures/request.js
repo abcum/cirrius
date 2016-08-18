@@ -1,7 +1,7 @@
 export default {
 	FIXTURES: [
 		{
-			id: "request:1",
+			id: "e459b1e5-98fd-42ee-b6f4-68d363ca33a5",
 			project: "project:1",
 			status: 200,
 			url: "http://www.apple.com/ttp://www.apple.com/ttp://www.apple.com/ttp://www.apple.com/ttp://www.apple.com/ttp://www.apple.com/ttp://www.apple.com/ttp://www.apple.com/ttp://www.apple.com/ttp://www.apple.com/ttp://www.apple.com/ttp://www.apple.com/ttp://www.apple.com/ttp://www.apple.com/",
@@ -13,10 +13,23 @@ export default {
 			logs: [
 				"log:1",
 				"log:2",
+				"log:3",
+				"log:4",
+				"log:5",
+				"log:6",
+				"log:7",
+				"log:8",
+				"log:9",
+				"log:10",
+				"log:11",
+				"log:12",
+				"log:13",
+				"log:14",
+				"log:15",
 			],
 		},
 		{
-			id: "request:2",
+			id: "515d354e-da57-429a-ac04-b529ff1dfe90",
 			project: "project:1",
 			status: 200,
 			url: "http://www.apple.com/",
@@ -25,13 +38,10 @@ export default {
 			method: "GET",
 			size: 123456,
 			time: '2016-06-25T16:16:11.271Z',
-			logs: [
-				"log:3",
-				"log:4",
-			],
+			logs: [],
 		},
 		{
-			id: "request:3",
+			id: "ade0b5aa-f814-47c4-b5e1-e7abab0017fb",
 			project: "project:1",
 			status: 400,
 			url: "http://www.apple.com/",
@@ -42,7 +52,7 @@ export default {
 			time: '2016-05-25T16:16:11.271Z',
 		},
 		{
-			id: "request:4",
+			id: "96cb7b27-f4cc-4031-ac12-b2cf93ffa0e0",
 			project: "project:1",
 			status: 500,
 			url: "http://www.apple.com/",

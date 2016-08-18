@@ -2,25 +2,7 @@
 
 <div class='top-bar'>
 	<div class='top-bar-text'>
-		<a{{action (route 'index')}}>Projects</a><slash> /</slash>
-		<a{{action (route 'project')}}> {{model.fullname}}</a>
-		{{#if (eq domain.route 'project.analytics')}} <slash>/</slash>
-			<a{{action (route 'analytics')}}> Analytics </a>
-		{{/if}}
-		{{#if (eq domain.route 'project.settings')}} <slash>/</slash>
-			<a{{action (route 'settings')}}> Settings </a>
-		{{/if}}
-		{{#if (inside domain.route 'project.requests')}} <slash>/</slash>
-			<a{{action (route 'console')}}> Console </a>
-		{{/if}}
-		{{#if request.model}}
-			<slash>/</slash> {{request.model.time}}
-		{{/if}}
-		{{#if file.model}}
-			{{#each (split '/' file.model.path) as |dir|}}
-				<slash>/</slash> {{dir}}
-			{{/each}}
-		{{/if}}
+		{{partial 'breadcrumb'}}
 	</div>
 </div>
 <div class='cirrius-main cirrius-main-sec'>
@@ -47,6 +29,7 @@
 				<i>&#xE896;</i>
 				Console
 			</div>
+			{{!-- <div class='cirrius-main-list-sec-list-div'></div> --}}
 			<div class='cirrius-main-list-sec-list-title'>Files</div>
 			{{tree-view uid=model.id files=model.files path="path" onselect=(route 'file')}}
 		</div>
