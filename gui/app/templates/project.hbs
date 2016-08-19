@@ -9,10 +9,10 @@
 	<div class='cirrius-main-list-sec'>
 		<div class='cirrius-main-list-sec-bar'>
 			<div class='button'>
-				<i class='color-blue' {{action 'create'}}>&#xE145;</i>
+				<a {{action 'create'}}><i class='color-blue'>&#xE145;</i></a>
 			</div>
 			<div class='cirrius-main-bars-text'>
-				{{model.files.length}} files
+				{{editable-text value=model.fullname onchange=(action (mut model.fullname)) filter="[a-zA-Z0-9.-_]" placeholder="Enter a project name..."}}
 			</div>
 		</div>
 		<div class='cirrius-main-list-sec-list'>
@@ -25,12 +25,18 @@
 				<i>&#xE8B8;</i>
 				Settings
 			</div>
-			<div class='cirrius-main-list-sec-list-item' {{action (route 'requests')}}>
-				<i>&#xE896;</i>
-				Console
+			<div class='cirrius-main-list-sec-list-item' {{action (route 'releases')}}>
+				<i>&#xE2BF;</i>
+				Releases
 			</div>
-			<div class='cirrius-main-list-sec-list-title'>Files</div>
-			{{tree-view uid=model.id files=model.files path="path" onselect=(route 'file')}}
+			<div class='cirrius-main-list-sec-list-item' {{action (route 'requests')}}>
+				<i>&#xE8D4;</i>
+				Requests
+			</div>
+			{{#if model.files}}
+				<div class='cirrius-main-list-sec-list-title'>Files</div>
+				{{tree-view uid=model.id files=model.files path="path" onselect=(route 'file')}}
+			{{/if}}
 		</div>
 	</div>
 	<div class='cirrius-main-big-sec'>

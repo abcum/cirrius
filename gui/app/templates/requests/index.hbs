@@ -1,6 +1,6 @@
 <div class='cirrius-main-bar'>
 	<div class='cirrius-main-bars-text'>
-		Console
+		Requests
 	</div>
 </div>
 
@@ -35,7 +35,7 @@
 					{{/if}}
 				</div>
 
-				<div class='col col-method'>{{request.method}}</div>
+				<div class='col col-method'>{{uppercase request.method}}</div>
 				<div class='col col-size'>{{bytes request.size}}</div>
 				<div class='col col-url'>{{request.url}}</div>
 				<div class='col col-duration'>{{duration request.duration decimals=2}}</div>

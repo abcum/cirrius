@@ -1,31 +1,42 @@
-<a{{action (route 'index')}}>Projects</a>
+<a {{action (route 'index')}}>Projects</a>
 
-<i>&#xE409;</i>
+{{#if (eq domain.route 'index')}}
+	<a {{action 'create'}}><i class='add'>&#xE03B;</i></a>
+{{/if}}
 
-<a {{action (route 'project')}}>{{model.fullname}}</a>
+{{#if (begs-with domain.route 'project')}}
+	<i>&#xE409;</i>
+	<a {{action (route 'project')}}>{{model.fullname}}</a>
+{{/if}}
 
-{{#if (eq domain.route 'project.analytics')}}
+{{#if (begs-with domain.route 'project.analytics')}}
 	<i>&#xE409;</i>
 	<a {{action (route 'analytics')}}>Analytics</a>
 {{/if}}
 
-{{#if (eq domain.route 'project.settings')}}
+{{#if (begs-with domain.route 'project.settings')}}
 	<i>&#xE409;</i>
 	<a {{action (route 'settings')}}>Settings</a>
 {{/if}}
 
-{{#if (inside domain.route 'project.requests')}}
+{{#if (begs-with domain.route 'project.releases')}}
 	<i>&#xE409;</i>
-	<a {{action (route 'requests')}}>Console</a>
+	<a {{action (route 'releases')}}>Releases</a>
+{{/if}}
+
+{{#if (begs-with domain.route 'project.requests')}}
+	<i>&#xE409;</i>
+	<a {{action (route 'requests')}}>Requests</a>
 {{/if}}
 
 {{#if request.model}}
-	<i>&#xE409;</i> {{request.model.id}}
+	<i>&#xE409;</i>
+	<a {{action (route 'request')}}>{{request.model.id}}</a>
 {{/if}}
 
 {{#if file.model}}
 	<i>&#xE409;</i>
 	{{#each (split '/' file.model.path) as |dir key|}}
-		{{#if (ne key 0)}}<slash>/</slash>{{/if}} {{dir}}
+		{{#if (ne key 0)}}<slash>/</slash>{{/if}} <a>{{dir}}</a>
 	{{/each}}
 {{/if}}

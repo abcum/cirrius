@@ -1,18 +1,27 @@
 <div class='cirrius-main-bar'>
 	<div class='cirrius-main-bars-text'>
-		<div class='cirrius-main-requests-logs-bar right'>
-			{{model.method}}
+		<div class='cirrius-main-requests-logs-bar right'>{{model.time}}</div>
+		<div class='cirrius-main-requests-logs-bar'>
+			{{#if (gte model.status 500)}}
+				<span class='color-red'>{{uppercase model.method}}</span>
+			{{else if (gte model.status 400)}}
+				<span class='color-yellow'>{{uppercase model.method}}</span>
+			{{else if (gte model.status 200)}}
+				<span class='color-green'>{{uppercase model.method}}</span>
+			{{else}}
+				{{uppercase model.method}}
+			{{/if}}
+			<i>&#xE8D4;</i>
 			{{#if (gte model.status 500)}}
 				<span class='color-red'>{{model.status}}</span>
-			{{else if (gte request.status 400)}}
+			{{else if (gte model.status 400)}}
 				<span class='color-yellow'>{{model.status}}</span>
-			{{else if (gte request.status 200)}}
+			{{else if (gte model.status 200)}}
 				<span class='color-green'>{{model.status}}</span>
 			{{else}}
 				{{model.status}}
 			{{/if}}
 		</div>
-		<div class='cirrius-main-requests-logs-bar'>{{model.time}}</div>
 	</div>
 </div>
 
@@ -58,7 +67,7 @@
 						{{/each}}
 					</div>
 				{{else if (eq item.type "warn")}}
-					<div class='color-light-yellow clearfix'>
+					<div class='color-yellow clearfix'>
 						<div class="right">
 							{{#if (or item.fold item.file)}}
 								{{item.fold}}{{item.file}}:{{#if item.line}}{{item.line}}{{/if}}
@@ -70,7 +79,7 @@
 						{{/each}}
 					</div>
 				{{else if (eq item.type "error")}}
-				 	<div class='color-light-red clearfix'>
+				 	<div class='color-red clearfix'>
 						<div class="right">
 							{{#if (or item.fold item.file)}}
 								{{item.fold}}{{item.file}}:{{#if item.line}}{{item.line}}{{/if}}
