@@ -1,12 +1,12 @@
 /* jshint node: true */
 
 module.exports = function(environment) {
-	
+
 	var ENV = {
-	
+
 		modulePrefix: 'gui',
 		environment: environment,
-		baseURL: '/',
+		rootURL: '/',
 		locationType: 'auto',
 
 		editables: {
@@ -16,7 +16,7 @@ module.exports = function(environment) {
             includeWhitespace: true,
             modes: [ "htmlmixed", "css",  "sass",  "javascript",  "markdown",  "handlebars", "sql" ],
         },
-		
+
 		// Set ember flags / options for the
         // ember runtime application
         // environment
@@ -32,7 +32,7 @@ module.exports = function(environment) {
 	};
 
 	if (environment === 'development') {
-		
+
 		ENV.APP.BINDINGS = false;
         ENV.APP.LOG_RESOLVER = false;
         ENV.APP.LOG_TRANSITIONS = false;
@@ -46,7 +46,7 @@ module.exports = function(environment) {
 	}
 
 	if (environment === 'test') {
-		
+
 		// Testem prefers this...
 		ENV.baseURL = '/';
 		ENV.locationType = 'none';
