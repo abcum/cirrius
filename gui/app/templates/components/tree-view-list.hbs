@@ -1,7 +1,7 @@
 {{#each-in tree.fo as |folder subtree|}}
 
     <div class='cirrius-main-list-sec-list-item' {{action (toggle (concat "project" "-" uid "-" "folder" "-" folder) storage)}}>
-        <i>&#xE2C7;</i>{{folder}}
+        <i>&#xE2C8;</i>{{folder}}
     </div>
 
     {{#if (get storage (concat "project" "-" uid "-" "folder" "-" folder))}}

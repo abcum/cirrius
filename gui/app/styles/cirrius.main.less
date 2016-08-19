@@ -354,10 +354,10 @@ font-size:18pt !important;
 		.request {
 			height:40px;
 			line-height:40px;
-			border-bottom:1px solid #454b59;
+			border-bottom:1px solid lighten(#242930, 5%);
 			position:relative;
 
-			&:nth-child(odd) { background: darken(#242930, 2%); }
+			&:nth-child(odd) { background: darken(#242930, 1.5%); }
 			&:hover { background-color:#191d21; }
 
 			.col {
@@ -378,31 +378,31 @@ font-size:18pt !important;
 
 				&-status-icon {
 					width:30px;
-					left:40px;
+					left:10px;
 				}
 
 				&-time {
+					left:50px;
 					width:300px;
-					left:80px;
 				}
 
 				&-status {
+					left:350px;
 					width:50px;
-					left:380px;
 				}
 
 				&-method {
+					left:400px;
 					width:100px;
-					left:430px;
 				}
 
 				&-size {
+					left:500px;
 					width:100px;
-					left:530px;
 				}
 
 				&-url {
-					left:630px;
+					left:600px;
 					right:100px;
 					text-align:left;
 					padding-left:10px;
@@ -422,14 +422,14 @@ font-size:18pt !important;
 		}
 
 		&-logs {
-			padding-top:10px;
+			// padding-top:10px;
 
 			&-bar {
 				padding-right:15px;
 			}
 
 			.log {
-				line-height:30px;
+				line-height:40px;
 				position:relative;
 				padding:0 15px 0 15px;
 
@@ -510,18 +510,15 @@ font-size:18pt !important;
 
 			&-title {
 				font-size:12px;
-				display:none;
-				padding:7px 0 7px 15px;
-			}
-
-			&-div {
+				padding:12px 10px 12px 15px;
+				background: darken(#242930, 1.5%);
 				border-bottom:1px solid lighten(#242930, 5%);
 			}
 
 			&-item {
-				height:30px;
 				font-size:12px;
-				padding:7px 10px 7px 15px;
+				padding:12px 10px 12px 15px;
+				border-bottom:1px solid lighten(#242930, 5%);
 
 				i {
 				    font-size: 18px;
@@ -706,13 +703,7 @@ tree-view {
 }
 
 tree-view-list {
-
 	display:block;
-
-	tree-view-list {
-		// padding-left:20px;
-	}
-
 }
 
 tree-view-list {

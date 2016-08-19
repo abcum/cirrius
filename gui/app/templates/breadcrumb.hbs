@@ -1,26 +1,22 @@
-<a{{action (route 'index')}}>
-	Projects
-</a>
+<a{{action (route 'index')}}>Projects</a>
 
-<i> &#xE409;</i>
+<i>&#xE409;</i>
 
-<a{{action (route 'project')}}>
-	{{model.fullname}}
-</a>
+<a {{action (route 'project')}}>{{model.fullname}}</a>
 
 {{#if (eq domain.route 'project.analytics')}}
 	<i>&#xE409;</i>
-	<a{{action (route 'analytics')}}> Analytics </a>
+	<a {{action (route 'analytics')}}>Analytics</a>
 {{/if}}
 
 {{#if (eq domain.route 'project.settings')}}
 	<i>&#xE409;</i>
-	<a{{action (route 'settings')}}> Settings </a>
+	<a {{action (route 'settings')}}>Settings</a>
 {{/if}}
 
 {{#if (inside domain.route 'project.requests')}}
 	<i>&#xE409;</i>
-	<a{{action (route 'requests')}}> Console </a>
+	<a {{action (route 'requests')}}>Console</a>
 {{/if}}
 
 {{#if request.model}}

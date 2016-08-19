@@ -11,12 +11,6 @@
 
 			<div class='request' {{action (route 'request' request)}}>
 
-				<div class='col col-logs'>
-					{{#if request.logs}}
-						<i>&#xE896;</i>
-					{{/if}}
-				</div>
-
 				<div class='col col-status-icon'>
 					{{#if (gte request.status 500)}}
 						<i class='color-red'>&#xE001;</i>
