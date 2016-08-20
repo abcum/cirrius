@@ -3,7 +3,7 @@
 		<i class='color-blue'>&#xE872;</i>
 	</a>
 	<div class='cirrius-main-bars-text'>
-		{{editable-text value=model.path onchange=(action (mut model.path)) filter="[a-zA-Z0-9.-_]" placeholder="Enter a file name..."}}
+		{{last (split "/" model.path)}}
 	</div>
 </div>
 

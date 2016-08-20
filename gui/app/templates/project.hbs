@@ -12,7 +12,7 @@
 				<a {{action 'create'}}><i class='color-blue'>&#xE145;</i></a>
 			</div>
 			<div class='cirrius-main-bars-text'>
-				{{editable-text value=model.fullname onchange=(action (mut model.fullname)) filter="[a-zA-Z0-9.-_]" placeholder="Enter a project name..."}}
+				{{model.fullname}}
 			</div>
 		</div>
 		<div class='cirrius-main-list-sec-list'>
