@@ -58,6 +58,7 @@ import (
 	_ "github.com/abcum/cirrius/npm/modules/q"
 	_ "github.com/abcum/cirrius/npm/modules/qs"
 	_ "github.com/abcum/cirrius/npm/modules/react"
+	_ "github.com/abcum/cirrius/npm/modules/routes"
 	_ "github.com/abcum/cirrius/npm/modules/rx"
 	_ "github.com/abcum/cirrius/npm/modules/semver"
 	_ "github.com/abcum/cirrius/npm/modules/shortid"
