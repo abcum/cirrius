@@ -48,6 +48,7 @@ import (
 	_ "github.com/abcum/cirrius/npm/modules/lodash"
 	_ "github.com/abcum/cirrius/npm/modules/merge"
 	_ "github.com/abcum/cirrius/npm/modules/moment"
+	_ "github.com/abcum/cirrius/npm/modules/ms"
 	_ "github.com/abcum/cirrius/npm/modules/odiff"
 	_ "github.com/abcum/cirrius/npm/modules/once"
 	_ "github.com/abcum/cirrius/npm/modules/os"
