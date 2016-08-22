@@ -12,15 +12,54 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package output
+package context
 
 import (
+	"fmt"
+
 	"github.com/abcum/fibre"
 	"github.com/abcum/orbit"
+	"github.com/aymerick/raymond"
 	"github.com/robertkrimen/otto"
 )
 
 func init() {
+
+	raymond.RegisterHelper("partial", func(name string, options *raymond.Options) raymond.SafeString {
+
+		ctx := options.DataFrame().Get("ctx").(*orbit.Orbit)
+
+		session := ctx.Vars["fibre"].(*fibre.Context)
+
+		data, _, err := ctx.File(name, "hbs")
+		if err != nil {
+			session.Code(500)
+			ctx.Quit(err)
+		}
+
+		code := fmt.Sprintf("%s", data)
+
+		tmpl, err := raymond.Parse(code)
+		if err != nil {
+			msg := fmt.Sprintf("Unable to parse handlebars template '%s'.", name)
+			err := ctx.MakeCustomError("Error", msg)
+			session.Code(500)
+			ctx.Quit(err)
+		}
+
+		priv := options.DataFrame()
+
+		html, err := tmpl.ExecWith(options.Ctx(), priv)
+		if err != nil {
+			msg := fmt.Sprintf("Unable to render handlebars template '%s'.", name)
+			err := ctx.MakeCustomError("Error", msg)
+			session.Code(500)
+			ctx.Quit(err)
+		}
+
+		return raymond.SafeString(html)
+
+	})
 
 	orbit.OnInit(func(ctx *orbit.Orbit) {
 
@@ -29,26 +68,98 @@ func init() {
 		context := map[string]interface{}{
 
 			"request": map[string]interface{}{
-				"user":  session.Request().URL().User,
-				"pass":  session.Request().URL().Pass,
-				"host":  session.Request().URL().Host,
-				"path":  session.Request().URL().Path,
-				"query": session.Request().URL().Query,
-				"head":  session.Head(),
-				"body":  session.Body(),
-				"ip":    session.IP(),
+				"socket": session.Request().Header().Get("Upgrade") == "websocket",
+				"origin": session.Request().Header().Get("Origin"),
+				"method": session.Request().Method,
+				"user":   session.Request().URL().User,
+				"pass":   session.Request().URL().Pass,
+				"host":   session.Request().URL().Host,
+				"path":   session.Request().URL().Path,
+				"query":  session.Request().URL().Query,
+				"head":   session.Head(),
+				"body":   session.Body(),
+				"ip":     session.IP(),
+			},
+
+			"socket": map[string]interface{}{
+
+				"recv": func(call otto.FunctionCall) otto.Value {
+
+					if len(call.ArgumentList) != 1 || call.Argument(0).IsFunction() == false {
+						msg := fmt.Sprintf("Incorrect arguments to 'context.socket.recv'. Expected 1 argument which must be a function.")
+						err := ctx.MakeCustomError("Error", msg)
+						session.Code(500)
+						ctx.Quit(err)
+					}
+
+					if err := session.Upgrade(); err != nil {
+						return otto.UndefinedValue()
+					}
+
+					go func() {
+
+						defer func() {
+							fmt.Println("FUCK")
+						}()
+
+						for {
+							if _, req, err := session.Socket().Read(); err != nil {
+								break
+							} else {
+								if _, err := call.Argument(0).Call(call.Argument(0), req); err != nil {
+									ctx.Interrupt <- func() {
+										panic(err)
+									}
+								}
+							}
+						}
+
+					}()
+
+					return otto.UndefinedValue()
+
+				},
+
+				"send": func(call otto.FunctionCall) otto.Value {
+					// session.Socket().SendText(data)
+					return otto.UndefinedValue()
+				},
+
+				"exit": func(call otto.FunctionCall) otto.Value {
+					session.Socket().Close()
+					return otto.UndefinedValue()
+				},
 			},
 
 			"success": func(call otto.FunctionCall) otto.Value {
-				ctx.Interrupt <- func() {}
 				session.Code(200)
+				ctx.Quit(nil)
 				return otto.UndefinedValue()
 			},
 
 			"failure": func(call otto.FunctionCall) otto.Value {
-				ctx.Interrupt <- func() {}
 				session.Code(400)
+				ctx.Quit(nil)
 				return otto.UndefinedValue()
+			},
+
+			"status": func(call otto.FunctionCall) otto.Value {
+
+				if len(call.ArgumentList) == 1 {
+					code, _ := call.Argument(0).ToInteger()
+					session.Code(int(code))
+					ctx.Quit(nil)
+				}
+
+				if len(call.ArgumentList) >= 2 {
+					msg := fmt.Sprintf("Too many arguments to 'context.status'. Expected 1 or 2 arguments, but received %d.", len(call.ArgumentList))
+					err := ctx.MakeCustomError("Error", msg)
+					session.Code(500)
+					ctx.Quit(err)
+				}
+
+				return otto.UndefinedValue()
+
 			},
 
 			"display": map[string]interface{}{
@@ -57,20 +168,22 @@ func init() {
 
 					if len(call.ArgumentList) == 1 {
 						data, _ := call.Argument(0).Export()
-						ctx.Interrupt <- func() {}
 						session.XML(200, data)
+						ctx.Quit(nil)
 					}
 
 					if len(call.ArgumentList) == 2 {
 						code, _ := call.Argument(0).ToInteger()
 						data, _ := call.Argument(1).Export()
-						ctx.Interrupt <- func() {}
 						session.XML(int(code), data)
+						ctx.Quit(nil)
 					}
 
 					if len(call.ArgumentList) >= 3 {
-						ctx.Interrupt <- func() {}
+						msg := fmt.Sprintf("Too many arguments to 'context.display.xml'. Expected 1 or 2 arguments, but received %d.", len(call.ArgumentList))
+						err := ctx.MakeCustomError("Error", msg)
 						session.Code(500)
+						ctx.Quit(err)
 					}
 
 					return otto.UndefinedValue()
@@ -81,20 +194,22 @@ func init() {
 
 					if len(call.ArgumentList) == 1 {
 						data, _ := call.Argument(0).Export()
-						ctx.Interrupt <- func() {}
 						session.Text(200, data)
+						ctx.Quit(nil)
 					}
 
 					if len(call.ArgumentList) == 2 {
 						code, _ := call.Argument(0).ToInteger()
 						data, _ := call.Argument(1).Export()
-						ctx.Interrupt <- func() {}
 						session.Text(int(code), data)
+						ctx.Quit(nil)
 					}
 
 					if len(call.ArgumentList) >= 3 {
-						ctx.Interrupt <- func() {}
+						msg := fmt.Sprintf("Too many arguments to 'context.display.text'. Expected 1 or 2 arguments, but received %d.", len(call.ArgumentList))
+						err := ctx.MakeCustomError("Error", msg)
 						session.Code(500)
+						ctx.Quit(err)
 					}
 
 					return otto.UndefinedValue()
@@ -105,20 +220,22 @@ func init() {
 
 					if len(call.ArgumentList) == 1 {
 						data, _ := call.Argument(0).Export()
-						ctx.Interrupt <- func() {}
 						session.HTML(200, data)
+						ctx.Quit(nil)
 					}
 
 					if len(call.ArgumentList) == 2 {
 						code, _ := call.Argument(0).ToInteger()
 						data, _ := call.Argument(1).Export()
-						ctx.Interrupt <- func() {}
 						session.HTML(int(code), data)
+						ctx.Quit(nil)
 					}
 
 					if len(call.ArgumentList) >= 3 {
-						ctx.Interrupt <- func() {}
+						msg := fmt.Sprintf("Too many arguments to 'context.display.html'. Expected 1 or 2 arguments, but received %d.", len(call.ArgumentList))
+						err := ctx.MakeCustomError("Error", msg)
 						session.Code(500)
+						ctx.Quit(err)
 					}
 
 					return otto.UndefinedValue()
@@ -129,20 +246,22 @@ func init() {
 
 					if len(call.ArgumentList) == 1 {
 						data, _ := call.Argument(0).Export()
-						ctx.Interrupt <- func() {}
 						session.JSON(200, data)
+						ctx.Quit(nil)
 					}
 
 					if len(call.ArgumentList) == 2 {
 						code, _ := call.Argument(0).ToInteger()
 						data, _ := call.Argument(1).Export()
-						ctx.Interrupt <- func() {}
 						session.JSON(int(code), data)
+						ctx.Quit(nil)
 					}
 
 					if len(call.ArgumentList) >= 3 {
-						ctx.Interrupt <- func() {}
+						msg := fmt.Sprintf("Too many arguments to 'context.display.json'. Expected 1 or 2 arguments, but received %d.", len(call.ArgumentList))
+						err := ctx.MakeCustomError("Error", msg)
 						session.Code(500)
+						ctx.Quit(err)
 					}
 
 					return otto.UndefinedValue()
@@ -153,25 +272,69 @@ func init() {
 
 					if len(call.ArgumentList) == 1 {
 						data, _ := call.Argument(0).Export()
-						ctx.Interrupt <- func() {}
 						session.PACK(200, data)
+						ctx.Quit(nil)
 					}
 
 					if len(call.ArgumentList) == 2 {
 						code, _ := call.Argument(0).ToInteger()
 						data, _ := call.Argument(1).Export()
-						ctx.Interrupt <- func() {}
 						session.PACK(int(code), data)
+						ctx.Quit(nil)
 					}
 
 					if len(call.ArgumentList) >= 3 {
-						ctx.Interrupt <- func() {}
+						msg := fmt.Sprintf("Too many arguments to 'context.display.pack'. Expected 1 or 2 arguments, but received %d.", len(call.ArgumentList))
+						err := ctx.MakeCustomError("Error", msg)
 						session.Code(500)
+						ctx.Quit(err)
 					}
 
 					return otto.UndefinedValue()
 
 				},
+			},
+
+			"render": func(call otto.FunctionCall) otto.Value {
+
+				if len(call.ArgumentList) >= 3 {
+					msg := fmt.Sprintf("Too many arguments to 'context.render'. Expected 1 or 2 arguments, but received %d.", len(call.ArgumentList))
+					err := ctx.MakeCustomError("Error", msg)
+					session.Code(500)
+					ctx.Quit(err)
+				}
+
+				file, _ := call.Argument(0).ToString()
+				vars, _ := call.Argument(1).Export()
+
+				data, _, err := ctx.File(file, "hbs")
+				if err != nil {
+					session.Code(500)
+					ctx.Quit(err)
+				}
+
+				code := fmt.Sprintf("%s", data)
+
+				tmpl, err := raymond.Parse(code)
+				if err != nil {
+					session.Code(500)
+					ctx.Quit(err)
+				}
+
+				priv := raymond.NewDataFrame()
+				priv.Set("ctx", ctx)
+
+				html, err := tmpl.ExecWith(vars, priv)
+				if err != nil {
+					session.Code(500)
+					ctx.Quit(err)
+				}
+
+				session.HTML(200, html)
+				ctx.Quit(nil)
+
+				return otto.UndefinedValue()
+
 			},
 		}
 
