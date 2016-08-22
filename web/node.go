@@ -98,20 +98,15 @@ func init() {
 
 }
 
-func processNode(c *fibre.Context, name string, input []byte) (val interface{}, err error) {
+func processNode(ctx *fibre.Context, info *info) (err error) {
 
 	// New orbit instance
 	orb := orbit.New(0)
 
 	// Set fibre instance
-	orb.Vars["fibre"] = c
+	orb.Vars["fibre"] = ctx
 
 	// Run orbit instance
-	ret, err := orb.Run(name, input)
-	if err != nil {
-		return nil, err
-	}
-
-	return ret.Export()
+	return orb.Exec(info.path, info.data)
 
 }
