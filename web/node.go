@@ -15,8 +15,11 @@
 package web
 
 import (
+	"fmt"
+
 	"github.com/abcum/fibre"
 	"github.com/abcum/orbit"
+	"github.com/robertkrimen/otto"
 
 	// Load globals
 	_ "github.com/abcum/cirrius/npm/globals/console"
@@ -77,14 +80,27 @@ import (
 func init() {
 
 	orbit.OnInit(func(ctx *orbit.Orbit) {
-		// Create unique runtime id for logs and events
+
+		session := ctx.Vars["fibre"].(*fibre.Context)
+
+		fmt.Println("INIT", session.Response().Header().Get("Request-Id"))
+
 	})
 
 	orbit.OnExit(func(ctx *orbit.Orbit) {
-		// Finish runtime id
+
+		session := ctx.Vars["fibre"].(*fibre.Context)
+
+		fmt.Println("EXIT", session.Response().Header().Get("Request-Id"))
+
 	})
 
 	orbit.OnFail(func(ctx *orbit.Orbit, err error) {
+		if tmp, ok := err.(*otto.Error); ok {
+			fmt.Println("FAIL", tmp.String())
+		} else {
+			fmt.Println("FAIL", err.Error())
+		}
 		// Log runtime error on context
 	})
 
