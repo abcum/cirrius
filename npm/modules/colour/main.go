@@ -15,6 +15,8 @@
 package colour
 
 import (
+	"image/color"
+
 	"github.com/abcum/orbit"
 	"github.com/robertkrimen/otto"
 )
@@ -23,20 +25,13 @@ func init() {
 
 	orbit.Add("colour", func(ctx *orbit.Orbit) (otto.Value, error) {
 		return ctx.ToValue(map[string]interface{}{
-			"rgb": func(call otto.FunctionCall) otto.Value {
-				return otto.UndefinedValue()
+			"rgb2cmyk": func(r, g, b uint8) []int {
+				c, m, y, k := color.RGBToCMYK(r, g, b)
+				return []int{int(c), int(m), int(y), int(k)}
 			},
-			"lab": func(call otto.FunctionCall) otto.Value {
-				return otto.UndefinedValue()
-			},
-			"hsv": func(call otto.FunctionCall) otto.Value {
-				return otto.UndefinedValue()
-			},
-			"xyz": func(call otto.FunctionCall) otto.Value {
-				return otto.UndefinedValue()
-			},
-			"cmyk": func(call otto.FunctionCall) otto.Value {
-				return otto.UndefinedValue()
+			"cmyk2rgb": func(c, m, y, k uint8) []int {
+				r, g, b := color.CMYKToRGB(c, m, y, k)
+				return []int{int(r), int(g), int(b)}
 			},
 		})
 	})

@@ -34,6 +34,7 @@ import (
 	_ "github.com/abcum/cirrius/npm/modules/chance"
 	_ "github.com/abcum/cirrius/npm/modules/classnames"
 	_ "github.com/abcum/cirrius/npm/modules/co"
+	_ "github.com/abcum/cirrius/npm/modules/colour"
 	_ "github.com/abcum/cirrius/npm/modules/cookie"
 	_ "github.com/abcum/cirrius/npm/modules/dateformat"
 	_ "github.com/abcum/cirrius/npm/modules/deep-extend"
