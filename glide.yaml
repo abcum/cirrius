@@ -20,4 +20,9 @@ import:
   - svg
   - xml
 - package: github.com/yosssi/gcss
-- package: github.com/miekg/dns
+- package: github.com/aymerick/raymond
+  version: ^2.0.1
+testImport:
+- package: github.com/smartystreets/goconvey
+  subpackages:
+  - convey
