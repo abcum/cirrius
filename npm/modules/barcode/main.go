@@ -16,7 +16,6 @@ package uuid
 
 import (
 	"github.com/abcum/orbit"
-	// "github.com/boombuler/barcode"
 	"github.com/robertkrimen/otto"
 )
 

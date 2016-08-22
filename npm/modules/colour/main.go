@@ -16,6 +16,7 @@ package colour
 
 import (
 	"github.com/abcum/orbit"
+	"github.com/robertkrimen/otto"
 )
 
 func init() {
@@ -23,34 +24,18 @@ func init() {
 	orbit.Add("colour", func(ctx *orbit.Orbit) (otto.Value, error) {
 		return ctx.ToValue(map[string]interface{}{
 			"rgb": func(call otto.FunctionCall) otto.Value {
-				r := call.Argument(0).ToInteger()
-				g := call.Argument(1).ToInteger()
-				b := call.Argument(2).ToInteger()
 				return otto.UndefinedValue()
 			},
 			"lab": func(call otto.FunctionCall) otto.Value {
-				l := call.Argument(0).ToInteger()
-				a := call.Argument(1).ToInteger()
-				b := call.Argument(2).ToInteger()
 				return otto.UndefinedValue()
 			},
 			"hsv": func(call otto.FunctionCall) otto.Value {
-				h := call.Argument(0).ToInteger()
-				s := call.Argument(1).ToInteger()
-				v := call.Argument(2).ToInteger()
 				return otto.UndefinedValue()
 			},
 			"xyz": func(call otto.FunctionCall) otto.Value {
-				x := call.Argument(0).ToInteger()
-				y := call.Argument(1).ToInteger()
-				z := call.Argument(2).ToInteger()
 				return otto.UndefinedValue()
 			},
 			"cmyk": func(call otto.FunctionCall) otto.Value {
-				c := call.Argument(0).ToInteger()
-				m := call.Argument(1).ToInteger()
-				y := call.Argument(2).ToInteger()
-				k := call.Argument(3).ToInteger()
 				return otto.UndefinedValue()
 			},
 		})
