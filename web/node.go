@@ -15,52 +15,92 @@
 package web
 
 import (
+	"fmt"
+
 	"github.com/abcum/fibre"
 	"github.com/abcum/orbit"
+	"github.com/robertkrimen/otto"
 
 	// Load globals
 	_ "github.com/abcum/cirrius/npm/globals/console"
 	_ "github.com/abcum/cirrius/npm/globals/context"
-	_ "github.com/abcum/cirrius/npm/globals/dns"
-	_ "github.com/abcum/cirrius/npm/globals/os"
-	_ "github.com/abcum/cirrius/npm/globals/path"
 	_ "github.com/abcum/cirrius/npm/globals/process"
-	_ "github.com/abcum/cirrius/npm/globals/promise"
 
 	// Load modules
 	_ "github.com/abcum/cirrius/npm/modules/accounting"
 	_ "github.com/abcum/cirrius/npm/modules/async"
+	_ "github.com/abcum/cirrius/npm/modules/babel"
 	_ "github.com/abcum/cirrius/npm/modules/bluebird"
 	_ "github.com/abcum/cirrius/npm/modules/chance"
+	_ "github.com/abcum/cirrius/npm/modules/classnames"
+	_ "github.com/abcum/cirrius/npm/modules/co"
+	_ "github.com/abcum/cirrius/npm/modules/cookie"
+	_ "github.com/abcum/cirrius/npm/modules/dateformat"
+	_ "github.com/abcum/cirrius/npm/modules/deep-extend"
 	_ "github.com/abcum/cirrius/npm/modules/deepmerge"
+	_ "github.com/abcum/cirrius/npm/modules/dns"
+	_ "github.com/abcum/cirrius/npm/modules/events"
+	_ "github.com/abcum/cirrius/npm/modules/extend"
 	_ "github.com/abcum/cirrius/npm/modules/hashids"
+	_ "github.com/abcum/cirrius/npm/modules/http"
+	_ "github.com/abcum/cirrius/npm/modules/https"
 	_ "github.com/abcum/cirrius/npm/modules/immutable"
 	_ "github.com/abcum/cirrius/npm/modules/jsondiffpatch"
+	_ "github.com/abcum/cirrius/npm/modules/jsonic"
 	_ "github.com/abcum/cirrius/npm/modules/jsonwebtoken"
 	_ "github.com/abcum/cirrius/npm/modules/lodash"
 	_ "github.com/abcum/cirrius/npm/modules/merge"
 	_ "github.com/abcum/cirrius/npm/modules/moment"
+	_ "github.com/abcum/cirrius/npm/modules/ms"
 	_ "github.com/abcum/cirrius/npm/modules/odiff"
+	_ "github.com/abcum/cirrius/npm/modules/once"
+	_ "github.com/abcum/cirrius/npm/modules/os"
+	_ "github.com/abcum/cirrius/npm/modules/path"
+	_ "github.com/abcum/cirrius/npm/modules/pdfkit"
+	_ "github.com/abcum/cirrius/npm/modules/promise"
 	_ "github.com/abcum/cirrius/npm/modules/promiz"
 	_ "github.com/abcum/cirrius/npm/modules/q"
+	_ "github.com/abcum/cirrius/npm/modules/qs"
+	_ "github.com/abcum/cirrius/npm/modules/react"
+	_ "github.com/abcum/cirrius/npm/modules/routes"
+	_ "github.com/abcum/cirrius/npm/modules/rx"
+	_ "github.com/abcum/cirrius/npm/modules/semver"
 	_ "github.com/abcum/cirrius/npm/modules/shortid"
+	_ "github.com/abcum/cirrius/npm/modules/string"
 	_ "github.com/abcum/cirrius/npm/modules/sugar"
+	_ "github.com/abcum/cirrius/npm/modules/traverse"
 	_ "github.com/abcum/cirrius/npm/modules/underscore"
 	_ "github.com/abcum/cirrius/npm/modules/uuid"
 	_ "github.com/abcum/cirrius/npm/modules/validator"
+	_ "github.com/abcum/cirrius/npm/modules/when"
+	_ "github.com/abcum/cirrius/npm/modules/wrappy"
+	_ "github.com/abcum/cirrius/npm/modules/xtend"
 )
 
 func init() {
 
 	orbit.OnInit(func(ctx *orbit.Orbit) {
-		// Create unique runtime id for logs and events
+
+		session := ctx.Vars["fibre"].(*fibre.Context)
+
+		fmt.Println("INIT", session.Response().Header().Get("Request-Id"))
+
 	})
 
 	orbit.OnExit(func(ctx *orbit.Orbit) {
-		// Finish runtime id
+
+		session := ctx.Vars["fibre"].(*fibre.Context)
+
+		fmt.Println("EXIT", session.Response().Header().Get("Request-Id"))
+
 	})
 
 	orbit.OnFail(func(ctx *orbit.Orbit, err error) {
+		if tmp, ok := err.(*otto.Error); ok {
+			fmt.Println("FAIL", tmp.String())
+		} else {
+			fmt.Println("FAIL", err.Error())
+		}
 		// Log runtime error on context
 	})
 
@@ -74,20 +114,15 @@ func init() {
 
 }
 
-func processNode(c *fibre.Context, name string, input []byte) (val interface{}, err error) {
+func processNode(ctx *fibre.Context, info *info) (err error) {
 
 	// New orbit instance
 	orb := orbit.New(0)
 
 	// Set fibre instance
-	orb.Vars["fibre"] = c
+	orb.Vars["fibre"] = ctx
 
 	// Run orbit instance
-	ret, err := orb.Run(name, input)
-	if err != nil {
-		return nil, err
-	}
-
-	return ret.Export()
+	return orb.Exec(info.path, info.data)
 
 }

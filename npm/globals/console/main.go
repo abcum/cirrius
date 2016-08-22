@@ -16,8 +16,7 @@ package console
 
 import (
 	"log"
-	"strconv"
-	"strings"
+	"path"
 	"time"
 
 	"github.com/abcum/orbit"
@@ -28,37 +27,48 @@ type logv struct {
 	kind string
 	fold string
 	file string
-	line int64
-	char int64
-	args []otto.Value
-	vars []interface{}
+	line int
+	char int
+	args []interface{}
 }
 
-func save(kind string, call otto.FunctionCall, vars ...interface{}) {
+func input(args []otto.Value) (vars []interface{}) {
+	for _, v := range args {
+		switch {
+		case v.IsFunction():
+			vars = append(vars, v)
+		case v.IsNull():
+			vars = append(vars, nil)
+		case v.IsUndefined():
+			vars = append(vars, nil)
+		case v.IsObject():
+			obj, _ := v.Export()
+			vars = append(vars, obj)
+		default:
+			vars = append(vars, v.String())
+		}
+	}
+	return
+}
 
-	fold, _ := call.Otto.Get("__dirname")
-	fost, _ := fold.ToString()
+func output(kind string, call otto.FunctionCall, args ...interface{}) {
 
-	file, _ := call.Otto.Get("__filename")
-	fist, _ := file.ToString()
-
-	loca := strings.Split(call.CallerLocation()[12:], ":")
-	line, _ := strconv.ParseInt(loca[0], 10, 0)
-	char, _ := strconv.ParseInt(loca[1], 10, 0)
+	fold, file := path.Split(call.Otto.Context().Filename)
+	line := call.Otto.Context().Line
+	char := call.Otto.Context().Column
 
 	line -= 1 // Account for injected module header
 
 	data := logv{
 		kind: kind,
-		fold: fost,
-		file: fist,
+		fold: fold,
+		file: file,
 		line: line,
 		char: char,
-		vars: vars,
-		args: call.ArgumentList,
+		args: args,
 	}
 
-	log.Printf("console.%s: %v in %s%s at %d:%d with vars %v", data.kind, data.args, data.fold, data.file, data.line, data.char, data.vars)
+	log.Printf("console.%s: %v in %s%s at %d:%d", data.kind, data.args, data.fold, data.file, data.line, data.char)
 
 }
 
@@ -73,32 +83,32 @@ func init() {
 		console := map[string]interface{}{
 
 			"log": func(call otto.FunctionCall) otto.Value {
-				save("log", call)
+				output("log", call, input(call.ArgumentList)...)
 				return otto.UndefinedValue()
 			},
 
 			"info": func(call otto.FunctionCall) otto.Value {
-				save("info", call)
+				output("info", call, input(call.ArgumentList)...)
 				return otto.UndefinedValue()
 			},
 
 			"warn": func(call otto.FunctionCall) otto.Value {
-				save("warn", call)
+				output("warn", call, input(call.ArgumentList)...)
 				return otto.UndefinedValue()
 			},
 
 			"error": func(call otto.FunctionCall) otto.Value {
-				save("error", call)
+				output("error", call, input(call.ArgumentList)...)
 				return otto.UndefinedValue()
 			},
 
 			"debug": func(call otto.FunctionCall) otto.Value {
-				save("debug", call)
+				output("debug", call, input(call.ArgumentList)...)
 				return otto.UndefinedValue()
 			},
 
 			"trace": func(call otto.FunctionCall) otto.Value {
-				save("trace", call)
+				output("trace", call, input(call.ArgumentList)...)
 				return otto.UndefinedValue()
 			},
 
@@ -111,7 +121,7 @@ func init() {
 				name := call.Argument(0).String()
 				amnt := time.Since(timers[name])
 				delete(timers, name)
-				save("time", call, name, amnt)
+				output("time", call, name, amnt)
 				return otto.UndefinedValue()
 			},
 
@@ -119,7 +129,7 @@ func init() {
 				name := call.Argument(0).String()
 				amnt := time.Since(timers[name])
 				delete(timers, name)
-				save("time", call, name, amnt)
+				output("time", call, name, amnt)
 				return otto.UndefinedValue()
 			},
 		}

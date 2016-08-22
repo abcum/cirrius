@@ -36,7 +36,6 @@ func routes(s *fibre.Fibre) {
 	mime.AddExtensionType(".sass", "text/css")
 	mime.AddExtensionType(".scss", "text/css")
 	mime.AddExtensionType(".gcss", "text/css")
-	mime.AddExtensionType(".mock", "application/json")
 
 	// --------------------------------------------------
 	// Endpoint for health checks
@@ -52,50 +51,30 @@ func routes(s *fibre.Fibre) {
 
 	s.Any("/*", func(c *fibre.Context) (err error) {
 
-		// if c.Request().URL().Host == "127.0.0.1" {
-		// 	return c.File("app", c.Param("*"))
-		// }
-
-		// if c.Request().URL().Host == "app.magnif.io" {
-		// 	return c.File("app", c.Param("*"))
-		// }
-
-		// info, err := load("main.node")
-		// if err != nil {
-		// 	return err
-		// }
-
 		info, err := load(c.Request().URL().Path)
 		if err != nil {
 			return err
 		}
 
-		if info.extn == ".node" {
+		if info.path == "main.js" {
+			return processNode(c, info)
+		}
 
-			_, err := processNode(c, info.path, info.data)
-			return err
-
-		} else {
-
-			switch info.extn {
-			case ".md":
-				info.data, err = processMd(info.data)
-			case ".css":
-				info.data, err = processCss(info.data)
-			case ".less":
-				info.data, err = processLess(info.data)
-			case ".scss":
-				info.data, err = processScss(info.data)
-			case ".sass":
-				info.data, err = processSass(info.data)
-			case ".gcss":
-				info.data, err = processGcss(info.data)
-			case ".mock":
-				info.data, err = processMock(info.data)
-			case ".html":
-				info.data, err = processHtml(info.data)
-			}
-
+		switch info.extn {
+		case ".md":
+			info.data, err = processMd(info.data)
+		case ".css":
+			info.data, err = processCss(info.data)
+		case ".less":
+			info.data, err = processLess(info.data)
+		case ".scss":
+			info.data, err = processScss(info.data)
+		case ".sass":
+			info.data, err = processSass(info.data)
+		case ".gcss":
+			info.data, err = processGcss(info.data)
+		case ".html":
+			info.data, err = processHtml(info.data)
 		}
 
 		if err != nil {

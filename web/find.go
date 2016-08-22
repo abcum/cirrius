@@ -42,22 +42,23 @@ func load(url string) (*info, error) {
 	// Check for the exact file name
 	files = append(files, url)
 
-	// Check for the file with default extensions
-	if path.Base(url) != "/" && path.Ext(url) == "" {
-		files = append(files, url+".html")
-		files = append(files, url+".node")
-	}
-
 	// Check for the default file extensions in a folder
 	if path.Base(url) == "/" || path.Ext(url) == "" {
 		files = append(files, path.Join(url, "index.html"))
-		files = append(files, path.Join(url, "index.node"))
 	}
 
-	// Check for a main node.js file
-	if path.Base(url) == "/" || path.Ext(url) == "" {
-		files = append(files, "main.node")
+	// Check for the file with default extensions
+	if path.Base(url) != "/" && path.Ext(url) == "" {
+		files = append(files, url+".html")
 	}
+
+	// Check for a single page app
+	if path.Ext(url) == "" {
+		files = append(files, "index.html")
+	}
+
+	// Check for a main js file
+	files = append(files, "main.js")
 
 	// Check for a custom 404 file
 	files = append(files, "404.html")
@@ -70,7 +71,7 @@ func find(files ...string) (*info, error) {
 
 	for _, file := range files {
 
-		full := path.Join("tst", file)
+		full := path.Join("dev", file)
 
 		if hand, err := os.Stat(full); err == nil {
 
