@@ -1,0 +1,45 @@
+{{hot-key key="n" ctrl=true onpress=(action 'create')}}
+
+<div class='top-bar'>
+	<div class='top-bar-text'>
+		{{partial 'breadcrumb'}}
+	</div>
+</div>
+<div class='cirrius-main cirrius-main-sec'>
+	<div class='cirrius-main-list-sec'>
+		<div class='cirrius-main-list-sec-bar'>
+			<div class='button'>
+				<a {{action 'create'}}><i class='color-blue'>&#xE145;</i></a>
+			</div>
+			<div class='cirrius-main-bars-text'>
+				{{model.fullname}}
+			</div>
+		</div>
+		<div class='cirrius-main-list-sec-list'>
+			<div class='cirrius-main-list-sec-list-title'>Main</div>
+			<div class='cirrius-main-list-sec-list-item' {{action (route 'analytics')}}>
+				<i>&#xE6E1;</i>
+				Analytics
+			</div>
+			<div class='cirrius-main-list-sec-list-item' {{action (route 'settings')}}>
+				<i>&#xE8B8;</i>
+				Settings
+			</div>
+			<div class='cirrius-main-list-sec-list-item' {{action (route 'releases')}}>
+				<i>&#xE2BF;</i>
+				Releases
+			</div>
+			<div class='cirrius-main-list-sec-list-item' {{action (route 'requests')}}>
+				<i>&#xE8D4;</i>
+				Requests
+			</div>
+			{{#if model.files}}
+				<div class='cirrius-main-list-sec-list-title'>Files</div>
+				{{tree-view uid=model.id files=model.files path="path" onselect=(route 'file')}}
+			{{/if}}
+		</div>
+	</div>
+	<div class='cirrius-main-big-sec'>
+		{{outlet}}
+	</div>
+</div>

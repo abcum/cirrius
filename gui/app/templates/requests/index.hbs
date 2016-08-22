@@ -1,0 +1,48 @@
+<div class='cirrius-main-bar'>
+	<div class='cirrius-main-bars-text'>
+		Requests
+	</div>
+</div>
+
+<div class='cirrius-main-big-sec-content'>
+	<div class='cirrius-main-requests'>
+
+		{{#each model as |request|}}
+
+			<div class='request' {{action (route 'request' request)}}>
+
+				<div class='col col-status-icon'>
+					{{#if (gte request.status 500)}}
+						<i class='color-red'>&#xE001;</i>
+					{{else if (gte request.status 400)}}
+						<i class='color-yellow'>&#xE001;</i>
+					{{else if (gte request.status 200)}}
+						<i class='color-green'>&#xE88F;</i>
+					{{/if}}
+				</div>
+
+				<div class='col col-time'>{{request.time}}</div>
+
+				<div class='col col-status'>
+					{{#if (gte request.status 500)}}
+						<span class='color-red'>{{request.status}}</span>
+					{{else if (gte request.status 400)}}
+						<span class='color-yellow'>{{request.status}}</span>
+					{{else if (gte request.status 200)}}
+						<span class='color-green'>{{request.status}}</span>
+					{{else}}
+						{{request.status}}
+					{{/if}}
+				</div>
+
+				<div class='col col-method'>{{uppercase request.method}}</div>
+				<div class='col col-size'>{{bytes request.size}}</div>
+				<div class='col col-url'>{{request.url}}</div>
+				<div class='col col-duration'>{{duration request.duration decimals=2}}</div>
+
+			</div>
+
+		{{/each}}
+
+	</div>
+</div>

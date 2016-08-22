@@ -1,0 +1,121 @@
+<div class='cirrius-main-bar'>
+	<div class='cirrius-main-bars-text'>
+		<div class='cirrius-main-requests-logs-bar right'>{{model.time}}</div>
+		<div class='cirrius-main-requests-logs-bar'>
+			{{#if (gte model.status 500)}}
+				<span class='color-red'>{{uppercase model.method}}</span>
+			{{else if (gte model.status 400)}}
+				<span class='color-yellow'>{{uppercase model.method}}</span>
+			{{else if (gte model.status 200)}}
+				<span class='color-green'>{{uppercase model.method}}</span>
+			{{else}}
+				{{uppercase model.method}}
+			{{/if}}
+			<i>&#xE8D4;</i>
+			{{#if (gte model.status 500)}}
+				<span class='color-red'>{{model.status}}</span>
+			{{else if (gte model.status 400)}}
+				<span class='color-yellow'>{{model.status}}</span>
+			{{else if (gte model.status 200)}}
+				<span class='color-green'>{{model.status}}</span>
+			{{else}}
+				{{model.status}}
+			{{/if}}
+		</div>
+	</div>
+</div>
+
+<div class='cirrius-main-big-sec-content'>
+	<div class='cirrius-main-requests-logs'>
+		{{#each model.logs as |item|}}
+			<div class='log'>
+
+				{{#if (eq item.type "time")}}
+					<div class='color-orange clearfix'>
+						<div class="right">
+							{{#if (or item.fold item.file)}}
+								{{item.fold}}{{item.file}}:{{#if item.line}}{{item.line}}{{/if}}
+							{{/if}}
+						</div>
+						<div class="left">
+							<i>&#xE192;</i>
+							{{object-at 0 item.args}}: {{duration (object-at 1 item.args)}}
+						</div>
+					</div>
+				{{else if (eq item.type "log")}}
+					<div class='color-blue clearfix'>
+						<div class="right">
+							{{#if (or item.fold item.file)}}
+								{{item.fold}}{{item.file}}:{{#if item.line}}{{item.line}}{{/if}}
+							{{/if}}
+						</div>
+						<i>&#xE409;</i>
+						{{#each item.args as |arg|}}
+							{{arg}}&nbsp;
+						{{/each}}
+					</div>
+				{{else if (eq item.type "info")}}
+					<div class='color-purple clearfix'>
+						<div class="right">
+							{{#if (or item.fold item.file)}}
+								{{item.fold}}{{item.file}}:{{#if item.line}}{{item.line}}{{/if}}
+							{{/if}}
+						</div>
+						<i>&#xE88E;</i>
+						{{#each item.args as |arg|}}
+							{{arg}}&nbsp;
+						{{/each}}
+					</div>
+				{{else if (eq item.type "warn")}}
+					<div class='color-yellow clearfix'>
+						<div class="right">
+							{{#if (or item.fold item.file)}}
+								{{item.fold}}{{item.file}}:{{#if item.line}}{{item.line}}{{/if}}
+							{{/if}}
+						</div>
+						<i>&#xE002;</i>
+						{{#each item.args as |arg|}}
+							{{arg}}&nbsp;
+						{{/each}}
+					</div>
+				{{else if (eq item.type "error")}}
+				 	<div class='color-red clearfix'>
+						<div class="right">
+							{{#if (or item.fold item.file)}}
+								{{item.fold}}{{item.file}}:{{#if item.line}}{{item.line}}{{/if}}
+							{{/if}}
+						</div>
+						<i>&#xE160;</i>
+						{{#each item.args as |arg|}}
+							{{arg}}&nbsp;
+						{{/each}}
+					</div>
+				{{else if (eq item.type "debug")}}
+					<div class='color-orange clearfix'>
+						<div class="right">
+							{{#if (or item.fold item.file)}}
+								{{item.fold}}{{item.file}}:{{#if item.line}}{{item.line}}{{/if}}
+							{{/if}}
+						</div>
+						<i>&#xE868;</i>
+						{{#each item.args as |arg|}}
+							{{arg}}&nbsp;
+						{{/each}}
+					</div>
+				{{else if (eq item.type "trace")}}
+					<div class='clearfix'>
+						<div class="right">
+							{{#if (or item.fold item.file)}}
+								{{item.fold}}{{item.file}}:{{#if item.line}}{{item.line}}{{/if}}
+							{{/if}}
+						</div>
+						<i>&#xE8F4;</i>
+						{{#each item.args as |arg|}}
+							{{arg}}&nbsp;
+						{{/each}}
+					</div>
+				{{/if}}
+			</div>
+		{{/each}}
+	</div>
+</div>

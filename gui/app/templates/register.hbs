@@ -1,0 +1,70 @@
+<div class="cirrius-section-auth">
+
+    <table class="full"><tr valign="middle"><td>
+
+        <div class="cirrius-section-auth-box">
+
+            {{#if complete}}
+
+                <span class="font18">Your account has been created successfully</span>
+
+                <break></break>
+                <break></break>
+
+                <a class="font12" {{action (route 'login')}}>Login to my account</a>
+
+            {{else}}
+
+                {{error}}
+
+                {{input-text value=account placeholder="Account name / Company name" return="submit"}}
+
+				<break></break>
+                <break></break>
+                <break></break>
+
+                {{input-text value=firstname placeholder="First name" class="width-49 left" return="submit"}}
+                {{input-text value=lastname placeholder="Last name" class="width-49 right" return="submit"}}
+
+                <clear></clear>
+                <break></break>
+
+                {{input-email value=email placeholder="Your email" return="submit"}}
+
+				<break></break>
+                <break></break>
+                <break></break>
+
+                {{input-password value=pass placeholder="Your password" return="submit"}}
+
+				<break></break>
+
+                {{input-password value=repass placeholder="Repeat your password" return="submit"}}
+
+				<break></break>
+                <break></break>
+                <break></break>
+
+				<div class="left width-29">
+					<a class="button button-grey right" {{action (route 'login')}}>Back</a>
+				</div>
+
+				<div class="right width-69">
+                    <a class="button right {{if loading 'disabled'}}" {{action 'submit'}}>
+                        {{#if loading}}Please wait...{{else}}Setup my account{{/if}}
+                    </a>
+				</div>
+
+            {{/if}}
+
+        </div>
+
+    </td></tr></table>
+
+	<div class="cirrius-section-auth-footer">
+
+        {{partial 'login/footer'}}
+
+	</div>
+
+</div>

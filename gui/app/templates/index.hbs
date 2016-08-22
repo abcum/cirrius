@@ -1,0 +1,32 @@
+<div class='top-bar'>
+	<div class='top-bar-text'>
+		{{partial 'breadcrumb'}}
+	</div>
+</div>
+<div class='cirrius-main cirrius-main-sec'>
+	<div class='cirrius-main-projects'>
+		{{#if model.length}}
+			{{#each model as |project|}}
+				<div class='cirrius-main-projects-project' {{action (route 'project' project)}}>
+					<div class='title'>
+						<a class='right'{{action (route 'settings' project)}}><i>&#xE8B8;</i></a>
+						<a class='right'{{action (route 'analytics' project)}}><i>&#xE6E1;</i></a>
+				        {{project.fullname}}
+				    </div>
+				</div>
+			{{/each}}
+		{{else}}
+			<div class='cirrius-main-big-sec-content-placeholder'>
+				<big> Hi there, welcome to Cirrius.<br></big>
+				It looks like you don't have any projects yet.
+				<br>
+				To get started, click one of the links below.
+				<br>
+				<br>
+				<a {{action 'createProject'}}>Create a new project</a>
+				&nbsp;|&nbsp;
+				<a {{action (route 'docs' docs)}}>View the documentation</a>
+			</div>
+		{{/if}}
+	</div>
+</div>
