@@ -29,7 +29,6 @@ import (
 	// Load modules
 	_ "github.com/abcum/cirrius/npm/modules/accounting"
 	_ "github.com/abcum/cirrius/npm/modules/async"
-	_ "github.com/abcum/cirrius/npm/modules/babel"
 	_ "github.com/abcum/cirrius/npm/modules/bluebird"
 	_ "github.com/abcum/cirrius/npm/modules/chance"
 	_ "github.com/abcum/cirrius/npm/modules/classnames"

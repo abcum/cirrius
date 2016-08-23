@@ -14,7 +14,6 @@ bow+=('underscore:::underscore-min.js')
 
 npm=()
 npm+=('accounting:::accounting.min.js')
-npm+=('babel-standalone:::babel.min.js')
 npm+=('chance:::dist/chance.min.js')
 npm+=('classnames:::index.js')
 npm+=('co:::index.js')
