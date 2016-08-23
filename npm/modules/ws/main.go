@@ -75,9 +75,6 @@ func init() {
 			},
 
 			"send": map[string]interface{}{
-				"xml": func(data interface{}) {
-					session.Socket().SendXML(data)
-				},
 				"text": func(data string) {
 					session.Socket().SendText(data)
 				},
