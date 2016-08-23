@@ -57,8 +57,6 @@ func output(kind string, call otto.FunctionCall, args ...interface{}) {
 	line := call.Otto.Context().Line
 	char := call.Otto.Context().Column
 
-	line -= 1 // Account for injected module header
-
 	data := entry{kind, fold, file, line, char, args}
 
 	log.Printf("console.%s: %v in %s%s at %d:%d", data.kind, data.args, data.fold, data.file, data.line, data.char)
