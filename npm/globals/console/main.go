@@ -23,7 +23,7 @@ import (
 	"github.com/robertkrimen/otto"
 )
 
-type logv struct {
+type entry struct {
 	kind string
 	fold string
 	file string
@@ -59,14 +59,7 @@ func output(kind string, call otto.FunctionCall, args ...interface{}) {
 
 	line -= 1 // Account for injected module header
 
-	data := logv{
-		kind: kind,
-		fold: fold,
-		file: file,
-		line: line,
-		char: char,
-		args: args,
-	}
+	data := entry{kind, fold, file, line, char, args}
 
 	log.Printf("console.%s: %v in %s%s at %d:%d", data.kind, data.args, data.fold, data.file, data.line, data.char)
 
