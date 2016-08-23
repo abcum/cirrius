@@ -81,56 +81,6 @@ func init() {
 				"ip":     session.IP(),
 			},
 
-			"socket": map[string]interface{}{
-
-				"recv": func(call otto.FunctionCall) otto.Value {
-
-					if len(call.ArgumentList) != 1 || call.Argument(0).IsFunction() == false {
-						msg := fmt.Sprintf("Incorrect arguments to 'context.socket.recv'. Expected 1 argument which must be a function.")
-						err := ctx.MakeCustomError("Error", msg)
-						session.Code(500)
-						ctx.Quit(err)
-					}
-
-					if err := session.Upgrade(); err != nil {
-						return otto.UndefinedValue()
-					}
-
-					go func() {
-
-						defer func() {
-							fmt.Println("FUCK")
-						}()
-
-						for {
-							if _, req, err := session.Socket().Read(); err != nil {
-								break
-							} else {
-								if _, err := call.Argument(0).Call(call.Argument(0), req); err != nil {
-									ctx.Interrupt <- func() {
-										panic(err)
-									}
-								}
-							}
-						}
-
-					}()
-
-					return otto.UndefinedValue()
-
-				},
-
-				"send": func(call otto.FunctionCall) otto.Value {
-					// session.Socket().SendText(data)
-					return otto.UndefinedValue()
-				},
-
-				"exit": func(call otto.FunctionCall) otto.Value {
-					session.Socket().Close()
-					return otto.UndefinedValue()
-				},
-			},
-
 			"success": func(call otto.FunctionCall) otto.Value {
 				session.Code(200)
 				ctx.Quit(nil)

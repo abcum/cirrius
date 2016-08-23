@@ -74,6 +74,7 @@ import (
 	_ "github.com/abcum/cirrius/npm/modules/validator"
 	_ "github.com/abcum/cirrius/npm/modules/when"
 	_ "github.com/abcum/cirrius/npm/modules/wrappy"
+	_ "github.com/abcum/cirrius/npm/modules/ws"
 	_ "github.com/abcum/cirrius/npm/modules/xtend"
 )
 
