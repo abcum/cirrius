@@ -8,7 +8,7 @@ imports:
 - name: github.com/abcum/logrus
   version: 119b6994c03cc9597e8c1873a47d715e34b5ed9a
 - name: github.com/abcum/orbit
-  version: e561ac95a22ba9098822fae3b907a13f714632c3
+  version: 151bf0659956dc27140338c4b52d007f1c622261
 - name: github.com/aymerick/raymond
   version: a2232af10b53ef1ae5a767f5178db3a6c1dab655
   subpackages:
