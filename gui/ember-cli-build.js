@@ -6,54 +6,54 @@ module.exports = function(defaults) {
 
 	if (process.env.EMBER_ENV === 'development') {
 
-			var opts = {
-					hinting: false,
-					sourcemaps: {
-							enabled: true,
-					},
-					minifyHTML: {
-							enabled: false,
-					},
-					SRI: {
-							enabled: false,
-					},
-					inlineContent: {
-							browser: '',
-							tracker: '',
-					},
-			};
+		var opts = {
+			hinting: false,
+			sourcemaps: {
+				enabled: true,
+			},
+			minifyHTML: {
+				enabled: false,
+			},
+			SRI: {
+				enabled: false,
+			},
+			inlineContent: {
+				browser: '',
+				tracker: '',
+			},
+		};
 
 	}
 
 	if (process.env.EMBER_ENV === 'production') {
 
-			var opts = {
-					hinting: false,
-					storeConfigInMeta: false,
-					sourcemaps: {
-							enabled: false,
-					},
-					minifyJS: {
-							enabled: true,
-					},
-					minifyCSS: {
-							enabled: true,
-					},
-					minifyHTML: {
-							enabled: true,
-					},
-					fingerprint: {
-							enabled: true,
-					},
-					SRI: {
-							enabled: true,
-					},
-					inlineContent: {
-							browser: 'public/browser.html',
-							tracker: 'public/tracker.html',
-							appcache: { content: ' manifest="/cache.appcache"' },
-					},
-			};
+		var opts = {
+			hinting: false,
+			storeConfigInMeta: false,
+			sourcemaps: {
+				enabled: false,
+			},
+			minifyJS: {
+				enabled: true,
+			},
+			minifyCSS: {
+				enabled: true,
+			},
+			minifyHTML: {
+				enabled: true,
+			},
+			fingerprint: {
+				enabled: true,
+			},
+			SRI: {
+				enabled: true,
+			},
+			inlineContent: {
+				browser: 'public/browser.html',
+				tracker: 'public/tracker.html',
+				appcache: { content: ' manifest="/cache.appcache"' },
+			},
+		};
 
 	}
 
