@@ -16,11 +16,10 @@ package web
 
 import (
 	"fmt"
-	"io"
-	"os/exec"
 	"path"
-	"runtime"
 	"strings"
+
+	"net/http"
 
 	"github.com/abcum/fibre"
 	"github.com/tdewolff/minify"
@@ -79,21 +78,22 @@ func render(c *fibre.Context) (err error, ok bool) {
 
 func prerender(c *fibre.Context) (err error, ok bool) {
 
-	var std io.ReadCloser
+	cli := &http.Client{}
+	var req *http.Request
+	var res *http.Response
 
 	url := fmt.Sprintf("%s://%s%s", c.Request().URL().Scheme, c.Request().Host, c.Request().RequestURI)
-	bin := "./pjs/phantom-" + runtime.GOOS
-	cnf := "pjs/phantom.js"
 
-	cmd := exec.Command(bin, cnf, url)
-
-	if std, err = cmd.StdoutPipe(); err != nil {
+	req, err = http.NewRequest("GET", "http://localhost:44444", nil)
+	if err != nil {
 		return
 	}
 
-	defer std.Close()
+	req.Header.Set("URL", url)
 
-	if err = cmd.Start(); err != nil {
+	res, err = cli.Do(req)
+	if err != nil {
+		fmt.Println(err)
 		return
 	}
 
@@ -106,6 +106,6 @@ func prerender(c *fibre.Context) (err error, ok bool) {
 	m.AddFunc("application/json", json.Minify)
 	m.AddFunc("application/javascript", js.Minify)
 
-	return m.Minify("text/html", c.Response().ResponseWriter, std), true
+	return m.Minify("text/html", c.Response().ResponseWriter, res.Body), true
 
 }
