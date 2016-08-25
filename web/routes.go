@@ -52,6 +52,10 @@ func routes(s *fibre.Fibre) {
 
 	s.Any("/*", func(c *fibre.Context) (err error) {
 
+		if err, ok := render(c); ok {
+			return err
+		}
+
 		info, err := load(c.Request().URL().Path)
 		if err != nil {
 			return err
