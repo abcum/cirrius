@@ -29,6 +29,7 @@ import (
 
 func routes(s *fibre.Fibre) {
 
+	mime.AddExtensionType(".md", "text/html")
 	mime.AddExtensionType(".htm", "text/html")
 	mime.AddExtensionType(".tpl", "text/html")
 	mime.AddExtensionType(".hbs", "text/html")
@@ -81,17 +82,18 @@ func routes(s *fibre.Fibre) {
 			return err
 		}
 
-		m := minify.New()
-
-		m.AddFunc("text/css", css.Minify)
-		m.AddFunc("text/html", html.Minify)
-		m.AddFunc("text/javascript", js.Minify)
-		m.AddFunc("image/svg+xml", svg.Minify)
-		m.AddFunc("application/xml", xml.Minify)
-		m.AddFunc("application/json", json.Minify)
-		m.AddFunc("application/javascript", js.Minify)
-
-		info.data, _ = m.Bytes(info.mime, info.data)
+		switch info.extn {
+		case ".md", ".tpl", ".hbs", ".htm", ".html":
+			m := minify.New()
+			m.AddFunc("text/css", css.Minify)
+			m.AddFunc("text/html", html.Minify)
+			m.AddFunc("text/javascript", js.Minify)
+			m.AddFunc("image/svg+xml", svg.Minify)
+			m.AddFunc("application/xml", xml.Minify)
+			m.AddFunc("application/json", json.Minify)
+			m.AddFunc("application/javascript", js.Minify)
+			info.data, _ = m.Bytes(info.mime, info.data)
+		}
 
 		return c.Data(200, info.data, info.mime)
 
