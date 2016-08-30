@@ -1,4 +1,6 @@
-<a {{action (route 'index')}}>Projects</a>
+{{#link-to 'index'}}
+	Projects
+{{/link-to}}
 
 {{#if (eq domain.route 'index')}}
 	<a {{action 'create'}}><i class='add'>&#xE03B;</i></a>
@@ -6,32 +8,44 @@
 
 {{#if (begs-with domain.route 'project')}}
 	<i>&#xE409;</i>
-	<a {{action (route 'project')}}>{{model.fullname}}</a>
+	{{#link-to 'project'}}
+		{{model.fullname}}
+	{{/link-to}}
 {{/if}}
 
 {{#if (begs-with domain.route 'project.analytics')}}
 	<i>&#xE409;</i>
-	<a {{action (route 'analytics')}}>Analytics</a>
+	{{#link-to 'analytics'}}
+		Analytics
+	{{/link-to}}
 {{/if}}
 
 {{#if (begs-with domain.route 'project.settings')}}
 	<i>&#xE409;</i>
-	<a {{action (route 'settings')}}>Settings</a>
+	{{#link-to 'settings'}}
+		Settings
+	{{/link-to}}
 {{/if}}
 
 {{#if (begs-with domain.route 'project.releases')}}
 	<i>&#xE409;</i>
-	<a {{action (route 'releases')}}>Releases</a>
+	{{#link-to 'releases'}}
+		Releases
+	{{/link-to}}
 {{/if}}
 
 {{#if (begs-with domain.route 'project.requests')}}
 	<i>&#xE409;</i>
-	<a {{action (route 'requests')}}>Requests</a>
+	{{#link-to 'requests'}}
+		Requests
+	{{/link-to}}
 {{/if}}
 
 {{#if request.model}}
 	<i>&#xE409;</i>
-	<a {{action (route 'request')}}>{{request.model.id}}</a>
+	{{#link-to 'request'}}
+		{{request.model.id}}
+	{{/link-to}}
 {{/if}}
 
 {{#if file.model}}

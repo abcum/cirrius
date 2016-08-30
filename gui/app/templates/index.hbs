@@ -9,9 +9,15 @@
 			{{#each model as |project|}}
 				<div class='cirrius-main-projects-project' {{action (route 'project' project)}}>
 					<div class='title'>
-						<a class='right'{{action (route 'settings' project)}}><i>&#xE8B8;</i></a>
-						<a class='right'{{action (route 'analytics' project)}}><i>&#xE6E1;</i></a>
-				        {{project.fullname}}
+						{{#link-to 'settings' project  class='right'}}
+							<i>&#xE8B8;</i>
+						{{/link-to}}
+						{{#link-to 'analytics' project  class='right'}}
+							<i>&#xE6E1;</i>
+						{{/link-to}}
+						{{#link-to 'project' project}}
+					        {{project.fullname}}
+				        {{/link-to}}
 				    </div>
 				</div>
 			{{/each}}
