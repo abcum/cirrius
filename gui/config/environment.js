@@ -33,6 +33,8 @@ module.exports = function(environment) {
 
 	if (environment === 'development') {
 
+		ENV.APP.rootElement = 'app';
+
 		ENV.APP.BINDINGS = false;
         ENV.APP.LOG_RESOLVER = false;
         ENV.APP.LOG_TRANSITIONS = false;
@@ -65,6 +67,8 @@ module.exports = function(environment) {
 	}
 
 	if (environment === 'production') {
+
+		ENV.APP.rootElement = 'app';
 
 		ENV.APP.BINDINGS = false;
         ENV.APP.LOG_RESOLVER = false;
