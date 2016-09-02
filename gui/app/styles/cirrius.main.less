@@ -1,6 +1,8 @@
 // Variables
-
+@foreground: #9F9F9F;
 @background: #242930;
+@background-light: lighten(@background, 2.5%);
+@placeholders: darken(@foreground, 15%);
 @darkened: darken(@background, 1.5%);
 @hovered: darken(@background, 4%);
 @lines-main: #454b59;
@@ -31,6 +33,28 @@
 			box-sizing: @type;
 }
 
+// Inputs
+
+input {
+	color:#ffffff;
+	margin:0;
+	padding:0;
+	width:100%;
+}
+
+&::-webkit-input-placeholder {
+	color: @placeholders;
+}
+&::-moz-placeholder {
+	color: #B6B6B6;
+}
+&:-moz-placeholder {
+	color: #B6B6B6;
+}
+&:-ms-input-placeholder {
+	color: #B6B6B6;
+}
+
 // CSS
 
 * {
@@ -58,7 +82,7 @@ body {
 	height:100%;
 	cursor:default;
 	position:fixed;
-	color:#9F9F9F;
+	color:@foreground;
 	background-color:@background;
 	overflow:hidden !important;
 
@@ -84,8 +108,6 @@ body {
 	-webkit-text-size-adjust:none;
 	-webkit-overflow-scrolling:touch;
 	-webkit-tap-highlight-color:rgba(0,0,0,0);
-	-webkit-font-smoothing:antialiased !important;
-	-webkit-font-smoothing:subpixel-antialiased !important;
 
 	> div {
 		top:0;
@@ -261,10 +283,6 @@ font-size:18pt !important;
 			position:relative;
 			border-bottom:1px solid @lines-main;
 
-			i {
-
-			}
-
 			> div {
 				left:0;
 				right:0;
@@ -299,6 +317,8 @@ font-size:18pt !important;
 		line-height:75px;
 		color:#ffffff;
 		font-size:18px;
+		overflow:hidden;
+		white-space: nowrap;
 
 		a {
 			color:#ffffff;
@@ -306,6 +326,14 @@ font-size:18pt !important;
 
 		a:hover {
 			border-bottom:1px solid #ffffff;
+		}
+
+		.uuid {
+			color:@foreground;
+		}
+
+		.uuid:hover {
+			border-bottom:1px solid @foreground;
 		}
 
 		i {
@@ -325,8 +353,26 @@ font-size:18pt !important;
 		slash {
 			color:#7F7F7F;
 		}
-
 	}
+
+	.search {
+		width:350px;
+		float:right;
+		margin-right:15px;
+		font-size:15px;
+
+		input {
+			border-width:0 !important;
+			background-color:@background;
+			padding:10px;
+		}
+	}
+}
+
+.long {
+	overflow:hidden;
+	text-overflow:ellipsis;
+	padding-right:15px;
 }
 
 .cirrius-main {
@@ -337,6 +383,10 @@ font-size:18pt !important;
 	margin:0;
 	padding:0;
 	position:absolute;
+
+	.spaces {
+		white-space:pre;
+	}
 
 	&-sec {
 		top:75px;
@@ -356,6 +406,21 @@ font-size:18pt !important;
 		padding-left:15px;
 		line-height:50px;
 		font-size:15px;
+		overflow:hidden;
+		text-overflow:ellipsis;
+
+		i {
+		    font-size: 18px;
+		    padding-right:5px;
+			line-height: 15px;
+			vertical-align: -30%;
+		}
+
+		input {
+			border:none;
+			background:transparent !important;
+			width:200px;
+		}
 	}
 
 	&-projects {
@@ -369,7 +434,7 @@ font-size:18pt !important;
 		padding:30px 15px;
 
 		&-project {
-			display:inline-block;
+			float:left;
 			border:1px solid @lines-main;
 			height:300px;
 			width:425px;
@@ -527,6 +592,33 @@ font-size:18pt !important;
 		}
 	}
 
+	&-settings {
+		padding-left:30px;
+		font-size:14px;
+
+		.element {
+			padding-top:30px;
+			width:400px;
+
+			i {
+				float:right;
+				vertical-align:-25%;
+			}
+
+			input {
+				border:1px solid @lines-main;
+				margin-top:10px;
+				padding:10px;
+				background-color:@background-light;
+				width:100%;
+			}
+
+			&-title {
+				font-size:17px;
+			}
+		}
+	}
+
 	&-list-sec {
 		width:300px;
 		top:0;
@@ -562,6 +654,8 @@ font-size:18pt !important;
 			}
 
 			&-item {
+				text-overflow:ellipsis;
+				overflow:hidden;
 
 				i {
 				    font-size: 18px;

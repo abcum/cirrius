@@ -12,6 +12,22 @@ export default Ember.Controller.extend({
 
         },
 
+        edit: function() {
+
+			let path = window.prompt("File path:");
+
+			if (Ember.isEmpty(path)) return;
+
+    		if ( path.charAt(path.length-1) === '/' ) return;
+
+    		if ( !path.match(/^[a-zA-Z. /]+$/g) ) return;
+
+			if ( this.get('model.project.files').map(i => i.get('path')).includes(path) ) return;
+
+            this.model.set('path', path);
+
+        },
+
         /*setupController: function(controller, model) {
 
             this._super(controller, model);

@@ -1,6 +1,4 @@
-{{#link-to 'index'}}
-	Projects
-{{/link-to}}
+{{#link-to 'index'}}Projects{{/link-to}}
 
 {{#if (eq domain.route 'index')}}
 	<a {{action 'create'}}><i class='add'>&#xE03B;</i></a>
@@ -8,49 +6,41 @@
 
 {{#if (begs-with domain.route 'project')}}
 	<i>&#xE409;</i>
-	{{#link-to 'project'}}
-		{{model.fullname}}
-	{{/link-to}}
+	{{#if model.name}}
+		{{#link-to 'project'}}{{truncate model.name 30}}{{/link-to}}
+	{{else}}
+		{{#link-to 'project' class='uuid'}}{{model.uuid}}{{/link-to}}
+	{{/if}}
 {{/if}}
 
 {{#if (begs-with domain.route 'project.analytics')}}
 	<i>&#xE409;</i>
-	{{#link-to 'analytics'}}
-		Analytics
-	{{/link-to}}
+	{{#link-to 'analytics'}}Analytics{{/link-to}}
 {{/if}}
 
 {{#if (begs-with domain.route 'project.settings')}}
 	<i>&#xE409;</i>
-	{{#link-to 'settings'}}
-		Settings
-	{{/link-to}}
+	{{#link-to 'settings'}}Settings{{/link-to}}
 {{/if}}
 
 {{#if (begs-with domain.route 'project.releases')}}
 	<i>&#xE409;</i>
-	{{#link-to 'releases'}}
-		Releases
-	{{/link-to}}
+	{{#link-to 'releases'}}Releases{{/link-to}}
 {{/if}}
 
 {{#if (begs-with domain.route 'project.requests')}}
 	<i>&#xE409;</i>
-	{{#link-to 'requests'}}
-		Requests
-	{{/link-to}}
+	{{#link-to 'requests'}}Requests{{/link-to}}
 {{/if}}
 
 {{#if request.model}}
 	<i>&#xE409;</i>
-	{{#link-to 'request'}}
-		{{request.model.id}}
-	{{/link-to}}
+	{{#link-to 'request'}}{{request.model.id}}{{/link-to}}
 {{/if}}
 
 {{#if file.model}}
 	<i>&#xE409;</i>
 	{{#each (split '/' file.model.path) as |dir key|}}
-		{{#if (ne key 0)}}<slash>/</slash>{{/if}} <a>{{dir}}</a>
+		{{#if (ne key 0)}}<slash>/</slash>{{/if}} <a class='spaces'>{{truncate dir 30}}</a>
 	{{/each}}
 {{/if}}

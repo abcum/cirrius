@@ -21,9 +21,9 @@
   "devDependencies": {
     "@abcum/ember-domain": "git+https://github.com/abcum/ember-domain.git#baf85f0eb61bae56e52d43e8caf189dc63df465c",
     "@abcum/ember-editables": "git+https://github.com/abcum/ember-editables.git#fd5bc1852838b3d639b482d2748f0a8e580d4f3c",
-    "@abcum/ember-helpers": "git+https://github.com/abcum/ember-helpers.git#1aef8df8270d6398b5a91becac73d58fa25dd41d",
+    "@abcum/ember-helpers": "git+https://github.com/abcum/ember-helpers.git#8f8561b0724caddbafbe2cb9d8d3a71ca4cc57b3",
     "@abcum/ember-hotkey": "git+https://github.com/abcum/ember-hotkey.git#9b2c03ae8e72414cbd721283693796faf8a1d5ab",
-    "@abcum/ember-inputs": "git+https://github.com/abcum/ember-inputs.git#3ba2918277cf7e6119d835e581fa353bf6953314",
+    "@abcum/ember-inputs": "git+https://github.com/abcum/ember-inputs.git#ef0352f0365517bb43f40af4fa7c9527fdfd610a",
     "@abcum/ember-storage": "git+https://github.com/abcum/ember-storage.git#bc007262867e174f197745ba137e6f3b600d34cf",
     "@abcum/ember-strings": "git+https://github.com/abcum/ember-strings.git#236d8cfe2ac3d0f52fa306813a2bd2036053eced",
     "broccoli-asset-rev": "^2.4.2",

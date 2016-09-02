@@ -3,11 +3,11 @@ import Fixtures from "gui/fixtures/project";
 
 export default DS.Model.extend({
 
-  	fullname: DS.attr('string', {
+  	name: DS.attr('string', {
         defaultValue: ''
     }),
 
-    shortname: DS.attr('string', {
+    uuid: DS.attr('string', {
         defaultValue: ''
     }),
 
@@ -24,6 +24,10 @@ export default DS.Model.extend({
     }),
 
     files: DS.hasMany('file', {
+        async: true,
+    }),
+
+    domains: DS.hasMany('domain', {
         async: true,
     }),
 

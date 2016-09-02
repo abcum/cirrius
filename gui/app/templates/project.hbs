@@ -12,7 +12,8 @@
 				<a {{action 'create'}}><i class='color-blue'>&#xE145;</i></a>
 			</div>
 			<div class='cirrius-main-bars-text'>
-				{{model.fullname}}
+				<i>&#xE8B6;</i>
+				{{input-text onchange=(action (mut search)) placeholder="Search"}}
 			</div>
 		</div>
 		<div class='cirrius-main-list-sec-list'>
@@ -35,7 +36,7 @@
 			</div>
 			{{#if model.files}}
 				<div class='cirrius-main-list-sec-list-title'>Files</div>
-				{{tree-view uid=model.id files=model.files path="path" onselect=(route 'file')}}
+				{{tree-view uid=model.id files=(search-by "path" search model.files) path="path" onselect=(route 'file')}}
 			{{/if}}
 		</div>
 	</div>

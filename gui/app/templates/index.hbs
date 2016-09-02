@@ -1,12 +1,15 @@
 <div class='top-bar'>
 	<div class='top-bar-text'>
 		{{partial 'breadcrumb'}}
+		<div class='search'>
+			{{input-text placeholder='Search' onchange=(action (mut search))}}
+		</div>
 	</div>
 </div>
 <div class='cirrius-main cirrius-main-sec'>
 	<div class='cirrius-main-projects'>
 		{{#if model.length}}
-			{{#each model as |project|}}
+			{{#each (sort-by "name" "uuid" (search-by "name" "uuid" search model)) as |project|}}
 				<div class='cirrius-main-projects-project' {{action (route 'project' project)}}>
 					<div class='title'>
 						{{#link-to 'settings' project  class='right'}}
@@ -15,9 +18,13 @@
 						{{#link-to 'analytics' project  class='right'}}
 							<i>&#xE6E1;</i>
 						{{/link-to}}
-						{{#link-to 'project' project}}
-					        {{project.fullname}}
-				        {{/link-to}}
+						<div class='long'>
+					        {{#if project.name}}
+								{{#link-to 'project' project}}{{project.name}}{{/link-to}}
+							{{else}}
+								{{#link-to 'project' project}}{{project.uuid}}{{/link-to}}
+							{{/if}}
+						</div>
 				    </div>
 				</div>
 			{{/each}}

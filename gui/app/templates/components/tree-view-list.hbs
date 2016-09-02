@@ -13,6 +13,6 @@
 
 {{#each-in tree.fi as |path file|}}
     <div class='cirrius-main-list-sec-list-item' {{action "file" file}}>
-        {{path}}
+        <span class='spaces'>{{path}}</span>
     </div>
 {{/each-in}}

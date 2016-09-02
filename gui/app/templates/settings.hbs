@@ -5,4 +5,28 @@
 </div>
 
 <div class='cirrius-main-big-sec-content'>
+	<div class='cirrius-main-settings'>
+		<div class='element'>
+			<span class='element-title'>Project name</span>
+			<br><br>
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+			Nam rhoncus at diam in dignissim. Proin pharetra sagittis lacus a tempus.
+			Nulla sed nibh fermentum, porta enim a, finibus augue.
+			Vestibulum tristique pharetra ultricies. Nulla augue lorem, interdum
+			in felis non, placerat commodo odio.
+			<br><br>
+			{{input value=model.name placeholder='Project name' maxlength=50 onchange=(action (mut model.name))}}
+		</div>
+		<div class='element'>
+			<span class='element-title'>Domains</span>
+			<a {{action 'create'}}><i class='color-blue'>&#xE145;</i></a>
+			<br><br>
+			{{input-text value=newdomain placeholder='Domain name...' onchange=(action (mut newdomain))}}
+			<br><br>
+			{{#each model.domains as |domain|}}
+				{{input value=domain.name disabled=true}}
+			    <br>
+			{{/each}}
+		</div>
+	</div>
 </div>
