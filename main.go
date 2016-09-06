@@ -12,12 +12,29 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// +build !appengine
-
 package main
 
-import "github.com/abcum/cirrius/cli"
+import (
+	"os"
+
+	"github.com/pkg/profile"
+
+	"github.com/abcum/cirrius/cli"
+)
 
 func main() {
+
+	switch os.Getenv("DEBUG") {
+	case "cpu":
+		defer profile.Start(profile.CPUProfile, profile.ProfilePath("."), profile.NoShutdownHook).Stop()
+	case "mem":
+		defer profile.Start(profile.MemProfile, profile.ProfilePath("."), profile.NoShutdownHook).Stop()
+	case "block":
+		defer profile.Start(profile.BlockProfile, profile.ProfilePath("."), profile.NoShutdownHook).Stop()
+	case "trace":
+		defer profile.Start(profile.TraceProfile, profile.ProfilePath("."), profile.NoShutdownHook).Stop()
+	}
+
 	cli.Init()
+
 }
