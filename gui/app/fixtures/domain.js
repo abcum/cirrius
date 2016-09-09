@@ -3,17 +3,17 @@ export default {
 		{
 			id: "domain:1",
 			project: "project:1",
-			name: "www.acreon.io",
+			name: "c",
 		},
 		{
 			id: "domain:2",
 			project: "project:1",
-			name: "www.acreon.com",
+			name: "b",
 		},
 		{
 			id: "domain:3",
 			project: "project:1",
-			name: "www.acreon.co.uk",
+			name: "a",
 		},
 	]
 };

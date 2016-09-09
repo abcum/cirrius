@@ -4,7 +4,7 @@ export default Ember.Controller.extend({
 
     actions: {
 
-        create: function() {
+        createDomain: function() {
 
 			let name = this.get('newdomain');
 
@@ -17,6 +17,29 @@ export default Ember.Controller.extend({
             	this.set('newdomain', '');
             });
 
+        },
+
+        deleteDomain: function(domain) {
+            domain.destroyRecord();
+        },
+
+        createStage: function() {
+
+			let type = this.get('newstage');
+
+			if (Ember.isEmpty(type)) return;
+
+            this.store.createRecord('stage', {
+            	type: type,
+            	project: this.get('model')
+            }).save().then( () => {
+            	this.set('newstage', '');
+            });
+
+        },
+
+        deleteStage: function(stage) {
+            stage.destroyRecord();
         },
 
     }

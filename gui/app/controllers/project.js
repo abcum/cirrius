@@ -4,6 +4,7 @@ export default Ember.Controller.extend({
 
     file: Ember.inject.controller(),
     request: Ember.inject.controller(),
+    release: Ember.inject.controller(),
 
     actions: {
 
