@@ -64,7 +64,7 @@ glide:
 .PHONY: clean
 clean:
 	rm -rf vendor
-	$(GO) clean -i `glide novendor`
+	$(GO) clean -i -r `glide novendor`
 	find . -name '*.test' -type f -exec rm -f {} \;
 	find . -name '*.gen.go' -type f -exec rm -f {} \;
 
