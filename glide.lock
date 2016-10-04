@@ -2,13 +2,13 @@ hash: 3e9c7fd10d5c1af44e8fa801419be8e6800897944c925a842f2d49f0bd435b40
 updated: 2016-09-06T13:08:15.925152723+01:00
 imports:
 - name: github.com/abcum/fibre
-  version: 29d9f69b6f170015ffc87d614e16032f27bb3c38
+  version: 0382d1281adf8f26d58db19abcd2dfa634306f7a
   subpackages:
   - mw
 - name: github.com/abcum/logrus
   version: 119b6994c03cc9597e8c1873a47d715e34b5ed9a
 - name: github.com/abcum/orbit
-  version: 151bf0659956dc27140338c4b52d007f1c622261
+  version: b8a51d4ddd98d2e3e74da971b166fdee02edbbf1
 - name: github.com/aymerick/raymond
   version: a2232af10b53ef1ae5a767f5178db3a6c1dab655
   subpackages:
