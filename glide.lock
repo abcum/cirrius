@@ -1,14 +1,14 @@
 hash: 3e9c7fd10d5c1af44e8fa801419be8e6800897944c925a842f2d49f0bd435b40
-updated: 2016-10-06T14:07:50.610563932+01:00
+updated: 2016-10-06T16:11:59.980278221+01:00
 imports:
 - name: github.com/abcum/fibre
-  version: 0382d1281adf8f26d58db19abcd2dfa634306f7a
+  version: cc583db1d2bffb65f9ef1effbcbda6d197af52ea
   subpackages:
   - mw
 - name: github.com/abcum/logrus
-  version: 4b6ea7319e214d98c938f12692336f7ca9348d6b
+  version: 119b6994c03cc9597e8c1873a47d715e34b5ed9a
 - name: github.com/abcum/orbit
-  version: 151bf0659956dc27140338c4b52d007f1c622261
+  version: 03bc85c159b79d795e6c6b9ad8f112579be318fd
 - name: github.com/aymerick/raymond
   version: a2232af10b53ef1ae5a767f5178db3a6c1dab655
   subpackages:
@@ -28,7 +28,7 @@ imports:
 - name: github.com/pkg/profile
   version: 1c16f117a3ab788fdf0e334e623b8bccf5679866
 - name: github.com/robertkrimen/otto
-  version: c41cf547e08c4a88c36859766ece30dd178d7bc1
+  version: bf1c3795ba078da6905fe80bfbc3ed3d8c36e9aa
   subpackages:
   - ast
   - dbg
@@ -37,21 +37,21 @@ imports:
   - registry
   - token
 - name: github.com/russross/blackfriday
-  version: 93622da34e54fb6529bfb7c57e710f37a8d9cbd8
+  version: 5f33e7b7878355cd2b7e6b8eefc48a5472c69f70
 - name: github.com/satori/go.uuid
   version: 879c5887cd475cd7864858769793b2ceb0d44feb
 - name: github.com/shurcooL/sanitized_anchor_name
-  version: 10ef21a441db47d8b13ebcc5fd2310f636973c77
+  version: 1dba4b3954bc059efc3991ec364f9f9a35f597d2
 - name: github.com/SKAhack/go-shortid
   version: 24d054c393feb4d0a6514de8a9951a26fedf0d85
 - name: github.com/spf13/cobra
-  version: 9d9ce1213e32036f555185d5a7df854d6f801ef8
+  version: 9c28e4bbd74e5c3ed7aacbc552b2cab7cfdfe744
 - name: github.com/spf13/pflag
-  version: 1560c1005499d61b80f865c04d39ca7505bf7f0b
+  version: 4bd69631f4750a9df249ee317f4536e02cbc3c65
 - name: github.com/tdewolff/buffer
   version: 0edfcb7b750146ff879e95831de2ef53605a5cb5
 - name: github.com/tdewolff/minify
-  version: a8c81a73f37bd1cd262697338807479a7f0aba7c
+  version: a6728ce2cf78f9f666836475f60ed737523ab1af
   subpackages:
   - css
   - html
@@ -71,30 +71,24 @@ imports:
 - name: github.com/tdewolff/strconv
   version: 3e8091f4417ebaaa3910da63a45ea394ebbfb0e3
 - name: github.com/ugorji/go
-  version: b94837a2404ab90efe9289e77a70694c355739cb
+  version: faddd6128c66c4708f45fdc007f575f75e592a3c
   subpackages:
   - codec
 - name: github.com/yosssi/gcss
   version: 39677598ea4f3ec1da5568173b4d43611f307edb
-- name: github.com/yvasiyarov/go-metrics
-  version: c25f46c4b94079672242ec48a545e7ca9ebe3aec
-- name: github.com/yvasiyarov/gorelic
-  version: 4dc1bb7ab951bc884feb2c009092b1a454152355
-- name: github.com/yvasiyarov/newrelic_platform_go
-  version: 9c099fbc30e90de5bb5c5f94aa5fd08f2daeaacd
 - name: golang.org/x/sys
-  version: a646d33e2ee3172a661fc09bca23bb4889a41bc8
+  version: 8d1157a435470616f975ff9bb013bea8d0962067
   subpackages:
   - unix
 - name: gopkg.in/sourcemap.v1
-  version: 8cd1e2e0ddc78dcb4511bcb184d23171bed15c67
+  version: eef8f47ab679652a7d3a4ee34c34314d255d2536
   subpackages:
   - base64vlq
 - name: gopkg.in/tylerb/graceful.v1
   version: 50a48b6e73fcc75b45e22c05b79629a67c79e938
 testImports:
 - name: github.com/gopherjs/gopherjs
-  version: 45518c130e5bd1525f20110830a4986365a153de
+  version: 00f306e07eaaaab04ea5dba605cd0e1eff9c6fb7
   subpackages:
   - js
 - name: github.com/jtolds/gls
@@ -105,7 +99,7 @@ testImports:
   - internal/go-render/render
   - internal/oglematchers
 - name: github.com/smartystreets/goconvey
-  version: d4c757aa9afd1e2fc1832aaab209b5794eb336e1
+  version: 7befa7fd6e2e8ca28d2b94f2d39111929904b08d
   subpackages:
   - convey
   - convey/gotest
