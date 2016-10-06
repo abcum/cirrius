@@ -19,14 +19,47 @@
 		</div>
 		<div class='element'>
 			<span class='element-title'>Domains</span>
-			<a {{action 'create'}}><i class='color-blue'>&#xE145;</i></a>
 			<br><br>
-			{{input-text value=newdomain placeholder='Domain name...' onchange=(action (mut newdomain))}}
+
+			<div class="input-append">
+				{{input-url value=newdomain placeholder='Domain name...' onchange=(action (mut newdomain))}}
+				<div class='input-append-element'>
+					<a {{action 'createDomain'}}><i>&#xE145;</i></a>
+				</div>
+			</div>
+
 			<br><br>
-			{{#each model.domains as |domain|}}
-				{{input value=domain.name disabled=true}}
-			    <br>
+			{{#each (sort-by "name" model.domains) as |domain|}}
+				<div class="input-append">
+					{{input value=domain.name disabled=true}}
+					<div class='input-append-element'>
+						<a{{action 'deleteDomain' domain}}><i class='color-red'>&#xE872;</i></a>
+					</div>
+					<div class='element-spacing'></div>
+				</div>
 			{{/each}}
 		</div>
+
+		<div class='element'>
+			<span class='element-title'>Stages</span>
+			<br><br>
+			<div class="input-append">
+				{{input-text value=newstage filter='[a-z]' maxlength=10 placeholder='Stage name...' onchange=(action (mut newstage))}}
+				<div class='input-append-element'>
+					<a {{action 'createStage'}}><i>&#xE145;</i></a>
+				</div>
+			</div>
+			<br><br>
+			{{#each (sort-by "type" model.stages) as |stage|}}
+				<div class="input-append">
+					{{input value=stage.type disabled=true}}
+					<div class='input-append-element'>
+						<a{{action 'deleteStage' stage}}><i class='color-red'>&#xE872;</i></a>
+					</div>
+					<div class='element-spacing'></div>
+				</div>
+			{{/each}}
+		</div>
+
 	</div>
 </div>

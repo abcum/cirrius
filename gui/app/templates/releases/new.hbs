@@ -1,0 +1,18 @@
+<div class='cirrius-main-bar'>
+	<a class='commit' {{action 'commit'}}>Commit</a>
+	<div class='cirrius-main-bars-text'>
+		New release
+	</div>
+</div>
+
+<div class='cirrius-main-big-sec-content'>
+	<div class='cirrius-main-settings'>
+		<div class='element'>
+			<span class='element-title'>Release</span>
+			<br><br>
+			{{input-text placeholder='Release name...' onchange=(action (mut name))}}
+			<br><br>
+			{{input-area placeholder='Description...' rows=7 onchange=(action (mut info))}}
+		</div>
+	</div>
+</div>

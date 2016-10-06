@@ -12,10 +12,10 @@
 			{{#each (sort-by "name" "uuid" (search-by "name" "uuid" search model)) as |project|}}
 				<div class='cirrius-main-projects-project' {{action (route 'project' project)}}>
 					<div class='title'>
-						{{#link-to 'settings' project  class='right'}}
+						{{#link-to 'settings' project class='right'}}
 							<i>&#xE8B8;</i>
 						{{/link-to}}
-						{{#link-to 'analytics' project  class='right'}}
+						{{#link-to 'analytics' project class='right'}}
 							<i>&#xE6E1;</i>
 						{{/link-to}}
 						<div class='long'>

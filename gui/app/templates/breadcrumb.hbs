@@ -38,6 +38,11 @@
 	{{#link-to 'request'}}{{request.model.id}}{{/link-to}}
 {{/if}}
 
+{{#if release.model}}
+	<i>&#xE409;</i>
+	{{#link-to 'release'}}{{release.model.id}}{{/link-to}}
+{{/if}}
+
 {{#if file.model}}
 	<i>&#xE409;</i>
 	{{#each (split '/' file.model.path) as |dir key|}}

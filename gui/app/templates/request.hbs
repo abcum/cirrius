@@ -1,7 +1,7 @@
 <div class='cirrius-main-bar'>
 	<div class='cirrius-main-bars-text'>
-		<div class='cirrius-main-requests-logs-bar right'>{{model.time}}</div>
-		<div class='cirrius-main-requests-logs-bar'>
+		<div class='cirrius-main-items-logs-bar right'>{{model.time}}</div>
+		<div class='cirrius-main-items-logs-bar'>
 			{{#if (gte model.status 500)}}
 				<span class='color-red'>{{uppercase model.method}}</span>
 			{{else if (gte model.status 400)}}
@@ -26,7 +26,7 @@
 </div>
 
 <div class='cirrius-main-big-sec-content'>
-	<div class='cirrius-main-requests-logs'>
+	<div class='cirrius-main-items-logs'>
 		{{#each model.logs as |item|}}
 			<div class='log'>
 

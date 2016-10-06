@@ -5,11 +5,11 @@
 </div>
 
 <div class='cirrius-main-big-sec-content'>
-	<div class='cirrius-main-requests'>
+	<div class='cirrius-main-items'>
 
 		{{#each model as |request|}}
 
-			<div class='request' {{action (route 'request' request)}}>
+			<div class='item' {{action (route 'request' request)}}>
 
 				<div class='col col-status-icon'>
 					{{#if (gte request.status 500)}}

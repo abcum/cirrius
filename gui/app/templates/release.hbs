@@ -3,10 +3,16 @@
 		<i>&#xE872;</i>
 	</a>
 	<div class='cirrius-main-bars-text'>
-		<a class='spaces' {{action 'edit'}}>{{last (split "/" model.path)}}</a>
+		{{model.time}}
 	</div>
 </div>
 
 <div class='cirrius-main-big-sec-content'>
-	{{editable-code value=model.content onchange=(action (mut model.content))}}
+	<div class='cirrius-main-settings'>
+		<div class='element'>
+			<span class='element-title'>{{model.name}}</span>
+			<br><br>
+			{{model.info}}
+		</div>
+	</div>
 </div>

@@ -31,4 +31,12 @@ export default DS.Model.extend({
         async: true,
     }),
 
+    stages: DS.hasMany('stage', {
+        async: true,
+    }),
+
+    releases: DS.hasMany('release', {
+    	async: true,
+    }),
+
 }).reopenClass(Fixtures);
