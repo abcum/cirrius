@@ -1,14 +1,14 @@
 hash: 3e9c7fd10d5c1af44e8fa801419be8e6800897944c925a842f2d49f0bd435b40
-updated: 2016-09-06T13:08:15.925152723+01:00
+updated: 2016-10-06T14:07:50.610563932+01:00
 imports:
 - name: github.com/abcum/fibre
   version: 0382d1281adf8f26d58db19abcd2dfa634306f7a
   subpackages:
   - mw
 - name: github.com/abcum/logrus
-  version: 119b6994c03cc9597e8c1873a47d715e34b5ed9a
+  version: 4b6ea7319e214d98c938f12692336f7ca9348d6b
 - name: github.com/abcum/orbit
-  version: b8a51d4ddd98d2e3e74da971b166fdee02edbbf1
+  version: 151bf0659956dc27140338c4b52d007f1c622261
 - name: github.com/aymerick/raymond
   version: a2232af10b53ef1ae5a767f5178db3a6c1dab655
   subpackages:
@@ -16,13 +16,9 @@ imports:
   - lexer
   - parser
 - name: github.com/dgrijalva/jwt-go
-  version: 01aeca54ebda6e0fbfafd0a524d234159c05ec20
-- name: github.com/golang/protobuf
-  version: 874264fbbb43f4d91e999fecb4b40143ed611400
-  subpackages:
-  - proto
+  version: d2709f9f1f31ebcda9651b03077758c1f3a0018c
 - name: github.com/gorilla/websocket
-  version: 5e2e56d5dfd46884df1036f828777ee6273f2cff
+  version: 1f512fc3f05332ba7117626cdfb4e07474e58e60
 - name: github.com/inconshreveable/mousetrap
   version: 76626ae9c91c4f2a10f34cad8ce83ea42c93bb75
 - name: github.com/lucasb-eyer/go-colorful
@@ -43,7 +39,7 @@ imports:
 - name: github.com/russross/blackfriday
   version: 93622da34e54fb6529bfb7c57e710f37a8d9cbd8
 - name: github.com/satori/go.uuid
-  version: 0aa62d5ddceb50dbcb909d790b5345affd3669b6
+  version: 879c5887cd475cd7864858769793b2ceb0d44feb
 - name: github.com/shurcooL/sanitized_anchor_name
   version: 10ef21a441db47d8b13ebcc5fd2310f636973c77
 - name: github.com/SKAhack/go-shortid
@@ -74,43 +70,28 @@ imports:
   - xml
 - name: github.com/tdewolff/strconv
   version: 3e8091f4417ebaaa3910da63a45ea394ebbfb0e3
+- name: github.com/ugorji/go
+  version: b94837a2404ab90efe9289e77a70694c355739cb
+  subpackages:
+  - codec
 - name: github.com/yosssi/gcss
   version: 39677598ea4f3ec1da5568173b4d43611f307edb
 - name: github.com/yvasiyarov/go-metrics
   version: c25f46c4b94079672242ec48a545e7ca9ebe3aec
 - name: github.com/yvasiyarov/gorelic
-  version: ae09aa139a2b7f638e2412baceaceebd41eff115
+  version: 4dc1bb7ab951bc884feb2c009092b1a454152355
 - name: github.com/yvasiyarov/newrelic_platform_go
   version: 9c099fbc30e90de5bb5c5f94aa5fd08f2daeaacd
-- name: golang.org/x/net
-  version: 4d38db76854b199960801a1734443fd02870d7e1
-  subpackages:
-  - context
 - name: golang.org/x/sys
   version: a646d33e2ee3172a661fc09bca23bb4889a41bc8
   subpackages:
   - unix
-- name: google.golang.org/appengine
-  version: 267c27e7492265b84fc6719503b14a1e17975d79
-  subpackages:
-  - datastore
-  - internal
-  - internal/app_identity
-  - internal/base
-  - internal/datastore
-  - internal/log
-  - internal/modules
-  - internal/remote_api
 - name: gopkg.in/sourcemap.v1
   version: 8cd1e2e0ddc78dcb4511bcb184d23171bed15c67
   subpackages:
   - base64vlq
 - name: gopkg.in/tylerb/graceful.v1
-  version: d7d7a205e779a4738d38eda0671fff8bfc965f14
-- name: gopkg.in/vmihailenco/msgpack.v2
-  version: 9da2e9d7beae1b7c03cf7cfe8f4911958602a5de
-  subpackages:
-  - codes
+  version: 50a48b6e73fcc75b45e22c05b79629a67c79e938
 testImports:
 - name: github.com/gopherjs/gopherjs
   version: 45518c130e5bd1525f20110830a4986365a153de
@@ -124,7 +105,7 @@ testImports:
   - internal/go-render/render
   - internal/oglematchers
 - name: github.com/smartystreets/goconvey
-  version: 4622128e06c77c0174e17a7f0ed2db19a989b473
+  version: d4c757aa9afd1e2fc1832aaab209b5794eb336e1
   subpackages:
   - convey
   - convey/gotest
