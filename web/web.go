@@ -58,13 +58,6 @@ func Setup(opts *cnf.Options) (err error) {
 		AllowedLength: 1000000,
 	}))
 
-	// Setup newrelic integration
-
-	s.Use(mw.Newrelic(&mw.NewrelicOpts{
-		Name:    []byte("Cirrius"),
-		License: []byte(opts.Logging.Newrelic),
-	}))
-
 	// Run the server
 
 	if len(opts.Cert.Crt) == 0 || len(opts.Cert.Key) == 0 {
