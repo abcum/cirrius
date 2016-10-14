@@ -1,14 +1,14 @@
 hash: 3e9c7fd10d5c1af44e8fa801419be8e6800897944c925a842f2d49f0bd435b40
-updated: 2016-10-06T16:11:59.980278221+01:00
+updated: 2016-10-14T20:04:00.083768077+01:00
 imports:
 - name: github.com/abcum/fibre
-  version: cc583db1d2bffb65f9ef1effbcbda6d197af52ea
+  version: 2b7739337d5b9b29cfcf0f544e57117dfe01f0d9
   subpackages:
   - mw
 - name: github.com/abcum/logrus
   version: 119b6994c03cc9597e8c1873a47d715e34b5ed9a
 - name: github.com/abcum/orbit
-  version: 03bc85c159b79d795e6c6b9ad8f112579be318fd
+  version: e246ca62fd7f0dd7896a39832e01545b7bdab87b
 - name: github.com/aymerick/raymond
   version: a2232af10b53ef1ae5a767f5178db3a6c1dab655
   subpackages:
@@ -45,13 +45,13 @@ imports:
 - name: github.com/SKAhack/go-shortid
   version: 24d054c393feb4d0a6514de8a9951a26fedf0d85
 - name: github.com/spf13/cobra
-  version: 9c28e4bbd74e5c3ed7aacbc552b2cab7cfdfe744
+  version: ec2fe7859914a5106dcab4e7901633d959bfc2f4
 - name: github.com/spf13/pflag
-  version: 4bd69631f4750a9df249ee317f4536e02cbc3c65
+  version: bf8481a6aebc13a8aab52e699ffe2e79771f5a3f
 - name: github.com/tdewolff/buffer
   version: 0edfcb7b750146ff879e95831de2ef53605a5cb5
 - name: github.com/tdewolff/minify
-  version: a6728ce2cf78f9f666836475f60ed737523ab1af
+  version: 11d4847c5e0cadc2bf7d4d565876bca5a12837cf
   subpackages:
   - css
   - html
@@ -60,7 +60,7 @@ imports:
   - svg
   - xml
 - name: github.com/tdewolff/parse
-  version: b4aece81178be73e7ba74fe0a678cc890fc0378f
+  version: 5c35632ca368ebf46247ede2b96e9f6c0258fae0
   subpackages:
   - css
   - html
@@ -77,7 +77,7 @@ imports:
 - name: github.com/yosssi/gcss
   version: 39677598ea4f3ec1da5568173b4d43611f307edb
 - name: golang.org/x/sys
-  version: 8d1157a435470616f975ff9bb013bea8d0962067
+  version: 9bb9f0998d48b31547d975974935ae9b48c7a03c
   subpackages:
   - unix
 - name: gopkg.in/sourcemap.v1
