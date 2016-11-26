@@ -15,11 +15,9 @@
 package ms
 
 import (
-	"github.com/abcum/orbit"
+	"github.com/abcum/cirrius/npm"
 )
 
 func init() {
-
-	orbit.Add("ms", "npm/modules/ms/*.js")
-
+	npm.Add("ms")
 }

@@ -15,11 +15,9 @@
 package promise
 
 import (
-	"github.com/abcum/orbit"
+	"github.com/abcum/cirrius/npm"
 )
 
 func init() {
-
-	orbit.Add("promise", "npm/globals/promise/main.js")
-
+	npm.Add("promise")
 }

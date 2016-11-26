@@ -15,11 +15,9 @@
 package q
 
 import (
-	"github.com/abcum/orbit"
+	"github.com/abcum/cirrius/npm"
 )
 
 func init() {
-
-	orbit.Add("q", "npm/modules/q/*.js")
-
+	npm.Add("q")
 }

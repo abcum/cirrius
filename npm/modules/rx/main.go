@@ -15,11 +15,9 @@
 package rx
 
 import (
-	"github.com/abcum/orbit"
+	"github.com/abcum/cirrius/npm"
 )
 
 func init() {
-
-	orbit.Add("rx", "npm/modules/rx/*.js")
-
+	npm.Add("rx")
 }

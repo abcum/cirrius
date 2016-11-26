@@ -15,11 +15,9 @@
 package bluebird
 
 import (
-	"github.com/abcum/orbit"
+	"github.com/abcum/cirrius/npm"
 )
 
 func init() {
-
-	orbit.Add("bluebird", "npm/modules/bluebird/*.js")
-
+	npm.Add("bluebird")
 }

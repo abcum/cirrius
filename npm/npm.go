@@ -12,12 +12,37 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package string
+package npm
 
 import (
-	"github.com/abcum/cirrius/npm"
+	"fmt"
+	"path/filepath"
+
+	"github.com/abcum/orbit"
 )
 
-func init() {
-	npm.Add("string")
+func Add(name string) {
+
+	files, _ := AssetDir(fmt.Sprintf("modules/%s", name))
+
+	for i, file := range files {
+
+		extn := filepath.Ext(file)
+		full := filepath.Base(file)
+		vers := full[0 : len(full)-len(extn)]
+		path := fmt.Sprintf("modules/%s/%s", name, file)
+
+		if data, err := Asset(path); err == nil {
+
+			orbit.Add(name+"@"+vers, data)
+
+			if i == len(files)-1 {
+				orbit.Add(name, data)
+				orbit.Add(name+"@latest", data)
+			}
+
+		}
+
+	}
+
 }

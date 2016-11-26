@@ -15,11 +15,9 @@
 package extend
 
 import (
-	"github.com/abcum/orbit"
+	"github.com/abcum/cirrius/npm"
 )
 
 func init() {
-
-	orbit.Add("extend", "npm/modules/extend/*.js")
-
+	npm.Add("extend")
 }

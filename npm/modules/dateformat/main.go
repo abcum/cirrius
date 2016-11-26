@@ -15,11 +15,9 @@
 package dateformat
 
 import (
-	"github.com/abcum/orbit"
+	"github.com/abcum/cirrius/npm"
 )
 
 func init() {
-
-	orbit.Add("dateformat", "npm/modules/dateformat/*.js")
-
+	npm.Add("dateformat")
 }

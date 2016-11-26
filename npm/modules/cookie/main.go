@@ -15,11 +15,9 @@
 package cookie
 
 import (
-	"github.com/abcum/orbit"
+	"github.com/abcum/cirrius/npm"
 )
 
 func init() {
-
-	orbit.Add("cookie", "npm/modules/cookie/*.js")
-
+	npm.Add("cookie")
 }

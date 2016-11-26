@@ -15,11 +15,9 @@
 package moment
 
 import (
-	"github.com/abcum/orbit"
+	"github.com/abcum/cirrius/npm"
 )
 
 func init() {
-
-	orbit.Add("moment", "npm/modules/moment/*.js")
-
+	npm.Add("moment")
 }

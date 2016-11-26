@@ -15,11 +15,9 @@
 package deepmerge
 
 import (
-	"github.com/abcum/orbit"
+	"github.com/abcum/cirrius/npm"
 )
 
 func init() {
-
-	orbit.Add("deepmerge", "npm/modules/deepmerge/*.js")
-
+	npm.Add("deepmerge")
 }

@@ -15,11 +15,9 @@
 package promiz
 
 import (
-	"github.com/abcum/orbit"
+	"github.com/abcum/cirrius/npm"
 )
 
 func init() {
-
-	orbit.Add("promiz", "npm/modules/promiz/*.js")
-
+	npm.Add("promiz")
 }

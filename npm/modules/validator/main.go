@@ -15,11 +15,9 @@
 package validator
 
 import (
-	"github.com/abcum/orbit"
+	"github.com/abcum/cirrius/npm"
 )
 
 func init() {
-
-	orbit.Add("validator", "npm/modules/validator/*.js")
-
+	npm.Add("validator")
 }

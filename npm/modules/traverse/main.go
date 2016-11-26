@@ -15,11 +15,9 @@
 package traverse
 
 import (
-	"github.com/abcum/orbit"
+	"github.com/abcum/cirrius/npm"
 )
 
 func init() {
-
-	orbit.Add("traverse", "npm/modules/traverse/*.js")
-
+	npm.Add("traverse")
 }

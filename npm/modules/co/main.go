@@ -15,11 +15,9 @@
 package co
 
 import (
-	"github.com/abcum/orbit"
+	"github.com/abcum/cirrius/npm"
 )
 
 func init() {
-
-	orbit.Add("co", "npm/modules/co/*.js")
-
+	npm.Add("co")
 }

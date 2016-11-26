@@ -15,11 +15,9 @@
 package xtend
 
 import (
-	"github.com/abcum/orbit"
+	"github.com/abcum/cirrius/npm"
 )
 
 func init() {
-
-	orbit.Add("xtend", "npm/modules/xtend/*.js")
-
+	npm.Add("xtend")
 }

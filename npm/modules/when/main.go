@@ -15,11 +15,9 @@
 package when
 
 import (
-	"github.com/abcum/orbit"
+	"github.com/abcum/cirrius/npm"
 )
 
 func init() {
-
-	orbit.Add("when", "npm/modules/when/*.js")
-
+	npm.Add("when")
 }

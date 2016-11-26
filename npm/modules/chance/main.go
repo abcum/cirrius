@@ -15,11 +15,9 @@
 package chance
 
 import (
-	"github.com/abcum/orbit"
+	"github.com/abcum/cirrius/npm"
 )
 
 func init() {
-
-	orbit.Add("chance", "npm/modules/chance/*.js")
-
+	npm.Add("chance")
 }

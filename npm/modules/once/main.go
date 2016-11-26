@@ -15,11 +15,9 @@
 package once
 
 import (
-	"github.com/abcum/orbit"
+	"github.com/abcum/cirrius/npm"
 )
 
 func init() {
-
-	orbit.Add("once", "npm/modules/once/*.js")
-
+	npm.Add("once")
 }

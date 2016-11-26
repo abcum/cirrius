@@ -15,11 +15,9 @@
 package hashids
 
 import (
-	"github.com/abcum/orbit"
+	"github.com/abcum/cirrius/npm"
 )
 
 func init() {
-
-	orbit.Add("hashids", "npm/modules/hashids/*.js")
-
+	npm.Add("hashids")
 }

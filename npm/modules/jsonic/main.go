@@ -15,11 +15,9 @@
 package jsonic
 
 import (
-	"github.com/abcum/orbit"
+	"github.com/abcum/cirrius/npm"
 )
 
 func init() {
-
-	orbit.Add("jsonic", "npm/modules/jsonic/*.js")
-
+	npm.Add("jsonic")
 }

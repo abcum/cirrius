@@ -15,11 +15,9 @@
 package semver
 
 import (
-	"github.com/abcum/orbit"
+	"github.com/abcum/cirrius/npm"
 )
 
 func init() {
-
-	orbit.Add("semver", "npm/modules/semver/*.js")
-
+	npm.Add("semver")
 }
