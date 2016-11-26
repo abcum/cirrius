@@ -36,7 +36,7 @@ func Setup(opts *cnf.Options) (err error) {
 
 	log.WithPrefix("web").Infof("Starting web server on %s", opts.Conn.Web)
 
-	s := fibre.Server(opts)
+	s := fibre.Server()
 
 	routes(s)
 	s.SetWait("60s")
