@@ -1,14 +1,14 @@
 hash: 3e9c7fd10d5c1af44e8fa801419be8e6800897944c925a842f2d49f0bd435b40
-updated: 2016-10-14T20:04:00.083768077+01:00
+updated: 2016-11-26T21:42:34.919330516Z
 imports:
 - name: github.com/abcum/fibre
-  version: 2b7739337d5b9b29cfcf0f544e57117dfe01f0d9
+  version: a5a7710eff0bf398876393195c390a4657f8c0ac
   subpackages:
   - mw
 - name: github.com/abcum/logrus
   version: 119b6994c03cc9597e8c1873a47d715e34b5ed9a
 - name: github.com/abcum/orbit
-  version: e246ca62fd7f0dd7896a39832e01545b7bdab87b
+  version: fdc220bd5dc2b3bda2f66caa9b66dfa28f681fd0
 - name: github.com/aymerick/raymond
   version: a2232af10b53ef1ae5a767f5178db3a6c1dab655
   subpackages:
@@ -25,6 +25,16 @@ imports:
   version: 9c2852a141bf4711e4276f8f119c90d0f20a556c
 - name: github.com/mgutz/ansi
   version: c286dcecd19ff979eeb73ea444e479b903f2cfcb
+- name: github.com/mitchellh/mapstructure
+  version: f3009df150dadf309fdee4a54ed65c124afad715
+- name: github.com/newrelic/go-agent
+  version: 7d12ae2201fc160e486197614a6f65afcf3f8170
+  subpackages:
+  - internal
+  - internal/jsonx
+  - internal/logger
+  - internal/sysinfo
+  - internal/utilization
 - name: github.com/pkg/profile
   version: 1c16f117a3ab788fdf0e334e623b8bccf5679866
 - name: github.com/robertkrimen/otto
@@ -45,13 +55,13 @@ imports:
 - name: github.com/SKAhack/go-shortid
   version: 24d054c393feb4d0a6514de8a9951a26fedf0d85
 - name: github.com/spf13/cobra
-  version: ec2fe7859914a5106dcab4e7901633d959bfc2f4
+  version: 9495bc009a56819bdb0ddbc1a373e29c140bc674
 - name: github.com/spf13/pflag
-  version: bf8481a6aebc13a8aab52e699ffe2e79771f5a3f
+  version: 5ccb023bc27df288a957c5e994cd44fd19619465
 - name: github.com/tdewolff/buffer
   version: 0edfcb7b750146ff879e95831de2ef53605a5cb5
 - name: github.com/tdewolff/minify
-  version: 11d4847c5e0cadc2bf7d4d565876bca5a12837cf
+  version: 16330f93dda4d8ff8d629459b678d65dc44f91bc
   subpackages:
   - css
   - html
@@ -60,7 +70,7 @@ imports:
   - svg
   - xml
 - name: github.com/tdewolff/parse
-  version: 5c35632ca368ebf46247ede2b96e9f6c0258fae0
+  version: b28f804999db32c71234d3dd2c58b7deb85891f6
   subpackages:
   - css
   - html
@@ -77,7 +87,7 @@ imports:
 - name: github.com/yosssi/gcss
   version: 39677598ea4f3ec1da5568173b4d43611f307edb
 - name: golang.org/x/sys
-  version: 9bb9f0998d48b31547d975974935ae9b48c7a03c
+  version: 30237cf4eefd639b184d1f2cb77a581ea0be8947
   subpackages:
   - unix
 - name: gopkg.in/sourcemap.v1
@@ -88,18 +98,18 @@ imports:
   version: 50a48b6e73fcc75b45e22c05b79629a67c79e938
 testImports:
 - name: github.com/gopherjs/gopherjs
-  version: 00f306e07eaaaab04ea5dba605cd0e1eff9c6fb7
+  version: e34a5cd6a1bc7c4fde759f2d3039852fc68b5fcc
   subpackages:
   - js
 - name: github.com/jtolds/gls
   version: 8ddce2a84170772b95dd5d576c48d517b22cac63
 - name: github.com/smartystreets/assertions
-  version: 2063fd1cc7c975db70502811a34b06ad034ccdf2
+  version: e60cfa771e3f4d18723a4119f1833898c9c62066
   subpackages:
   - internal/go-render/render
   - internal/oglematchers
 - name: github.com/smartystreets/goconvey
-  version: 7befa7fd6e2e8ca28d2b94f2d39111929904b08d
+  version: 3c2572876754c4669ae7417b219f0b30a29b32c7
   subpackages:
   - convey
   - convey/gotest
