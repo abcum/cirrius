@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package npm
-
 //+build generate
+
+package npm
 
 //go:generate go-bindata -pkg npm -ignore=.go -o npm.gen.go ./...
