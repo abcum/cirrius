@@ -88,7 +88,7 @@ func init() {
 				r = r / 255
 				g = g / 255
 				b = b / 255
-				return eval(colorful.Color{r, g, b})
+				return eval(colorful.Color{R: r, G: g, B: b})
 			},
 			"hcl": func(h, c, l float64) map[string]interface{} {
 				c = c / 100
@@ -133,7 +133,7 @@ func init() {
 				r := (1 - c/100) * (1 - k/100)
 				g := (1 - m/100) * (1 - k/100)
 				b := (1 - y/100) * (1 - k/100)
-				return eval(colorful.Color{float64(r), float64(g), float64(b)})
+				return eval(colorful.Color{R: float64(r), G: float64(g), B: float64(b)})
 			},
 		})
 	})
