@@ -1,0 +1,6 @@
+# Ignore vendored files
+
+npm/modules/*/*.js linguist-vendored
+
+pjs/phantom-darwin linguist-vendored
+pjs/phantom-linux linguist-vendored
