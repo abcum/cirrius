@@ -14,35 +14,43 @@
 
 package npm
 
-import (
-	"fmt"
-	"path/filepath"
-
-	"github.com/abcum/orbit"
-)
-
-func Add(name string) {
-
-	files, _ := AssetDir(fmt.Sprintf("modules/%s", name))
-
-	for i, file := range files {
-
-		extn := filepath.Ext(file)
-		full := filepath.Base(file)
-		vers := full[0 : len(full)-len(extn)]
-		path := fmt.Sprintf("modules/%s/%s", name, file)
-
-		if data, err := Asset(path); err == nil {
-
-			orbit.Add(name+"@"+vers, data)
-
-			if i == len(files)-1 {
-				orbit.Add(name, data)
-				orbit.Add(name+"@latest", data)
-			}
-
-		}
-
-	}
-
+func init() {
+	Add("accounting")
+	Add("async")
+	Add("bluebird")
+	Add("chance")
+	Add("classnames")
+	Add("co")
+	Add("cookie")
+	Add("dateformat")
+	Add("deep-extend")
+	Add("deepmerge")
+	Add("events")
+	Add("extend")
+	Add("hashids")
+	Add("immutable")
+	Add("jsondiffpatch")
+	Add("jsonic")
+	Add("lodash")
+	Add("merge")
+	Add("moment")
+	Add("ms")
+	Add("odiff")
+	Add("once")
+	Add("pdfkit")
+	Add("promise")
+	Add("promiz")
+	Add("q")
+	Add("qs")
+	Add("react")
+	Add("rx")
+	Add("semver")
+	Add("string")
+	Add("sugar")
+	Add("traverse")
+	Add("underscore")
+	Add("validator")
+	Add("when")
+	Add("wrappy")
+	Add("xtend")
 }
