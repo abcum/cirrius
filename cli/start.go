@@ -26,13 +26,30 @@ var startCmd = &cobra.Command{
 	Use:   "start",
 	Short: "Start the cirrius server",
 	PreRun: func(cmd *cobra.Command, args []string) {
+
 		fmt.Print(logo)
+
 	},
 	RunE: func(cmd *cobra.Command, args []string) (err error) {
-		return web.Setup(opts)
+
+		if err = pjs.Setup(opts); err != nil {
+			log.Fatal(err)
+			return
+		}
+
+		if err = web.Setup(opts); err != nil {
+			log.Fatal(err)
+			return
+		}
+
+		return
+
 	},
 	PostRun: func(cmd *cobra.Command, args []string) {
+
+		pjs.Exit()
 		web.Exit()
+
 	},
 }
 

@@ -15,9 +15,6 @@
 package web
 
 import (
-	"os/exec"
-	"runtime"
-
 	"github.com/abcum/fibre"
 	"github.com/abcum/fibre/mw"
 
@@ -27,12 +24,6 @@ import (
 
 // Setup sets up the server for remote connections
 func Setup(opts *cnf.Options) (err error) {
-
-	go func() {
-		cmd := exec.Command("./pjs/phantom-"+runtime.GOOS, "pjs/phantom.js")
-		cmd.Start()
-		cmd.Wait()
-	}()
 
 	log.WithPrefix("web").Infof("Starting web server on %s", opts.Conn.Web)
 
