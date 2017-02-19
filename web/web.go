@@ -39,7 +39,7 @@ func Setup(opts *cnf.Options) (err error) {
 	s := fibre.Server()
 
 	routes(s)
-	s.SetWait("60s")
+	s.SetWait("15s")
 	s.SetName("web")
 	s.SetHTTPErrorHandler(errors)
 	s.Logger().SetLogger(log.Instance())
