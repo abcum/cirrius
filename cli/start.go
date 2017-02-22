@@ -19,6 +19,8 @@ import (
 
 	"github.com/spf13/cobra"
 
+	"github.com/abcum/cirrius/log"
+	"github.com/abcum/cirrius/pjs"
 	"github.com/abcum/cirrius/web"
 )
 
