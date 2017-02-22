@@ -41,8 +41,22 @@ func init() {
 	mainCmd.PersistentFlags().StringVar(&opts.Logging.Level, "log-level", "error", "Specify log verbosity")
 	mainCmd.PersistentFlags().StringVar(&opts.Logging.Output, "log-output", "stderr", "Specify log output destination")
 	mainCmd.PersistentFlags().StringVar(&opts.Logging.Format, "log-format", "text", "Specify log output format (text, json)")
-	mainCmd.PersistentFlags().StringVar(&opts.Logging.Newrelic, "log-newrelic", "", "Log to Newrelic using the specified license key")
-	mainCmd.PersistentFlags().MarkHidden("log-newrelic")
+
+	mainCmd.PersistentFlags().StringVar(&opts.Logging.Google.Name, "log-driver-google-name", "cirrius", "Specify a log name")
+	mainCmd.PersistentFlags().StringVar(&opts.Logging.Google.Project, "log-driver-google-project", "", "Specify a project id")
+	mainCmd.PersistentFlags().StringVar(&opts.Logging.Google.Credentials, "log-driver-google-credentials", "", "Specify the path to a credentials file")
+	mainCmd.PersistentFlags().MarkHidden("log-driver-google-name")
+	mainCmd.PersistentFlags().MarkHidden("log-driver-google-project")
+	mainCmd.PersistentFlags().MarkHidden("log-driver-google-credentials")
+
+	mainCmd.PersistentFlags().StringVar(&opts.Logging.Syslog.Tag, "log-driver-syslog-tag", "cirrius", "Specify a syslog name tag")
+	mainCmd.PersistentFlags().StringVar(&opts.Logging.Syslog.Host, "log-driver-syslog-host", "localhost:514", "Specify a remote host:port")
+	mainCmd.PersistentFlags().StringVar(&opts.Logging.Syslog.Protocol, "log-driver-syslog-protocol", "", "Specify the syslog protocol to use")
+	mainCmd.PersistentFlags().StringVar(&opts.Logging.Syslog.Priority, "log-driver-syslog-priority", "debug", "Specify the syslog priority")
+	mainCmd.PersistentFlags().MarkHidden("log-driver-syslog-tag")
+	mainCmd.PersistentFlags().MarkHidden("log-driver-syslog-host")
+	mainCmd.PersistentFlags().MarkHidden("log-driver-syslog-protocol")
+	mainCmd.PersistentFlags().MarkHidden("log-driver-syslog-priority")
 
 	cobra.OnInitialize(setup)
 
