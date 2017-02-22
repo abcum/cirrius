@@ -22,13 +22,15 @@ import (
 	"github.com/abcum/cirrius/log"
 )
 
+var cmd *exec.Cmd
+
 // Setup sets up the server for remote connections
 func Setup(opts *cnf.Options) (err error) {
 
 	log.WithPrefix("pjs").Infof("Starting pjs server on %s", "localhost:8080")
 
 	go func() {
-		cmd := exec.Command("./pjs/phantom-"+runtime.GOOS, "pjs/phantom.js")
+		cmd = exec.Command("./pjs/phantom-"+runtime.GOOS, "pjs/phantom.js")
 		cmd.Start()
 		cmd.Wait()
 	}()
@@ -39,5 +41,11 @@ func Setup(opts *cnf.Options) (err error) {
 
 // Exit tears down the server gracefully
 func Exit() {
+
 	log.WithPrefix("pjs").Infof("Gracefully shutting down %s protocol", "pjs")
+
+	if cmd != nil && cmd.Process != nil {
+		cmd.Process.Kill()
+	}
+
 }
