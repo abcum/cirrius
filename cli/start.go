@@ -16,6 +16,7 @@ package cli
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/spf13/cobra"
 
@@ -59,10 +60,15 @@ var startCmd = &cobra.Command{
 
 func init() {
 
-	startCmd.PersistentFlags().StringVarP(&opts.Surreal, "surreal", "s", "api.surreal.io", "Host and port of surreal server.")
+	host, _ := os.Hostname()
 
-	startCmd.PersistentFlags().StringVar(&opts.Cert.Crt, "cert-crt", "", "Path to the server certificate. Needed in secure mode.")
-	startCmd.PersistentFlags().StringVar(&opts.Cert.Key, "cert-key", "", "Path to the server private key. Needed in secure mode.")
+	startCmd.PersistentFlags().StringVarP(&opts.Surreal, "surreal", "s", "https://api.surreal.io", "URL of the SurrealDB server endpoint.")
+
+	startCmd.PersistentFlags().StringVar(&opts.Cert.Crt, "cert-crt", "", "Path to the server certificate. Needed when running in secure mode.")
+	startCmd.PersistentFlags().StringVar(&opts.Cert.Key, "cert-key", "", "Path to the server private key. Needed when running in secure mode.")
+
+	startCmd.PersistentFlags().StringVarP(&opts.Node.Host, "bind", "b", "0.0.0.0", "The hostname or ip address to listen for connections on.")
+	startCmd.PersistentFlags().StringVarP(&opts.Node.Name, "name", "n", host, "The name of this node, used for logs and statistics.")
 
 	startCmd.PersistentFlags().IntVarP(&opts.Port.Web, "port", "p", 80, "The port on which to serve the server.")
 

@@ -31,6 +31,12 @@ type Options struct {
 		Key string // File location of server key
 	}
 
+	Node struct {
+		Host string // Node hostname
+		Name string // Name of this node
+		UUID string // UUID of this node
+	}
+
 	Logging struct {
 		Level    string // Stores the configured logging level
 		Output   string // Stores the configured logging output

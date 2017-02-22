@@ -20,9 +20,29 @@ import (
 	"strings"
 
 	"github.com/abcum/cirrius/log"
+	"github.com/abcum/cirrius/util/uuid"
 )
 
 func setup() {
+
+	// --------------------------------------------------
+	// Nodes
+	// --------------------------------------------------
+
+	// Ensure that the default
+	// node details are defined
+
+	if opts.Node.Host == "" {
+		opts.Node.Host, _ = os.Hostname()
+	}
+
+	if opts.Node.Name == "" {
+		opts.Node.Name = opts.Node.Host
+	}
+
+	if opts.Node.UUID == "" {
+		opts.Node.UUID = opts.Node.Name + "-" + uuid.NewV4().String()
+	}
 
 	// --------------------------------------------------
 	// Ports
@@ -39,7 +59,7 @@ func setup() {
 	}
 
 	// Store the ports in host:port string format
-	opts.Conn.Web = fmt.Sprintf(":%d", opts.Port.Web)
+	opts.Conn.Web = fmt.Sprintf("%s:%d", opts.Node.Host, opts.Port.Web)
 
 	// --------------------------------------------------
 	// Certs
