@@ -5,7 +5,7 @@ phantom.outputEncoding = "UTF-8";
 var server = require('webserver').create();
 
 // Listen for connections
-server.listen(44444, function(request, response) {
+server.listen('localhost:8080', function(request, response) {
 
     if (!request.headers.Url) {
         response.statusCode = 500;
@@ -28,6 +28,13 @@ server.listen(44444, function(request, response) {
                     s.parentNode.removeChild(s);
                 });
             });
+
+            response.headers = {
+                'Content-Length': request.content.length,
+                'Content-Type': 'text/html;',
+                'Connection': 'keep-alive',
+                'Keep-Alive': 'timeout=60, max=300',
+            };
 
             response.statusCode = 200;
             response.write(page.content);

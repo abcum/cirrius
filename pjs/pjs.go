@@ -25,7 +25,7 @@ import (
 // Setup sets up the server for remote connections
 func Setup(opts *cnf.Options) (err error) {
 
-	log.WithPrefix("pjs").Infof("Starting pjs server on %s", opts.Conn.Web)
+	log.WithPrefix("pjs").Infof("Starting pjs server on %s", "localhost:8080")
 
 	go func() {
 		cmd := exec.Command("./pjs/phantom-"+runtime.GOOS, "pjs/phantom.js")
