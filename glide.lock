@@ -1,12 +1,10 @@
-hash: 3e9c7fd10d5c1af44e8fa801419be8e6800897944c925a842f2d49f0bd435b40
-updated: 2017-02-20T02:01:31.954339662Z
+hash: ef7605f369b9a9090b36f8e048a3b27f9215421ec80672c02e89390dd0818934
+updated: 2017-02-22T10:27:44.735273603Z
 imports:
 - name: github.com/abcum/fibre
-  version: ef2be8713582086f9b1eeb3a8bb7992597efd450
+  version: ceb14ba330b58090e3dad05a2b28d26ed721432c
   subpackages:
   - mw
-- name: github.com/abcum/logrus
-  version: 119b6994c03cc9597e8c1873a47d715e34b5ed9a
 - name: github.com/abcum/orbit
   version: fdc220bd5dc2b3bda2f66caa9b66dfa28f681fd0
 - name: github.com/aymerick/raymond
@@ -24,7 +22,7 @@ imports:
 - name: github.com/lucasb-eyer/go-colorful
   version: 9c2852a141bf4711e4276f8f119c90d0f20a556c
 - name: github.com/mattn/go-colorable
-  version: 5411d3eea5978e6cdc258b30de592b60df6aba96
+  version: d898aa9fb31c91f35dd28ca75db377eff023c076
 - name: github.com/mattn/go-isatty
   version: dda3de49cbfcec471bd7a70e6cc01fcc3ff90109
 - name: github.com/mgutz/ansi
@@ -51,13 +49,13 @@ imports:
   - registry
   - token
 - name: github.com/russross/blackfriday
-  version: 5f33e7b7878355cd2b7e6b8eefc48a5472c69f70
+  version: 0b647d0506a698cca42caca173e55559b12a69f2
 - name: github.com/satori/go.uuid
   version: 879c5887cd475cd7864858769793b2ceb0d44feb
 - name: github.com/shurcooL/sanitized_anchor_name
   version: 1dba4b3954bc059efc3991ec364f9f9a35f597d2
-- name: github.com/sirupsen/logrus
-  version: 7f4b1adc791766938c29457bed0703fb9134421a
+- name: github.com/Sirupsen/logrus
+  version: c078b1e43f58d563c74cebe63c85789e76ddb627
 - name: github.com/SKAhack/go-shortid
   version: 24d054c393feb4d0a6514de8a9951a26fedf0d85
 - name: github.com/spf13/cobra
@@ -67,7 +65,7 @@ imports:
 - name: github.com/tdewolff/buffer
   version: df6253e2a2cda5aba1b5d0c59fc5bdf0a98ae192
 - name: github.com/tdewolff/minify
-  version: c764d19c8021740f5fbfd18f059a0984416bff6d
+  version: 41f3effd65817bac8acea89d49b3982211803a4d
   subpackages:
   - css
   - html
@@ -91,7 +89,7 @@ imports:
   subpackages:
   - codec
 - name: github.com/yosssi/gcss
-  version: 39677598ea4f3ec1da5568173b4d43611f307edb
+  version: 4dc500a9960c4bc1224c28c9695f6447b1d14d99
 - name: golang.org/x/sys
   version: 075e574b89e4c2d22f2286a7e2b919519c6f3547
   subpackages:
@@ -115,7 +113,7 @@ testImports:
   - internal/go-render/render
   - internal/oglematchers
 - name: github.com/smartystreets/goconvey
-  version: 3bd662eac601ad6436e64776af2e112069eb2edc
+  version: d4c757aa9afd1e2fc1832aaab209b5794eb336e1
   subpackages:
   - convey
   - convey/gotest

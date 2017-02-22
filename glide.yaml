@@ -1,17 +1,26 @@
 package: github.com/abcum/cirrius
 import:
 - package: github.com/SKAhack/go-shortid
+- package: github.com/Sirupsen/logrus
+  version: ^0.11.2
 - package: github.com/abcum/fibre
   subpackages:
   - mw
-- package: github.com/abcum/logrus
 - package: github.com/abcum/orbit
+- package: github.com/aymerick/raymond
+  version: ^2.0.1
+- package: github.com/lucasb-eyer/go-colorful
 - package: github.com/mgutz/ansi
+- package: github.com/pkg/profile
+  version: ^1.2.0
 - package: github.com/robertkrimen/otto
 - package: github.com/russross/blackfriday
+  version: ^1.4.0
 - package: github.com/satori/go.uuid
+  version: ^1.1.0
 - package: github.com/spf13/cobra
 - package: github.com/tdewolff/minify
+  version: ^2.0.0
   subpackages:
   - css
   - html
@@ -20,12 +29,9 @@ import:
   - svg
   - xml
 - package: github.com/yosssi/gcss
-- package: github.com/aymerick/raymond
-  version: ^2.0.1
-- package: github.com/lucasb-eyer/go-colorful
-- package: github.com/pkg/profile
-  version: ^1.2.0
+  version: ^0.1.0
 testImport:
 - package: github.com/smartystreets/goconvey
+  version: ^1.6.2
   subpackages:
   - convey
