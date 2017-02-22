@@ -33,6 +33,7 @@ func Setup(opts *cnf.Options) (err error) {
 		cmd = exec.Command("./pjs/phantom-"+runtime.GOOS, "pjs/phantom.js")
 		cmd.Start()
 		cmd.Wait()
+		log.WithPrefix("pjs").Fatalln("Background pjs server failed or crashed.")
 	}()
 
 	return nil
