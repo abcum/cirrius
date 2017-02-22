@@ -31,7 +31,7 @@ func (t *task) Startup(ctx *orbit.Orbit) {
 }
 
 func (t *task) Cleanup(ctx *orbit.Orbit) {
-	ctx.Vars["fibre"].(*fibre.Context).Socket().Close()
+	ctx.Vars["fibre"].(*fibre.Context).Socket().Close(1000)
 }
 
 func (t *task) Execute(ctx *orbit.Orbit) (err error) {
