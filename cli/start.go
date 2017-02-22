@@ -27,7 +27,9 @@ var startCmd = &cobra.Command{
 	Short: "Start the cirrius server",
 	PreRun: func(cmd *cobra.Command, args []string) {
 
-		fmt.Print(logo)
+		if opts.Logging.Output != "none" {
+			fmt.Print(logo)
+		}
 
 	},
 	RunE: func(cmd *cobra.Command, args []string) (err error) {
