@@ -84,7 +84,7 @@ func prerender(c *fibre.Context) (err error, ok bool) {
 
 	url := fmt.Sprintf("%s://%s%s", c.Request().URL().Scheme, c.Request().Host, c.Request().RequestURI)
 
-	req, err = http.NewRequest("GET", "http://localhost:44444", nil)
+	req, err = http.NewRequest("GET", "http://localhost:8080", nil)
 	if err != nil {
 		return
 	}
