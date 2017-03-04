@@ -152,9 +152,7 @@ func init() {
 
 			if len(call.ArgumentList) != 2 || !call.Argument(0).IsString() || !call.Argument(1).IsFunction() {
 				msg := fmt.Sprintf("Incorrect arguments to 'routes.%s'. Expecting a path and a callback.", strings.ToLower(meth))
-				err := ctx.MakeCustomError("Error", msg)
-				session.Code(500)
-				ctx.Quit(err)
+				panic(ctx.MakeCustomError("Error", msg))
 			}
 
 			path, _ := call.Argument(0).ToString()
