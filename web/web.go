@@ -44,6 +44,12 @@ func Setup(opts *cnf.Options) (err error) {
 	s.Use(mw.Gzip()) // Gzip responses
 	s.Use(mw.Cors()) // Add cors headers
 
+	// Add server information
+
+	s.Use(mw.Info(&mw.InfoOpts{
+		PoweredBy: "Cirrius",
+	}))
+
 	// Check body size
 
 	s.Use(mw.Size(&mw.SizeOpts{
