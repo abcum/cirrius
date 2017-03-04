@@ -1,5 +1,5 @@
 hash: 0dbf84a0ee56de7ab7c22ab992932f3567e13849fafd6b3662f702a0dfba5748
-updated: 2017-03-04T10:59:15.139810197Z
+updated: 2017-03-04T22:52:30.571118986Z
 imports:
 - name: cloud.google.com/go
   version: 9b68cf4865e93f379a337b7e957f33de60397a48
@@ -14,7 +14,7 @@ imports:
   - logging/internal
   - trace
 - name: github.com/abcum/fibre
-  version: f00fdced46786a5a0a78ad417649e1b0977e21b6
+  version: f66dfc32a24eba168ac85c3efb3d8f1e4d028be6
   subpackages:
   - mw
 - name: github.com/abcum/orbit
