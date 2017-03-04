@@ -1,8 +1,15 @@
 package: github.com/abcum/cirrius
 import:
+- package: cloud.google.com/go
+  version: 9b68cf4865e93f379a337b7e957f33de60397a48
+  subpackages:
+  - compute/metadata
+  - errors
+  - logging
+  - trace
 - package: github.com/SKAhack/go-shortid
 - package: github.com/Sirupsen/logrus
-  version: ^0.11.2
+  version: ^0.11.4
 - package: github.com/abcum/fibre
   subpackages:
   - mw
@@ -30,6 +37,15 @@ import:
   - xml
 - package: github.com/yosssi/gcss
   version: ^0.1.0
+- package: golang.org/x/net
+  subpackages:
+  - context
+- package: google.golang.org/api
+  subpackages:
+  - option
+- package: google.golang.org/genproto
+  subpackages:
+  - googleapis/api/monitoredres
 testImport:
 - package: github.com/smartystreets/goconvey
   version: ^1.6.2
