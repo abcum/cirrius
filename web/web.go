@@ -59,6 +59,10 @@ func Setup(opts *cnf.Options) (err error) {
 		AllowedLength: 1 << 20,
 	}))
 
+	// Log successful start
+
+	log.WithPrefix("web").Infof("Started web server on %s", opts.Conn.Web)
+
 	// Run the server
 
 	if len(opts.Cert.Crt) == 0 || len(opts.Cert.Key) == 0 {

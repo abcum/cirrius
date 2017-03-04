@@ -36,6 +36,10 @@ func Setup(opts *cnf.Options) (err error) {
 		log.WithPrefix("pjs").Fatalln("Background pjs server failed or crashed.")
 	}()
 
+	// Log successful start
+
+	log.WithPrefix("tcp").Infof("Started pjs server on %s", "localhost:8080")
+
 	return nil
 
 }
