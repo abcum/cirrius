@@ -22,8 +22,8 @@ import (
 
 	"runtime/debug"
 
+	"github.com/abcum/cirrius/util/build"
 	"github.com/abcum/fibre"
-	"github.com/abcum/surreal/util/build"
 
 	"github.com/Sirupsen/logrus"
 
