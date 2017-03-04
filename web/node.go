@@ -54,7 +54,7 @@ func init() {
 
 		session := orbit.Context().Value("fibre").(*fibre.Context)
 
-		fmt.Println("INIT", session.Response().Header().Get("Request-Id"))
+		fmt.Println("INIT", session.Get("id"))
 
 	})
 
@@ -62,7 +62,7 @@ func init() {
 
 		session := orbit.Context().Value("fibre").(*fibre.Context)
 
-		fmt.Println("EXIT", session.Response().Header().Get("Request-Id"))
+		fmt.Println("EXIT", session.Get("id"))
 
 	})
 
