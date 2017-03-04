@@ -49,40 +49,58 @@ func init() {
 
 		return ctx.ToValue(map[string]interface{}{
 
-			"recv": func(callback callback) {
-
-				if err := session.Upgrade(); err != nil {
-					return
+			"init": func() {
+				if session.Upgrade() == nil {
+					ctx.Push(wsocket)
 				}
-
-				ctx.Push(wsocket)
-
-				go func() {
-					defer ctx.Pull(wsocket)
-					for {
-						if _, req, err := session.Socket().Read(); err == nil {
-							ctx.Next(&task{func() { callback(req) }})
-							continue
-						}
-						break
-					}
-				}()
-
 			},
 
 			"exit": func() {
-				ctx.Pull(wsocket)
+				if session.Socket() != nil {
+					ctx.Pull(wsocket)
+				}
+			},
+
+			"recv": func(callback callback) {
+				if session.Socket() != nil {
+					go func() {
+						defer ctx.Pull(wsocket)
+						for {
+							if _, req, err := session.Socket().Read(); err == nil {
+								ctx.Next(&task{func() { callback(string(req)) }})
+								continue
+							}
+							break
+						}
+					}()
+				}
 			},
 
 			"send": map[string]interface{}{
 				"text": func(data string) {
-					session.Socket().SendText(data)
+					if session.Socket() != nil {
+						session.Socket().SendText(data)
+					}
 				},
 				"json": func(data interface{}) {
-					session.Socket().SendJSON(data)
+					if session.Socket() != nil {
+						session.Socket().SendJSON(data)
+					}
+				},
+				"cbor": func(data interface{}) {
+					if session.Socket() != nil {
+						session.Socket().SendCBOR(data)
+					}
+				},
+				"binc": func(data interface{}) {
+					if session.Socket() != nil {
+						session.Socket().SendBINC(data)
+					}
 				},
 				"pack": func(data interface{}) {
-					session.Socket().SendPACK(data)
+					if session.Socket() != nil {
+						session.Socket().SendPACK(data)
+					}
 				},
 			},
 		})
