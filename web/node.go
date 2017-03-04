@@ -30,10 +30,14 @@ import (
 	_ "github.com/abcum/cirrius/npm/globals/process"
 
 	// Load modules
+	_ "github.com/abcum/cirrius/npm/modules/binc"
+	_ "github.com/abcum/cirrius/npm/modules/cbor"
 	_ "github.com/abcum/cirrius/npm/modules/colour"
 	_ "github.com/abcum/cirrius/npm/modules/dns"
 	_ "github.com/abcum/cirrius/npm/modules/http"
 	_ "github.com/abcum/cirrius/npm/modules/https"
+	_ "github.com/abcum/cirrius/npm/modules/json"
+	_ "github.com/abcum/cirrius/npm/modules/msgpack"
 	_ "github.com/abcum/cirrius/npm/modules/os"
 	_ "github.com/abcum/cirrius/npm/modules/path"
 	_ "github.com/abcum/cirrius/npm/modules/routes"
