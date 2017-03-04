@@ -106,6 +106,30 @@ func init() {
 
 			"display": map[string]interface{}{
 
+				"send": func(call otto.FunctionCall) otto.Value {
+
+					if len(call.ArgumentList) == 1 {
+						data, _ := call.Argument(0).Export()
+						session.Send(200, data)
+						panic(nil)
+					}
+
+					if len(call.ArgumentList) == 2 {
+						code, _ := call.Argument(0).ToInteger()
+						data, _ := call.Argument(1).Export()
+						session.Send(int(code), data)
+						panic(nil)
+					}
+
+					if len(call.ArgumentList) >= 3 {
+						msg := fmt.Sprintf("Too many arguments to 'context.display.send'. Expected 1 or 2 arguments, but received %d.", len(call.ArgumentList))
+						panic(ctx.MakeCustomError("Error", msg))
+					}
+
+					return otto.UndefinedValue()
+
+				},
+
 				"xml": func(call otto.FunctionCall) otto.Value {
 
 					if len(call.ArgumentList) == 1 {
