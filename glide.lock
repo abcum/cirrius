@@ -47,9 +47,9 @@ imports:
 - name: github.com/lucasb-eyer/go-colorful
   version: c900de9dbbc73129068f5af6a823068fc5f2308c
 - name: github.com/mattn/go-colorable
-  version: d898aa9fb31c91f35dd28ca75db377eff023c076
+  version: acb9493f2794fd0f820de7a27a217dafbb1b65ea
 - name: github.com/mattn/go-isatty
-  version: dda3de49cbfcec471bd7a70e6cc01fcc3ff90109
+  version: 9622e0cc9d8f9be434ca605520ff9a16808fee47
 - name: github.com/mgutz/ansi
   version: 9520e82c474b0a04dd04f8a40959027271bab992
 - name: github.com/mitchellh/mapstructure
