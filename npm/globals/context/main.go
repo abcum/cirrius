@@ -72,7 +72,7 @@ func init() {
 				"query":  session.Request().URL().Query,
 				"head":   session.Head(),
 				"body":   session.Body(),
-				"ip":     session.IP(),
+				"ip":     session.IP().String(),
 			},
 
 			"success": func(call otto.FunctionCall) otto.Value {
