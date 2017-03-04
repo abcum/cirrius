@@ -57,7 +57,7 @@ func init() {
 
 	orbit.OnInit(func(ctx *orbit.Orbit) {
 
-		session := ctx.Vars["fibre"].(*fibre.Context)
+		session := ctx.Context().Value("fibre").(*fibre.Context)
 
 		context := map[string]interface{}{
 

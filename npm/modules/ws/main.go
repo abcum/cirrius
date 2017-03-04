@@ -31,7 +31,8 @@ func (t *task) Startup(ctx *orbit.Orbit) {
 }
 
 func (t *task) Cleanup(ctx *orbit.Orbit) {
-	ctx.Vars["fibre"].(*fibre.Context).Socket().Close(1000)
+	session := ctx.Context().Value("fibre").(*fibre.Context)
+	session.Socket().Close(1000)
 }
 
 func (t *task) Execute(ctx *orbit.Orbit) (err error) {
@@ -45,7 +46,7 @@ func init() {
 
 		wsocket := &task{}
 
-		session := ctx.Vars["fibre"].(*fibre.Context)
+		session := ctx.Context().Value("fibre").(*fibre.Context)
 
 		return ctx.ToValue(map[string]interface{}{
 

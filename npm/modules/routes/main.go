@@ -146,7 +146,7 @@ func init() {
 			routes: make(map[string][]*route),
 		}
 
-		session := ctx.Vars["fibre"].(*fibre.Context)
+		session := ctx.Context().Value("fibre").(*fibre.Context)
 
 		process := func(meth string, call otto.FunctionCall) {
 

@@ -17,6 +17,8 @@ package web
 import (
 	"fmt"
 
+	"context"
+
 	"github.com/abcum/fibre"
 	"github.com/abcum/orbit"
 	"github.com/robertkrimen/otto"
@@ -48,23 +50,23 @@ import (
 
 func init() {
 
-	orbit.OnInit(func(ctx *orbit.Orbit) {
+	orbit.OnInit(func(orbit *orbit.Orbit) {
 
-		session := ctx.Vars["fibre"].(*fibre.Context)
+		session := orbit.Context().Value("fibre").(*fibre.Context)
 
 		fmt.Println("INIT", session.Response().Header().Get("Request-Id"))
 
 	})
 
-	orbit.OnExit(func(ctx *orbit.Orbit) {
+	orbit.OnExit(func(orbit *orbit.Orbit) {
 
-		session := ctx.Vars["fibre"].(*fibre.Context)
+		session := orbit.Context().Value("fibre").(*fibre.Context)
 
 		fmt.Println("EXIT", session.Response().Header().Get("Request-Id"))
 
 	})
 
-	orbit.OnFail(func(ctx *orbit.Orbit, err error) {
+	orbit.OnFail(func(orbit *orbit.Orbit, err error) {
 		if tmp, ok := err.(*otto.Error); ok {
 			fmt.Println("FAIL", tmp.String())
 		} else {
@@ -73,7 +75,7 @@ func init() {
 		// Log runtime error on context
 	})
 
-	orbit.OnFile(func(ctx *orbit.Orbit, files []string) (code interface{}, file string, err error) {
+	orbit.OnFile(func(orbit *orbit.Orbit, files []string) (code interface{}, file string, err error) {
 		info, err := find(files...) // TODO Need to use fibre request context here
 		if err != nil {
 			return code, file, err
@@ -83,13 +85,16 @@ func init() {
 
 }
 
-func processNode(ctx *fibre.Context, info *info) (err error) {
+func processNode(fib *fibre.Context, info *info) (err error) {
 
 	// New orbit instance
 	orb := orbit.New(0)
 
-	// Set fibre instance
-	orb.Vars["fibre"] = ctx
+	// New orbit context
+	ctx := context.WithValue(orb.Context(), "fibre", fib)
+
+	// Set orbit context
+	orb = orb.WithContext(ctx)
 
 	// Run orbit instance
 	return orb.Exec(info.path, info.data)
