@@ -17,6 +17,8 @@ package web
 import (
 	"mime"
 
+	"cloud.google.com/go/trace"
+
 	"github.com/abcum/fibre"
 	"github.com/tdewolff/minify"
 	"github.com/tdewolff/minify/css"
@@ -51,6 +53,11 @@ func routes(s *fibre.Fibre) {
 	// --------------------------------------------------
 
 	s.Any("/*", func(c *fibre.Context) (err error) {
+
+		span := trace.FromContext(c.Context()).NewChild("route")
+		nctx := trace.NewContext(c.Context(), span)
+		c = c.WithContext(nctx)
+		defer span.Finish()
 
 		if err, ok := render(c); ok {
 			return err

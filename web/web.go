@@ -47,6 +47,10 @@ func Setup(opts *cnf.Options) (err error) {
 	s.Use(mw.Gzip()) // Gzip responses
 	s.Use(mw.Cors()) // Add cors headers
 
+	// Add trace information
+
+	s.Use(tracer())
+
 	// Add server information
 
 	s.Use(mw.Info(&mw.InfoOpts{
