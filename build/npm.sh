@@ -52,7 +52,7 @@ for index in "${bow[@]}" ; do
 	name="${index%%:::*}"
 	path="${index##*:::}"
 
-    npm view $name versions --json | grep '"' | cut -d '"' -f2 | tail -$versions | while read version; do
+    bower info $name | grep '  -' | cut -d ' ' -f4 | while read version; do
 
     	if [ ! -f "$folder/npm/modules/$name/$version.js" ]; then
 
