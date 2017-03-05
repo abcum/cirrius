@@ -27,19 +27,17 @@ func init() {
 		generator := shortid.Generator()
 
 		return ctx.ToValue(map[string]interface{}{
-			"generate": func(call otto.FunctionCall) otto.Value {
+			"generate": func() otto.Value {
 				value, _ := ctx.ToValue(generator.Generate())
 				return value
 			},
-			"seed": func(call otto.FunctionCall) otto.Value {
-				arg1, _ := call.Argument(0).ToFloat()
-				generator.SetSeed(arg1)
+			"seed": func(seed float64) otto.Value {
+				generator.SetSeed(seed)
 				return otto.UndefinedValue()
 			},
-			"characters": func(call otto.FunctionCall) otto.Value {
-				arg1 := call.Argument(0).String()
-				generator.SetCharacters(arg1)
-				value, _ := ctx.ToValue(arg1)
+			"characters": func(char string) otto.Value {
+				generator.SetCharacters(char)
+				value, _ := ctx.ToValue(char)
 				return value
 			},
 		})
