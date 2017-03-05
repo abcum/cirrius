@@ -12,12 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package uuid
+package binc
 
 import (
 	"bytes"
-	"fmt"
 	"reflect"
+	"strings"
 
 	"github.com/abcum/orbit"
 	"github.com/robertkrimen/otto"
@@ -35,36 +35,23 @@ func init() {
 	h.SliceType = reflect.TypeOf([]interface{}(nil))
 	h.MapType = reflect.TypeOf(map[string]interface{}(nil))
 
-	orbit.Add("binc", func(ctx *orbit.Orbit) (otto.Value, error) {
-		return ctx.ToValue(map[string]interface{}{
-			"encode": func(call otto.FunctionCall) (val otto.Value) {
-
-				if len(call.ArgumentList) > 1 {
-					msg := fmt.Sprintf("Too many arguments to 'binc.encode'. Expected 1 argument, but received %d.", len(call.ArgumentList))
-					panic(ctx.MakeCustomError("Error", msg))
+	orbit.Add("binc", func(orb *orbit.Orbit) (otto.Value, error) {
+		return orb.ToValue(map[string]interface{}{
+			"encode": func(obj interface{}) (val otto.Value) {
+				var enc bytes.Buffer
+				if err := codec.NewEncoder(&enc, &h).Encode(obj); err != nil {
+					panic(orb.MakeCustomError("Error", err.Error()))
 				}
-
-				var err error
-				var obj interface{}
-				var buf bytes.Buffer
-
-				if obj, err = call.Argument(0).Export(); err != nil {
-					panic(ctx.MakeCustomError("Error", err.Error()))
-				}
-
-				if err = codec.NewEncoder(&buf, &h).Encode(obj); err != nil {
-					panic(ctx.MakeCustomError("Error", err.Error()))
-				}
-
-				if val, err = otto.ToValue(buf.String()); err != nil {
-					panic(ctx.MakeCustomError("Error", err.Error()))
-				}
-
+				val, _ = otto.ToValue(enc.String())
 				return val
-
 			},
-			"decode": func(call otto.FunctionCall) (val otto.Value) {
-				return otto.TrueValue()
+			"decode": func(enc string) (val otto.Value) {
+				var out interface{}
+				if err := codec.NewDecoder(strings.NewReader(enc), &h).Decode(&out); err != nil {
+					panic(orb.MakeCustomError("Error", err.Error()))
+				}
+				val, _ = otto.ToValue(out)
+				return val
 			},
 		})
 	})

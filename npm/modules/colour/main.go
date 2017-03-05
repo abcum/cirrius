@@ -82,8 +82,8 @@ func eval(col colorful.Color) map[string]interface{} {
 
 func init() {
 
-	orbit.Add("colour", func(ctx *orbit.Orbit) (otto.Value, error) {
-		return ctx.ToValue(map[string]interface{}{
+	orbit.Add("colour", func(orb *orbit.Orbit) (otto.Value, error) {
+		return orb.ToValue(map[string]interface{}{
 			"rgb": func(r, g, b float64) map[string]interface{} {
 				r = r / 255
 				g = g / 255

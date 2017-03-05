@@ -21,68 +21,68 @@ import (
 
 func init() {
 
-	orbit.Add("os", func(ctx *orbit.Orbit) (otto.Value, error) {
-		return ctx.ToValue(map[string]interface{}{
+	orbit.Add("os", func(orb *orbit.Orbit) (otto.Value, error) {
+		return orb.ToValue(map[string]interface{}{
 
 			"EOL": "\n",
 
-			"arch": func(call otto.FunctionCall) (val otto.Value) {
+			"arch": func() (val otto.Value) {
 				val, _ = otto.ToValue("x64")
 				return
 			},
 
 			"constants": []string{},
 
-			"cpus": func(call otto.FunctionCall) otto.Value {
+			"cpus": func() (val otto.Value) {
 				return otto.UndefinedValue()
 			},
 
-			"endianness": func(call otto.FunctionCall) (val otto.Value) {
+			"endianness": func() (val otto.Value) {
 				val, _ = otto.ToValue("LE")
 				return
 			},
 
-			"freemem": func(call otto.FunctionCall) otto.Value {
+			"freemem": func() (val otto.Value) {
 				return otto.UndefinedValue()
 			},
 
-			"homedir": func(call otto.FunctionCall) otto.Value {
+			"homedir": func() (val otto.Value) {
 				return otto.UndefinedValue()
 			},
 
-			"hostname": func(call otto.FunctionCall) (val otto.Value) {
+			"hostname": func() (val otto.Value) {
 				val, _ = otto.ToValue("cirrius.local")
 				return
 			},
 
-			"loadavg": func(call otto.FunctionCall) (val otto.Value) {
+			"loadavg": func() (val otto.Value) {
 				val, _ = otto.ToValue(0)
 				return
 			},
 
-			"networkInterfaces": func(call otto.FunctionCall) (val otto.Value) {
+			"networkInterfaces": func() (val otto.Value) {
 				val, _ = otto.ToValue("linux")
 				return
 			},
 
-			"release": func(call otto.FunctionCall) otto.Value {
+			"release": func() (val otto.Value) {
 				return otto.UndefinedValue()
 			},
 
-			"tmpdir": func(call otto.FunctionCall) otto.Value {
+			"tmpdir": func() (val otto.Value) {
 				return otto.UndefinedValue()
 			},
 
-			"totalmem": func(call otto.FunctionCall) otto.Value {
+			"totalmem": func() (val otto.Value) {
 				return otto.UndefinedValue()
 			},
 
-			"type": func(call otto.FunctionCall) (val otto.Value) {
+			"type": func() (val otto.Value) {
 				val, _ = otto.ToValue("Linux")
 				return
 			},
 
-			"userInfo": func(call otto.FunctionCall) otto.Value {
+			"userInfo": func() (val otto.Value) {
 				return otto.UndefinedValue()
 			},
 		})

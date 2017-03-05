@@ -22,23 +22,23 @@ import (
 
 func init() {
 
-	orbit.Add("shortid", func(ctx *orbit.Orbit) (otto.Value, error) {
+	orbit.Add("shortid", func(orb *orbit.Orbit) (otto.Value, error) {
 
 		generator := shortid.Generator()
 
-		return ctx.ToValue(map[string]interface{}{
-			"generate": func() otto.Value {
-				value, _ := ctx.ToValue(generator.Generate())
-				return value
+		return orb.ToValue(map[string]interface{}{
+			"generate": func() (val otto.Value) {
+				val, _ = orb.ToValue(generator.Generate())
+				return
 			},
-			"seed": func(seed float64) otto.Value {
+			"seed": func(seed float64) (val otto.Value) {
 				generator.SetSeed(seed)
-				return otto.UndefinedValue()
+				return
 			},
-			"characters": func(char string) otto.Value {
+			"characters": func(char string) (val otto.Value) {
 				generator.SetCharacters(char)
-				value, _ := ctx.ToValue(char)
-				return value
+				val, _ = orb.ToValue(char)
+				return
 			},
 		})
 

@@ -22,38 +22,33 @@ import (
 
 func init() {
 
-	orbit.Add("uuid", func(ctx *orbit.Orbit) (otto.Value, error) {
-		return ctx.ToValue(map[string]interface{}{
+	orbit.Add("uuid", func(orb *orbit.Orbit) (otto.Value, error) {
+		return orb.ToValue(map[string]interface{}{
 			"namespace": map[string]interface{}{
 				"dns":  uuid.NamespaceDNS,
 				"url":  uuid.NamespaceURL,
 				"oid":  uuid.NamespaceOID,
 				"x500": uuid.NamespaceX500,
 			},
-			"v1": func(call otto.FunctionCall) otto.Value {
-				value, _ := ctx.ToValue(uuid.NewV1().String())
-				return value
+			"v1": func() (val otto.Value) {
+				val, _ = orb.ToValue(uuid.NewV1().String())
+				return
 			},
-			"v2": func(call otto.FunctionCall) otto.Value {
-				arg1 := byte(call.Argument(0).String()[0])
-				value, _ := ctx.ToValue(uuid.NewV2(arg1).String())
-				return value
+			"v2": func(domain byte) (val otto.Value) {
+				val, _ = orb.ToValue(uuid.NewV2(domain).String())
+				return
 			},
-			"v3": func(call otto.FunctionCall) otto.Value {
-				arg1, _ := uuid.FromString(call.Argument(0).String())
-				arg2 := call.Argument(1).String()
-				value, _ := ctx.ToValue(uuid.NewV3(arg1, arg2).String())
-				return value
+			"v3": func(from, name string) (val otto.Value) {
+				val, _ = orb.ToValue(uuid.NewV3(uuid.FromStringOrNil(from), name).String())
+				return
 			},
-			"v4": func(call otto.FunctionCall) otto.Value {
-				value, _ := ctx.ToValue(uuid.NewV4().String())
-				return value
+			"v4": func() (val otto.Value) {
+				val, _ = orb.ToValue(uuid.NewV4().String())
+				return
 			},
-			"v5": func(call otto.FunctionCall) otto.Value {
-				arg1, _ := uuid.FromString(call.Argument(0).String())
-				arg2 := call.Argument(1).String()
-				value, _ := ctx.ToValue(uuid.NewV5(arg1, arg2).String())
-				return value
+			"v5": func(from, name string) (val otto.Value) {
+				val, _ = orb.ToValue(uuid.NewV5(uuid.FromStringOrNil(from), name).String())
+				return
 			},
 		})
 	})

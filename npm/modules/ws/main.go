@@ -26,49 +26,49 @@ type task struct {
 
 type callback func(interface{})
 
-func (t *task) Startup(ctx *orbit.Orbit) {
+func (t *task) Startup(orb *orbit.Orbit) {
 
 }
 
-func (t *task) Cleanup(ctx *orbit.Orbit) {
-	session := ctx.Context().Value("fibre").(*fibre.Context)
+func (t *task) Cleanup(orb *orbit.Orbit) {
+	session := orb.Context().Value("fibre").(*fibre.Context)
 	session.Socket().Close(1000)
 }
 
-func (t *task) Execute(ctx *orbit.Orbit) (err error) {
+func (t *task) Execute(orb *orbit.Orbit) (err error) {
 	t.callback()
 	return
 }
 
 func init() {
 
-	orbit.Add("ws", func(ctx *orbit.Orbit) (otto.Value, error) {
+	orbit.Add("ws", func(orb *orbit.Orbit) (otto.Value, error) {
 
 		wsocket := &task{}
 
-		session := ctx.Context().Value("fibre").(*fibre.Context)
+		session := orb.Context().Value("fibre").(*fibre.Context)
 
-		return ctx.ToValue(map[string]interface{}{
+		return orb.ToValue(map[string]interface{}{
 
 			"init": func() {
 				if session.Upgrade() == nil {
-					ctx.Push(wsocket)
+					orb.Push(wsocket)
 				}
 			},
 
 			"exit": func() {
 				if session.Socket() != nil {
-					ctx.Pull(wsocket)
+					orb.Pull(wsocket)
 				}
 			},
 
 			"recv": func(callback callback) {
 				if session.Socket() != nil {
 					go func() {
-						defer ctx.Pull(wsocket)
+						defer orb.Pull(wsocket)
 						for {
 							if _, req, err := session.Socket().Read(); err == nil {
-								ctx.Next(&task{func() { callback(string(req)) }})
+								orb.Next(&task{func() { callback(string(req)) }})
 								continue
 							}
 							break

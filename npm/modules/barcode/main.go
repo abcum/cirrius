@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package uuid
+package barcode
 
 import (
 	"github.com/abcum/orbit"
@@ -21,27 +21,27 @@ import (
 
 func init() {
 
-	orbit.Add("barcode", func(ctx *orbit.Orbit) (otto.Value, error) {
-		return ctx.ToValue(map[string]interface{}{
-			"codabar": func(call otto.FunctionCall) otto.Value {
+	orbit.Add("barcode", func(orb *orbit.Orbit) (otto.Value, error) {
+		return orb.ToValue(map[string]interface{}{
+			"codabar": func() (val otto.Value) {
 				return otto.UndefinedValue()
 			},
-			"code128": func(call otto.FunctionCall) otto.Value {
+			"code128": func() (val otto.Value) {
 				return otto.UndefinedValue()
 			},
-			"code39": func(call otto.FunctionCall) otto.Value {
+			"code39": func() (val otto.Value) {
 				return otto.UndefinedValue()
 			},
-			"datamatrix": func(call otto.FunctionCall) otto.Value {
+			"datamatrix": func() (val otto.Value) {
 				return otto.UndefinedValue()
 			},
-			"ean": func(call otto.FunctionCall) otto.Value {
+			"ean": func() (val otto.Value) {
 				return otto.UndefinedValue()
 			},
-			"qr": func(call otto.FunctionCall) otto.Value {
+			"qr": func() (val otto.Value) {
 				return otto.UndefinedValue()
 			},
-			"twooffive": func(call otto.FunctionCall) otto.Value {
+			"twooffive": func() (val otto.Value) {
 				return otto.UndefinedValue()
 			},
 		})
