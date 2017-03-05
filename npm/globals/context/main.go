@@ -27,12 +27,12 @@ func init() {
 
 	raymond.RegisterHelper("partial", func(name string, options *raymond.Options) raymond.SafeString {
 
-		ctx := options.DataFrame().Get("ctx").(*orbit.Orbit)
+		orb := options.DataFrame().Get("orb").(*orbit.Orbit)
 
-		data, _, err := ctx.File(name, "hbs")
+		data, _, err := orb.File(name, "hbs")
 		if err != nil {
 			msg := fmt.Sprintf("Unable to find handlebars template '%s'.", name)
-			panic(ctx.MakeCustomError("Error", msg))
+			panic(orb.MakeCustomError("Error", msg))
 		}
 
 		code := fmt.Sprintf("%s", data)
@@ -40,7 +40,7 @@ func init() {
 		tmpl, err := raymond.Parse(code)
 		if err != nil {
 			msg := fmt.Sprintf("Unable to parse handlebars template '%s'.", name)
-			panic(ctx.MakeCustomError("Error", msg))
+			panic(orb.MakeCustomError("Error", msg))
 		}
 
 		priv := options.DataFrame()
@@ -48,16 +48,16 @@ func init() {
 		html, err := tmpl.ExecWith(options.Ctx(), priv)
 		if err != nil {
 			msg := fmt.Sprintf("Unable to render handlebars template '%s'.", name)
-			panic(ctx.MakeCustomError("Error", msg))
+			panic(orb.MakeCustomError("Error", msg))
 		}
 
 		return raymond.SafeString(html)
 
 	})
 
-	orbit.OnInit(func(ctx *orbit.Orbit) {
+	orbit.OnInit(func(orb *orbit.Orbit) {
 
-		session := ctx.Context().Value("fibre").(*fibre.Context)
+		session := orb.Context().Value("fibre").(*fibre.Context)
 
 		context := map[string]interface{}{
 
@@ -75,196 +75,121 @@ func init() {
 				"ip":     session.IP().String(),
 			},
 
-			"success": func(call otto.FunctionCall) otto.Value {
+			"success": func() (val otto.Value) {
 				session.Code(200)
 				panic(nil)
-				return otto.UndefinedValue()
+				return
 			},
 
-			"failure": func(call otto.FunctionCall) otto.Value {
+			"failure": func() (val otto.Value) {
 				session.Code(400)
 				panic(nil)
-				return otto.UndefinedValue()
+				return
 			},
 
-			"status": func(call otto.FunctionCall) otto.Value {
+			// The following methods enable sending the
+			// response data using different encoding
+			// methods, with an http status code 200.
 
-				if len(call.ArgumentList) == 1 {
-					code, _ := call.Argument(0).ToInteger()
-					session.Code(int(code))
-					panic(nil)
-				}
-
-				if len(call.ArgumentList) >= 2 {
-					msg := fmt.Sprintf("Too many arguments to 'context.status'. Expected 1 argument, but received %d.", len(call.ArgumentList))
-					panic(ctx.MakeCustomError("Error", msg))
-				}
-
-				return otto.UndefinedValue()
-
+			"xml": func(data interface{}) (val otto.Value) {
+				session.XML(200, data)
+				panic(nil)
+				return
 			},
 
-			"display": map[string]interface{}{
-
-				"send": func(call otto.FunctionCall) otto.Value {
-
-					if len(call.ArgumentList) == 1 {
-						data, _ := call.Argument(0).Export()
-						session.Send(200, data)
-						panic(nil)
-					}
-
-					if len(call.ArgumentList) == 2 {
-						code, _ := call.Argument(0).ToInteger()
-						data, _ := call.Argument(1).Export()
-						session.Send(int(code), data)
-						panic(nil)
-					}
-
-					if len(call.ArgumentList) >= 3 {
-						msg := fmt.Sprintf("Too many arguments to 'context.display.send'. Expected 1 or 2 arguments, but received %d.", len(call.ArgumentList))
-						panic(ctx.MakeCustomError("Error", msg))
-					}
-
-					return otto.UndefinedValue()
-
-				},
-
-				"xml": func(call otto.FunctionCall) otto.Value {
-
-					if len(call.ArgumentList) == 1 {
-						data, _ := call.Argument(0).Export()
-						session.XML(200, data)
-						panic(nil)
-					}
-
-					if len(call.ArgumentList) == 2 {
-						code, _ := call.Argument(0).ToInteger()
-						data, _ := call.Argument(1).Export()
-						session.XML(int(code), data)
-						panic(nil)
-					}
-
-					if len(call.ArgumentList) >= 3 {
-						msg := fmt.Sprintf("Too many arguments to 'context.display.xml'. Expected 1 or 2 arguments, but received %d.", len(call.ArgumentList))
-						panic(ctx.MakeCustomError("Error", msg))
-					}
-
-					return otto.UndefinedValue()
-
-				},
-
-				"text": func(call otto.FunctionCall) otto.Value {
-
-					if len(call.ArgumentList) == 1 {
-						data, _ := call.Argument(0).Export()
-						session.Text(200, data)
-						panic(nil)
-					}
-
-					if len(call.ArgumentList) == 2 {
-						code, _ := call.Argument(0).ToInteger()
-						data, _ := call.Argument(1).Export()
-						session.Text(int(code), data)
-						panic(nil)
-					}
-
-					if len(call.ArgumentList) >= 3 {
-						msg := fmt.Sprintf("Too many arguments to 'context.display.text'. Expected 1 or 2 arguments, but received %d.", len(call.ArgumentList))
-						panic(ctx.MakeCustomError("Error", msg))
-					}
-
-					return otto.UndefinedValue()
-
-				},
-
-				"html": func(call otto.FunctionCall) otto.Value {
-
-					if len(call.ArgumentList) == 1 {
-						data, _ := call.Argument(0).Export()
-						session.HTML(200, data)
-						panic(nil)
-					}
-
-					if len(call.ArgumentList) == 2 {
-						code, _ := call.Argument(0).ToInteger()
-						data, _ := call.Argument(1).Export()
-						session.HTML(int(code), data)
-						panic(nil)
-					}
-
-					if len(call.ArgumentList) >= 3 {
-						msg := fmt.Sprintf("Too many arguments to 'context.display.html'. Expected 1 or 2 arguments, but received %d.", len(call.ArgumentList))
-						panic(ctx.MakeCustomError("Error", msg))
-					}
-
-					return otto.UndefinedValue()
-
-				},
-
-				"json": func(call otto.FunctionCall) otto.Value {
-
-					if len(call.ArgumentList) == 1 {
-						data, _ := call.Argument(0).Export()
-						session.JSON(200, data)
-						panic(nil)
-					}
-
-					if len(call.ArgumentList) == 2 {
-						code, _ := call.Argument(0).ToInteger()
-						data, _ := call.Argument(1).Export()
-						session.JSON(int(code), data)
-						panic(nil)
-					}
-
-					if len(call.ArgumentList) >= 3 {
-						msg := fmt.Sprintf("Too many arguments to 'context.display.json'. Expected 1 or 2 arguments, but received %d.", len(call.ArgumentList))
-						panic(ctx.MakeCustomError("Error", msg))
-					}
-
-					return otto.UndefinedValue()
-
-				},
-
-				"pack": func(call otto.FunctionCall) otto.Value {
-
-					if len(call.ArgumentList) == 1 {
-						data, _ := call.Argument(0).Export()
-						session.PACK(200, data)
-						panic(nil)
-					}
-
-					if len(call.ArgumentList) == 2 {
-						code, _ := call.Argument(0).ToInteger()
-						data, _ := call.Argument(1).Export()
-						session.PACK(int(code), data)
-						panic(nil)
-					}
-
-					if len(call.ArgumentList) >= 3 {
-						msg := fmt.Sprintf("Too many arguments to 'context.display.pack'. Expected 1 or 2 arguments, but received %d.", len(call.ArgumentList))
-						panic(ctx.MakeCustomError("Error", msg))
-					}
-
-					return otto.UndefinedValue()
-
-				},
+			"text": func(data interface{}) (val otto.Value) {
+				session.Text(200, data)
+				panic(nil)
+				return
 			},
 
-			"render": func(call otto.FunctionCall) otto.Value {
+			"html": func(data interface{}) (val otto.Value) {
+				session.HTML(200, data)
+				panic(nil)
+				return
+			},
+
+			"json": func(data interface{}) (val otto.Value) {
+				session.JSON(200, data)
+				panic(nil)
+				return
+			},
+
+			"cbor": func(data interface{}) (val otto.Value) {
+				session.CBOR(200, data)
+				panic(nil)
+				return
+			},
+
+			"pack": func(data interface{}) (val otto.Value) {
+				session.PACK(200, data)
+				panic(nil)
+				return
+			},
+
+			"send": func(data interface{}) (val otto.Value) {
+				session.Send(200, data)
+				panic(nil)
+				return
+			},
+
+			// Status enables defining the http status
+			// code, with a chained method to send the
+			// data using different encoding types.
+
+			"status": func(code int) (val otto.Value) {
+				val, _ = orb.ToValue(map[string]interface{}{
+					"xml": func(data interface{}) (val otto.Value) {
+						session.XML(code, data)
+						panic(nil)
+						return
+					},
+					"text": func(data interface{}) (val otto.Value) {
+						session.Text(code, data)
+						panic(nil)
+						return
+					},
+					"html": func(data interface{}) (val otto.Value) {
+						session.HTML(code, data)
+						panic(nil)
+						return
+					},
+					"json": func(data interface{}) (val otto.Value) {
+						session.JSON(code, data)
+						return
+					},
+					"pack": func(data interface{}) (val otto.Value) {
+						session.PACK(code, data)
+						panic(nil)
+						return
+					},
+					"send": func(data interface{}) (val otto.Value) {
+						session.Send(code, data)
+						panic(nil)
+						return
+					},
+				})
+				return
+			},
+
+			// Render compiles and outputs a handlebars
+			// template, and additional partial templates
+			// included within the main template file.
+
+			"render": func(call otto.FunctionCall) (val otto.Value) {
 
 				if len(call.ArgumentList) >= 3 {
-					msg := fmt.Sprintf("Too many arguments to 'context.render'. Expected 1 or 2 arguments, but received %d.", len(call.ArgumentList))
-					panic(ctx.MakeCustomError("Error", msg))
+					msg := fmt.Sprintf("expected 1 or 2 argument(s); got %d.", len(call.ArgumentList))
+					panic(orb.MakeRangeError(msg))
 				}
 
 				file, _ := call.Argument(0).ToString()
 				vars, _ := call.Argument(1).Export()
 
-				data, _, err := ctx.File(file, "hbs")
+				data, _, err := orb.File(file, "hbs")
 				if err != nil {
 					msg := fmt.Sprintf("Unable to find handlebars template '%s'.", file)
-					panic(ctx.MakeCustomError("Error", msg))
+					panic(orb.MakeCustomError("Error", msg))
 				}
 
 				code := fmt.Sprintf("%s", data)
@@ -272,29 +197,29 @@ func init() {
 				tmpl, err := raymond.Parse(code)
 				if err != nil {
 					msg := fmt.Sprintf("Unable to parse handlebars template '%s'.", file)
-					panic(ctx.MakeCustomError("Error", msg))
+					panic(orb.MakeCustomError("Error", msg))
 				}
 
 				priv := raymond.NewDataFrame()
-				priv.Set("ctx", ctx)
+				priv.Set("orb", orb)
 
 				html, err := tmpl.ExecWith(vars, priv)
 				if err != nil {
 					msg := fmt.Sprintf("Unable to render handlebars template '%s'.", file)
-					panic(ctx.MakeCustomError("Error", msg))
+					panic(orb.MakeCustomError("Error", msg))
 				}
 
 				session.HTML(200, html)
 				panic(nil)
 
-				return otto.UndefinedValue()
+				return
 
 			},
 		}
 
-		ctx.Def("context", context)
+		orb.Def("context", context)
 
-		ctx.Def("cirrius", context)
+		orb.Def("cirrius", context)
 
 	})
 
