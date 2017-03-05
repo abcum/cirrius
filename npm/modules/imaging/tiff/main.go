@@ -31,7 +31,7 @@ func init() {
 		return orb.ToValue(map[string]interface{}{
 			"encode": func(w io.Writer, i image.Image) (val otto.Value) {
 				if err := imaging.Encode(w, i, imaging.TIFF); err != nil {
-					panic(err)
+					panic(orb.MakeCustomError("Error", err.Error()))
 				}
 				return
 			},

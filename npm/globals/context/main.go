@@ -61,6 +61,10 @@ func init() {
 
 		context := map[string]interface{}{
 
+			"response": map[string]interface{}{
+				"body": session.Response(),
+			},
+
 			"request": map[string]interface{}{
 				"socket": session.Request().Header().Get("Upgrade") == "websocket",
 				"origin": session.Request().Header().Get("Origin"),
@@ -71,7 +75,7 @@ func init() {
 				"path":   session.Request().URL().Path,
 				"query":  session.Request().URL().Query,
 				"head":   session.Head(),
-				"body":   session.Body(),
+				"body":   session.Request().Body,
 				"ip":     session.IP().String(),
 			},
 

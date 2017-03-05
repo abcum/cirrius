@@ -16,8 +16,19 @@ import:
 - package: github.com/abcum/orbit
 - package: github.com/aymerick/raymond
   version: ^2.0.1
+- package: github.com/boombuler/barcode
+  version: c07adc95a07cb6213cf4c104caab763bce2d49c0
+  subpackages:
+  - code128
+  - code39
+  - codebar
+  - datamatrix
+  - ean
+  - qr
+  - twooffive
 - package: github.com/lucasb-eyer/go-colorful
 - package: github.com/mgutz/ansi
+- package: github.com/miekg/dns
 - package: github.com/pkg/profile
   version: ^1.2.0
 - package: github.com/robertkrimen/otto
@@ -35,6 +46,9 @@ import:
   - json
   - svg
   - xml
+- package: github.com/ugorji/go
+  subpackages:
+  - codec
 - package: github.com/yosssi/gcss
   version: ^0.1.0
 - package: golang.org/x/net
@@ -46,6 +60,8 @@ import:
 - package: google.golang.org/genproto
   subpackages:
   - googleapis/api/monitoredres
+- package: github.com/disintegration/imaging
+  version: ^1.0.0
 testImport:
 - package: github.com/smartystreets/goconvey
   version: ^1.6.2

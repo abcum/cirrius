@@ -22,30 +22,6 @@ import (
 	"github.com/abcum/fibre"
 	"github.com/abcum/orbit"
 	"github.com/robertkrimen/otto"
-
-	// Load general
-	_ "github.com/abcum/cirrius/npm"
-
-	// Load globals
-	_ "github.com/abcum/cirrius/npm/globals/console"
-	_ "github.com/abcum/cirrius/npm/globals/context"
-	_ "github.com/abcum/cirrius/npm/globals/process"
-
-	// Load modules
-	_ "github.com/abcum/cirrius/npm/modules/binc"
-	_ "github.com/abcum/cirrius/npm/modules/cbor"
-	_ "github.com/abcum/cirrius/npm/modules/colour"
-	_ "github.com/abcum/cirrius/npm/modules/dns"
-	_ "github.com/abcum/cirrius/npm/modules/http"
-	_ "github.com/abcum/cirrius/npm/modules/https"
-	_ "github.com/abcum/cirrius/npm/modules/json"
-	_ "github.com/abcum/cirrius/npm/modules/msgpack"
-	_ "github.com/abcum/cirrius/npm/modules/os"
-	_ "github.com/abcum/cirrius/npm/modules/path"
-	_ "github.com/abcum/cirrius/npm/modules/routes"
-	_ "github.com/abcum/cirrius/npm/modules/shortid"
-	_ "github.com/abcum/cirrius/npm/modules/uuid"
-	_ "github.com/abcum/cirrius/npm/modules/ws"
 )
 
 func init() {

@@ -1,5 +1,5 @@
-hash: 0dbf84a0ee56de7ab7c22ab992932f3567e13849fafd6b3662f702a0dfba5748
-updated: 2017-03-04T23:37:56.150683832Z
+hash: 495fc6bd60ccbb6b589944d8b69a32b07815689d2cee347e29a50486b8fc00c2
+updated: 2017-03-05T22:59:22.390464779Z
 imports:
 - name: cloud.google.com/go
   version: 9b68cf4865e93f379a337b7e957f33de60397a48
@@ -25,8 +25,22 @@ imports:
   - ast
   - lexer
   - parser
+- name: github.com/boombuler/barcode
+  version: c07adc95a07cb6213cf4c104caab763bce2d49c0
+  subpackages:
+  - codabar
+  - code128
+  - code39
+  - codebar
+  - datamatrix
+  - ean
+  - qr
+  - twooffive
+  - utils
 - name: github.com/dgrijalva/jwt-go
   version: d2709f9f1f31ebcda9651b03077758c1f3a0018c
+- name: github.com/disintegration/imaging
+  version: 243d2d8673c1225a6afceeb9b3b4423d485dc8df
 - name: github.com/golang/protobuf
   version: 69b215d01a5606c843240eab4937eab3acee6530
   subpackages:
@@ -52,6 +66,8 @@ imports:
   version: 9622e0cc9d8f9be434ca605520ff9a16808fee47
 - name: github.com/mgutz/ansi
   version: 9520e82c474b0a04dd04f8a40959027271bab992
+- name: github.com/miekg/dns
+  version: eda6b320244f0700772bb765282381d17495e7d3
 - name: github.com/mitchellh/mapstructure
   version: db1efb556f84b25a0a13a04aad883943538ad2e0
 - name: github.com/newrelic/go-agent
