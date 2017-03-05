@@ -12,38 +12,36 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package barcode
+package twooffive
 
 import (
 	"github.com/abcum/orbit"
 	"github.com/robertkrimen/otto"
+
+	"github.com/boombuler/barcode"
+	"github.com/boombuler/barcode/twooffive"
 )
 
 func init() {
 
-	orbit.Add("barcode", func(orb *orbit.Orbit) (otto.Value, error) {
-		return orb.ToValue(map[string]interface{}{
-			"codabar": func() (val otto.Value) {
-				return otto.UndefinedValue()
-			},
-			"code128": func() (val otto.Value) {
-				return otto.UndefinedValue()
-			},
-			"code39": func() (val otto.Value) {
-				return otto.UndefinedValue()
-			},
-			"datamatrix": func() (val otto.Value) {
-				return otto.UndefinedValue()
-			},
-			"ean": func() (val otto.Value) {
-				return otto.UndefinedValue()
-			},
-			"qr": func() (val otto.Value) {
-				return otto.UndefinedValue()
-			},
-			"twooffive": func() (val otto.Value) {
-				return otto.UndefinedValue()
-			},
+	orbit.Add("twooffive", func(orb *orbit.Orbit) (otto.Value, error) {
+		return orb.ToValue(func(content string, w, h int) (val otto.Value) {
+
+			var err error
+			var img barcode.Barcode
+
+			if img, err = twooffive.Encode(content, true); err != nil {
+				panic(err)
+			}
+
+			if img, err = barcode.Scale(img, w, h); err != nil {
+				panic(err)
+			}
+
+			val, _ = orb.ToValue(img)
+
+			return
+
 		})
 	})
 
