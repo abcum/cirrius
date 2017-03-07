@@ -14,7 +14,7 @@
 
 package web
 
-func processHtml(input []byte) (output []byte, err error) {
+func processHTML(input []byte) (output []byte, err error) {
 
 	input = tmpl(input, "ssi")
 

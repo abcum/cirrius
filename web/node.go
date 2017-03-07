@@ -61,7 +61,7 @@ func init() {
 
 }
 
-func processNode(fib *fibre.Context, info *info) (err error) {
+func processJS(fib *fibre.Context, info *info) (err error) {
 
 	// New orbit instance
 	orb := orbit.New(0)

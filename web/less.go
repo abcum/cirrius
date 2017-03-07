@@ -14,7 +14,7 @@
 
 package web
 
-func processLess(input []byte) (output []byte, err error) {
+func processLESS(input []byte) (output []byte, err error) {
 
 	input = incl(input, "css")
 

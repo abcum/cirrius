@@ -69,24 +69,24 @@ func routes(s *fibre.Fibre) {
 		}
 
 		if info.path == "main.js" {
-			return processNode(c, info)
+			return processJS(c, info)
 		}
 
 		switch info.extn {
 		case ".md":
-			info.data, err = processMd(info.data)
+			info.data, err = processMD(info.data)
 		case ".css":
-			info.data, err = processCss(info.data)
+			info.data, err = processCSS(info.data)
 		case ".less":
-			info.data, err = processLess(info.data)
+			info.data, err = processLESS(info.data)
 		case ".scss":
-			info.data, err = processScss(info.data)
+			info.data, err = processSCSS(info.data)
 		case ".sass":
-			info.data, err = processSass(info.data)
+			info.data, err = processSASS(info.data)
 		case ".gcss":
-			info.data, err = processGcss(info.data)
+			info.data, err = processGCSS(info.data)
 		case ".html":
-			info.data, err = processHtml(info.data)
+			info.data, err = processHTML(info.data)
 		}
 
 		if err != nil {

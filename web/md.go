@@ -18,7 +18,7 @@ import (
 	"github.com/russross/blackfriday"
 )
 
-func processMd(input []byte) (output []byte, err error) {
+func processMD(input []byte) (output []byte, err error) {
 
 	input = blackfriday.MarkdownCommon(input)
 

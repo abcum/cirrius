@@ -14,7 +14,7 @@
 
 package web
 
-func processCss(input []byte) (output []byte, err error) {
+func processCSS(input []byte) (output []byte, err error) {
 
 	input = incl(input, "css")
 

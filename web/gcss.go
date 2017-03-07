@@ -20,7 +20,7 @@ import (
 	"github.com/yosssi/gcss"
 )
 
-func processGcss(input []byte) (output []byte, err error) {
+func processGCSS(input []byte) (output []byte, err error) {
 
 	input = incl(input, "css")
 
