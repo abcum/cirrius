@@ -1,34 +1,80 @@
 package: github.com/abcum/cirrius
 import:
 - package: cloud.google.com/go
-  version: 9b68cf4865e93f379a337b7e957f33de60397a48
+  version: ^0.7.0
   subpackages:
   - compute/metadata
   - errors
   - logging
   - trace
+- package: github.com/AlasdairF/NormalizeText
+- package: github.com/Obaied/RAKE.Go
+- package: github.com/PuerkitoBio/goquery
+  version: ^1.1.0
 - package: github.com/SKAhack/go-shortid
 - package: github.com/Sirupsen/logrus
-  version: ^0.11.4
+  version: ^0.11.5
 - package: github.com/abcum/fibre
   subpackages:
   - mw
 - package: github.com/abcum/orbit
+- package: github.com/abcum/webkit
+- package: github.com/anthonynsimon/bild
+  version: ^0.10.0
+  subpackages:
+  - adjust
+  - blur
+  - channel
+  - clone
+  - effect
+  - histogram
+  - noise
+  - segment
+  - transform
+- package: github.com/arbovm/levenshtein
 - package: github.com/aymerick/raymond
   version: ^2.0.1
+- package: github.com/beevik/etree
+  version: ^0.0.0
 - package: github.com/boombuler/barcode
-  version: c07adc95a07cb6213cf4c104caab763bce2d49c0
   subpackages:
+  - codabar
   - code128
   - code39
-  - codebar
   - datamatrix
   - ean
   - qr
   - twooffive
+- package: github.com/brianvoe/gofakeit
+- package: github.com/disintegration/imaging
+  version: ^1.1.0
+- package: github.com/donatj/mpo
+- package: github.com/endeveit/guesslanguage
+- package: github.com/fatih/structs
+  version: ^1.0.0
+- package: github.com/golang/freetype
+- package: github.com/gorilla/websocket
+  version: ^1.1.0
+- package: github.com/gosimple/slug
+  version: ^1.0.3
+- package: github.com/hjson/hjson-go
+  version: ^0.2.2
+- package: github.com/jaytaylor/html2text
 - package: github.com/lucasb-eyer/go-colorful
 - package: github.com/mgutz/ansi
 - package: github.com/miekg/dns
+- package: github.com/mozillazg/go-unidecode
+  version: ^0.1.0
+- package: github.com/mvdan/xurls
+  version: ^1.1.0
+- package: github.com/olebedev/when
+  subpackages:
+  - rules/common
+  - rules/en
+  - rules/ru
+- package: github.com/oschwald/geoip2-golang
+  version: ^1.0.0
+- package: github.com/paulstuart/ping
 - package: github.com/pkg/profile
   version: ^1.2.0
 - package: github.com/robertkrimen/otto
@@ -36,9 +82,18 @@ import:
   version: ^1.4.0
 - package: github.com/satori/go.uuid
   version: ^1.1.0
+- package: github.com/sbstjn/allot
+- package: github.com/sergi/go-diff
+  subpackages:
+  - diffmatchpatch
+- package: github.com/skip2/go-qrcode
+- package: github.com/solovev/gopsd
+- package: github.com/sourcegraph/syntaxhighlight
+- package: github.com/speps/go-hashids
+  version: ^1.0.0
 - package: github.com/spf13/cobra
 - package: github.com/tdewolff/minify
-  version: ^2.0.0
+  version: ^2.1.0
   subpackages:
   - css
   - html
@@ -49,19 +104,30 @@ import:
 - package: github.com/ugorji/go
   subpackages:
   - codec
+- package: github.com/undiabler/golang-whois
 - package: github.com/yosssi/gcss
   version: ^0.1.0
+- package: golang.org/x/image
+  subpackages:
+  - tiff
+  - webp
 - package: golang.org/x/net
   subpackages:
   - context
+  - context/ctxhttp
+  - html
 - package: google.golang.org/api
   subpackages:
   - option
 - package: google.golang.org/genproto
   subpackages:
   - googleapis/api/monitoredres
-- package: github.com/disintegration/imaging
-  version: ^1.0.0
+- package: gopkg.in/go-playground/validator.v9
+  version: ^9.3.5
+- package: gopkg.in/mailgun/mailgun-go.v1
+  version: ^1.1.0
+- package: gopkg.in/neurosnap/sentences.v1
+  version: ^1.0.6
 testImport:
 - package: github.com/smartystreets/goconvey
   version: ^1.6.2

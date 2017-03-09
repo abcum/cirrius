@@ -93,7 +93,6 @@ func prerender(c *fibre.Context) (err error, ok bool) {
 
 	res, err = cli.Do(req)
 	if err != nil {
-		fmt.Println(err)
 		return
 	}
 

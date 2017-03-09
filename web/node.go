@@ -22,6 +22,8 @@ import (
 	"github.com/abcum/fibre"
 	"github.com/abcum/orbit"
 	"github.com/robertkrimen/otto"
+
+	_ "github.com/abcum/cirrius/cpm"
 )
 
 func init() {
