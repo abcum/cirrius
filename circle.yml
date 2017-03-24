@@ -36,6 +36,7 @@ test:
         - make clean
         - make glide
         - make setup
+        - make patch
         - make tests
         - make build
         - make ember

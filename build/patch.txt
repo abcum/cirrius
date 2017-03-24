@@ -1,0 +1,24 @@
+diff --git a/vendor/github.com/robertkrimen/otto/type_go_struct.go b/vendor/github.com/robertkrimen/otto/type_go_struct.go
+index 608ac66..fd0bd95 100644
+--- a/vendor/github.com/robertkrimen/otto/type_go_struct.go
++++ b/vendor/github.com/robertkrimen/otto/type_go_struct.go
+@@ -3,6 +3,8 @@ package otto
+ import (
+ 	"encoding/json"
+ 	"reflect"
++	"unicode"
++	"unicode/utf8"
+ )
+
+ // FIXME Make a note about not being able to modify a struct unless it was
+@@ -36,6 +38,10 @@ func _newGoStructObject(value reflect.Value) *_goStructObject {
+ }
+
+ func (self _goStructObject) getValue(name string) reflect.Value {
++	if name != "" {
++		r, n := utf8.DecodeRuneInString(name)
++		name = string(unicode.ToUpper(r)) + name[n:]
++	}
+ 	if validGoStructName(name) {
+ 		// Do not reveal hidden or unexported fields
+ 		if field := reflect.Indirect(self.value).FieldByName(name); (field != reflect.Value{}) {
