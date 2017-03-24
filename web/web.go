@@ -60,7 +60,7 @@ func Setup(opts *cnf.Options) (err error) {
 	// Check body size
 
 	s.Use(mw.Size(&mw.SizeOpts{
-		AllowedLength: 1 << 20,
+		AllowedLength: 1 << 24, // 16mb
 	}))
 
 	// Log successful start
