@@ -15,45 +15,17 @@
 package web
 
 import (
-	"fmt"
-
 	"context"
 
 	"github.com/abcum/fibre"
 	"github.com/abcum/orbit"
-	"github.com/robertkrimen/otto"
 
 	_ "github.com/abcum/cirrius/cpm"
 )
 
 func init() {
 
-	orbit.OnInit(func(orbit *orbit.Orbit) {
-
-		session := orbit.Context().Value("fibre").(*fibre.Context)
-
-		fmt.Println("INIT", session.Get("id"))
-
-	})
-
-	orbit.OnExit(func(orbit *orbit.Orbit) {
-
-		session := orbit.Context().Value("fibre").(*fibre.Context)
-
-		fmt.Println("EXIT", session.Get("id"))
-
-	})
-
-	orbit.OnFail(func(orbit *orbit.Orbit, err error) {
-		if tmp, ok := err.(*otto.Error); ok {
-			fmt.Println("FAIL", tmp.String())
-		} else {
-			fmt.Println("FAIL", err.Error())
-		}
-		// Log runtime error on context
-	})
-
-	orbit.OnFile(func(orbit *orbit.Orbit, files []string) (code interface{}, file string, err error) {
+	orbit.OnFile(func(orb *orbit.Orbit, files []string) (code interface{}, file string, err error) {
 		info, err := find(files...) // TODO Need to use fibre request context here
 		if err != nil {
 			return code, file, err
