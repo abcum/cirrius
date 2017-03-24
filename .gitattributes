@@ -1,6 +1,7 @@
 # Ignore vendored files
-
-npm/modules/*/*.js linguist-vendored
-
 pjs/phantom-darwin linguist-vendored
 pjs/phantom-linux linguist-vendored
+
+# Track large files using git-lfs
+*.mmdb filter=lfs diff=lfs merge=lfs -text
+*.gen.go filter=lfs diff=lfs merge=lfs -text
