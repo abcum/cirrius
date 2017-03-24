@@ -27,6 +27,8 @@ import (
 	"github.com/tdewolff/minify/json"
 	"github.com/tdewolff/minify/svg"
 	"github.com/tdewolff/minify/xml"
+
+	"github.com/abcum/cirrius/util/build"
 )
 
 func routes(s *fibre.Fibre) {
@@ -45,7 +47,7 @@ func routes(s *fibre.Fibre) {
 	// --------------------------------------------------
 
 	s.Get("/info", func(c *fibre.Context) error {
-		return c.Code(200)
+		return c.Send(200, build.GetInfo())
 	})
 
 	// --------------------------------------------------
