@@ -4,8 +4,6 @@ RUN apk update
 
 RUN apk add --no-cache ca-certificates
 
-ADD app app/
-
 ADD dep dep/
 
 ADD cirrius .
