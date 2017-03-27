@@ -25,5 +25,6 @@ jobs:
       - run:
           name: Deploy
           command: |
+            docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
             docker build -t abcum/cirrius .
             docker push abcum/cirrius
