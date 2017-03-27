@@ -39,7 +39,7 @@ func NewPage(orb *orbit.Orbit, val *webkit.WebView) *Page {
 }
 
 func (this *Page) URL(uri string) string {
-	this.val.URI()
+	return this.val.URI()
 }
 
 func (this *Page) Title() string {

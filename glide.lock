@@ -22,7 +22,7 @@ imports:
 - name: github.com/abcum/orbit
   version: 110cc12242715311142559db06b8b2883e47784d
 - name: github.com/abcum/webkit
-  version: 6f39fc6d538bcc3a9bd8d59a68c076336249b266
+  version: ec928afdb6b0c9fe6024796342402b5214f2a75b
 - name: github.com/AlasdairF/Conv
   version: b55e025a049e6ae1ca76be0fde855af441f89141
 - name: github.com/AlasdairF/Custom
