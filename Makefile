@@ -13,6 +13,7 @@
 # limitations under the License.
 
 GO ?= go
+OS := $(shell uname -s)
 LDF :=
 
 # The `make default` command cleans
@@ -109,7 +110,12 @@ quick:
 .PHONY: build
 build: LDF += $(shell GOPATH=${GOPATH} build/flags.sh)
 build:
-	CGO_ENABLED=0 $(GO) build -v -ldflags '$(LDF)'
+    ifeq ($(OS), Darwin)
+		CGO_ENABLED=0 $(GO) build -v -ldflags '$(LDF)'
+    endif
+    ifeq ($(OS), Linux)
+		CGO_ENABLED=1 $(GO) build -v -tags 'cgo webkit webkit_2_1_4' -ldflags '$(LDF)'
+    endif
 
 # The `make install` command compiles
 # the build flags, gets the project
@@ -118,4 +124,9 @@ build:
 .PHONY: install
 install: LDF += $(shell GOPATH=${GOPATH} build/flags.sh)
 install:
-	CGO_ENABLED=0 $(GO) install -v -ldflags '$(LDF)'
+    ifeq ($(OS), Darwin)
+		CGO_ENABLED=0 $(GO) install -v -ldflags '$(LDF)'
+    endif
+    ifeq ($(OS), Linux)
+		CGO_ENABLED=1 $(GO) install -v -tags 'cgo webkit webkit_2_1_4' -ldflags '$(LDF)'
+    endif
