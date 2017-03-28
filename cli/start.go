@@ -21,7 +21,6 @@ import (
 	"github.com/spf13/cobra"
 
 	"github.com/abcum/cirrius/log"
-	"github.com/abcum/cirrius/pjs"
 	"github.com/abcum/cirrius/web"
 )
 
@@ -37,11 +36,6 @@ var startCmd = &cobra.Command{
 	},
 	RunE: func(cmd *cobra.Command, args []string) (err error) {
 
-		if err = pjs.Setup(opts); err != nil {
-			log.Fatal(err)
-			return
-		}
-
 		if err = web.Setup(opts); err != nil {
 			log.Fatal(err)
 			return
@@ -52,7 +46,6 @@ var startCmd = &cobra.Command{
 	},
 	PostRun: func(cmd *cobra.Command, args []string) {
 
-		pjs.Exit()
 		web.Exit()
 
 	},
