@@ -14,7 +14,7 @@
 
 package lorem
 
-var latin = []string{
+var latin = [...]string{
 	"a",
 	"ab",
 	"abditioribus",
