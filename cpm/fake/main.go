@@ -267,11 +267,13 @@ func (this *Module) Sentence(words int) string {
 }
 
 func (this *Module) ShuffleInts(ints []int) []int {
-	return gofakeit.ShuffleInts(ints)
+	gofakeit.ShuffleInts(ints)
+	return ints
 }
 
 func (this *Module) ShuffleStrings(strings []string) []string {
-	return gofakeit.ShuffleStrings(strings)
+	gofakeit.ShuffleStrings(strings)
+	return strings
 }
 
 func (this *Module) State() string {
