@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: abcum/circle:0.1.1
+      - image: abcum/circle-webkit:latest
     working_directory: /go/src/github.com/abcum/cirrius
     steps:
       - checkout
