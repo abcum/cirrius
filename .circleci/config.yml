@@ -28,7 +28,6 @@ jobs:
       - run:
           name: Deploy
           command: |
-            gcloud auth docker-helper configure-docker
-            docker build -t abcum/cirrius .
-            docker tag abcum/cirrius:latest eu.gcr.io/abcum-ltd/cirrius:latest
-            docker push eu.gcr.io/abcum-ltd/cirrius:latest
+            gcloud docker -- build -t abcum/cirrius .
+            gcloud docker -- tag abcum/cirrius:latest eu.gcr.io/abcum-ltd/cirrius:latest
+            gcloud docker -- push eu.gcr.io/abcum-ltd/cirrius:latest
