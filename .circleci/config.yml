@@ -13,9 +13,6 @@ jobs:
           name: Glide
           command: make glide
       - run:
-          name: Setup
-          command: make setup
-      - run:
           name: Patch
           command: make patch
       - run:
