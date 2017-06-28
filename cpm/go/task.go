@@ -22,12 +22,9 @@ type task struct {
 	callback func()
 }
 
-func (t *task) Startup(orb *orbit.Orbit) {
+func (t *task) Startup(orb *orbit.Orbit) {}
 
-}
-
-func (t *task) Cleanup(orb *orbit.Orbit) {
-}
+func (t *task) Cleanup(orb *orbit.Orbit) {}
 
 func (t *task) Execute(orb *orbit.Orbit) (err error) {
 	t.callback()
