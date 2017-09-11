@@ -43,7 +43,7 @@ import (
 	_ "github.com/abcum/cirrius/cpm/file/xml"
 
 	// Load geo modules
-	_ "github.com/abcum/cirrius/cpm/geo/havershine"
+	_ "github.com/abcum/cirrius/cpm/geo/haversine"
 	_ "github.com/abcum/cirrius/cpm/geo/ip"
 
 	// Load file modules

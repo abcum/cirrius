@@ -12,32 +12,38 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package havershine
+package haversine
 
 import (
+	"math"
+
 	"github.com/abcum/orbit"
 )
 
-func init() {
-	orbit.Add("geo/havershine", New)
+type Point struct {
+	orb *orbit.Orbit
+	Lat float64 `console:"lat" codec:"lat"`
+	Lng float64 `console:"lng" codec:"lng"`
 }
 
-func New(orb *orbit.Orbit) interface{} {
-	return &Module{
+func NewPoint(orb *orbit.Orbit, lat, lng float64) *Point {
+	return &Point{
 		orb: orb,
+		Lat: lat,
+		Lng: lng,
 	}
 }
 
-type Module struct {
-	orb *orbit.Orbit
-}
+func (this *Point) Distance(to *Point) float64 {
 
-func (this *Module) Point(lat, lng float64) *Point {
-	return NewPoint(this.orb, lat, lng)
-}
+	lata, lnga := this.Lat*radian, this.Lng*radian
+	latb, lngb := to.Lat*radian, to.Lng*radian
+	latc, lngc := lata-latb, lnga-lngb
 
-func (this *Module) Distance(a, b *Point) float64 {
+	dis := math.Pow(math.Sin(latc/2), 2) + math.Cos(lata)*math.Cos(latb)*math.Pow(math.Sin(lngc/2), 2)
 
-	return a.Distance(b)
+	c := 2 * math.Atan2(math.Sqrt(dis), math.Sqrt(1-dis))
+
+	return (earthr * c)
 
 }
