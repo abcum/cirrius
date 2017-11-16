@@ -4,7 +4,7 @@ jobs:
     docker:
       - image: abcum/circle-golang:latest
         environment:
-          GOOGLE_APPLICATION_CREDENTIALS: ~/gcloud-service-key.json
+          GOOGLE_APPLICATION_CREDENTIALS: /root/gcloud-service-key.json
     working_directory: /go/src/github.com/abcum/cirrius
     steps:
       - checkout
@@ -32,6 +32,8 @@ jobs:
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               docker login -u $DOCKER_USER -p $DOCKER_PASS
+              docker build -t abcum/cirrius .
+              docker push abcum/cirrius
               gcloud docker -- build -t abcum/cirrius .
               gcloud docker -- tag abcum/cirrius:latest eu.gcr.io/abcum-ltd/cirrius:latest
               gcloud docker -- push eu.gcr.io/abcum-ltd/cirrius:latest
