@@ -20,7 +20,7 @@ import (
 
 func processMD(input []byte) (output []byte, err error) {
 
-	input = blackfriday.MarkdownCommon(input)
+	input = blackfriday.Run(input)
 
 	input = tmpl(input, "ssi")
 

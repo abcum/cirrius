@@ -308,8 +308,8 @@ func (this *Module) URL() string {
 	return gofakeit.URL()
 }
 
-func (this *Module) UniqueID() string {
-	return gofakeit.UniqueID()
+func (this *Module) UUID() string {
+	return gofakeit.UUID()
 }
 
 func (this *Module) UserAgent() string {

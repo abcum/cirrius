@@ -1,10 +1,10 @@
 package: github.com/abcum/cirrius
 import:
 - package: cloud.google.com/go
-  version: ^0.9.0
+  version: ^0.16.0
   subpackages:
   - compute/metadata
-  - errors
+  - errorreporting
   - logging
   - trace
 - package: github.com/AlasdairF/NormalizeText
@@ -13,13 +13,13 @@ import:
   version: ^1.1.0
 - package: github.com/SKAhack/go-shortid
 - package: github.com/Sirupsen/logrus
-  version: ^1.0.0
+  version: ^1.0.3
 - package: github.com/abcum/fibre
   subpackages:
   - mw
 - package: github.com/abcum/orbit
 - package: github.com/abcum/pdflib
-- package: github.com/abcum/webkit
+- package: github.com/abcum/webdriver
 - package: github.com/anthonynsimon/bild
   version: ^0.10.0
   subpackages:
@@ -36,7 +36,7 @@ import:
 - package: github.com/aymerick/raymond
   version: ^2.0.1
 - package: github.com/beevik/etree
-  version: ^0.0.0
+  version: ^1.0.0
 - package: github.com/boombuler/barcode
   subpackages:
   - codabar
@@ -47,20 +47,20 @@ import:
   - qr
   - twooffive
 - package: github.com/brianvoe/gofakeit
-  version: ^2.0.2
+  version: ^3.0.1
 - package: github.com/disintegration/imaging
-  version: ^1.1.0
+  version: ^1.2.4
 - package: github.com/donatj/mpo
 - package: github.com/endeveit/guesslanguage
 - package: github.com/fatih/structs
   version: ^1.0.0
 - package: github.com/golang/freetype
 - package: github.com/gorilla/websocket
-  version: ^1.1.0
+  version: ^1.2.0
 - package: github.com/gosimple/slug
-  version: ^1.0.3
+  version: ^1.1.1
 - package: github.com/hjson/hjson-go
-  version: ^0.2.3
+  version: ^3.0.0
 - package: github.com/jaytaylor/html2text
 - package: github.com/lucasb-eyer/go-colorful
 - package: github.com/mgutz/ansi
@@ -81,7 +81,7 @@ import:
   version: ^1.2.1
 - package: github.com/robertkrimen/otto
 - package: github.com/russross/blackfriday
-  version: ^1.4.0
+  version: ^2.0.0
 - package: github.com/satori/go.uuid
   version: ^1.1.0
 - package: github.com/sbstjn/allot
@@ -94,8 +94,9 @@ import:
 - package: github.com/speps/go-hashids
   version: ^1.0.0
 - package: github.com/spf13/cobra
+  version: ^0.0.1
 - package: github.com/tdewolff/minify
-  version: ^2.1.0
+  version: ^2.3.3
   subpackages:
   - css
   - html
@@ -109,6 +110,9 @@ import:
 - package: github.com/undiabler/golang-whois
 - package: github.com/yosssi/gcss
   version: ^0.1.0
+- package: golang.org/x/crypto
+  subpackages:
+  - ssh/terminal
 - package: golang.org/x/image
   subpackages:
   - tiff
@@ -125,13 +129,13 @@ import:
   subpackages:
   - googleapis/api/monitoredres
 - package: gopkg.in/go-playground/validator.v9
-  version: ^9.4.0
+  version: ^9.9.0
 - package: gopkg.in/mailgun/mailgun-go.v1
   version: ^1.1.0
 - package: gopkg.in/neurosnap/sentences.v1
   version: ^1.0.6
 testImport:
 - package: github.com/smartystreets/goconvey
-  version: ^1.6.2
+  version: ^1.6.3
   subpackages:
   - convey
