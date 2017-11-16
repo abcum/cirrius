@@ -15,16 +15,12 @@
 package html
 
 import (
-	"io"
-
 	"github.com/abcum/orbit"
 	"github.com/jaytaylor/html2text"
-
-	"github.com/abcum/cirrius/cpm/stream"
 )
 
 func init() {
-	orbit.Add("minify/text", New)
+	orbit.Add("text/plain", New)
 }
 
 func New(orb *orbit.Orbit) interface{} {
@@ -37,28 +33,10 @@ type Module struct {
 	orb *orbit.Orbit
 }
 
-func (this *Module) Reader(r io.Reader) *stream.Reader {
-	return stream.NewReader(this.orb, r) // FIXME implement this properly!
-}
-
-func (this *Module) Writer(w io.Writer) *stream.Writer {
-	return stream.NewWriter(this.orb, w) // FIXME implement this properly!
-}
-
-func (this *Module) Minify(src interface{}) (out string) {
-	switch v := src.(type) {
-	case string:
-		out, err := html2text.FromString(v)
-		if err != nil {
-			this.orb.Quit(err)
-		}
-		return out
-	case io.Reader:
-		out, err := html2text.FromReader(v)
-		if err != nil {
-			this.orb.Quit(err)
-		}
-		return out
+func (this *Module) Init(text string) string {
+	out, err := html2text.FromString(text)
+	if err != nil {
+		this.orb.Quit(err)
 	}
-	return
+	return out
 }

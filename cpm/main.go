@@ -56,6 +56,7 @@ import (
 	_ "github.com/abcum/cirrius/cpm/text/lorem"
 	_ "github.com/abcum/cirrius/cpm/text/normalize"
 	_ "github.com/abcum/cirrius/cpm/text/patch"
+	_ "github.com/abcum/cirrius/cpm/text/plain"
 	_ "github.com/abcum/cirrius/cpm/text/rake"
 	_ "github.com/abcum/cirrius/cpm/text/slug"
 	_ "github.com/abcum/cirrius/cpm/text/split"
@@ -85,7 +86,6 @@ import (
 	_ "github.com/abcum/cirrius/cpm/minify/js"
 	_ "github.com/abcum/cirrius/cpm/minify/json"
 	_ "github.com/abcum/cirrius/cpm/minify/svg"
-	_ "github.com/abcum/cirrius/cpm/minify/text"
 	_ "github.com/abcum/cirrius/cpm/minify/xml"
 
 	// Load encoding modules
