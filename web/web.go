@@ -83,6 +83,10 @@ func Setup(opts *cnf.Options) (err error) {
 }
 
 // Exit tears down the server gracefully
-func Exit() {
+func Exit() (err error) {
+
 	log.WithPrefix("web").Infof("Gracefully shutting down %s protocol", "web")
+
+	return
+
 }
