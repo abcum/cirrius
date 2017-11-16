@@ -51,7 +51,7 @@ func Setup(opts *cnf.Options) (err error) {
 	// Add server information
 
 	s.Use(mw.Info(&mw.InfoOpts{
-		PoweredBy: "Cirrius.io",
+		PoweredBy: "cirrius.io",
 	}))
 
 	// Check body size
