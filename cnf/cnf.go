@@ -39,6 +39,11 @@ type Options struct {
 		UUID string // UUID of this node
 	}
 
+	Chrome struct {
+		Endpoint   string // URL endpoint of chromedriver
+		Executable string // Path to Google Chrome executable
+	}
+
 	Logging struct {
 		Level  string // Stores the configured logging level
 		Output string // Stores the configured logging output

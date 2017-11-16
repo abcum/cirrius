@@ -68,6 +68,9 @@ func init() {
 	startCmd.PersistentFlags().StringVarP(&opts.Node.Host, "bind", "b", "0.0.0.0", "The hostname or ip address to listen for connections on.")
 	startCmd.PersistentFlags().StringVarP(&opts.Node.Name, "name", "n", host, "The name of this node, used for logs and statistics.")
 
+	startCmd.PersistentFlags().StringVar(&opts.Chrome.Endpoint, "chrome-endpoint", "", "The URL endpoint of a chromedriver instance.")
+	startCmd.PersistentFlags().StringVar(&opts.Chrome.Executable, "chrome-executable", "", "The path to the Google Chrome executable file.")
+
 	startCmd.PersistentFlags().IntVarP(&opts.Port.Web, "port", "p", 80, "The port on which to serve the server.")
 
 }

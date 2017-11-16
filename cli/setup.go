@@ -18,6 +18,7 @@ import (
 	"fmt"
 	"os"
 	"path"
+	"runtime"
 	"strings"
 
 	"github.com/abcum/cirrius/cnf"
@@ -89,6 +90,27 @@ func setup() {
 		doc.Write([]byte(opts.Cert.Key))
 		doc.Close()
 		opts.Cert.Key = out
+	}
+
+	// --------------------------------------------------
+	// Chrome
+	// --------------------------------------------------
+
+	// Specify default endpoint
+	if opts.Chrome.Endpoint == "" {
+		opts.Chrome.Endpoint = "http://127.0.0.1:9515"
+	}
+
+	// Specify default executable
+	if opts.Chrome.Executable == "" {
+		switch runtime.GOOS {
+		case "windows":
+			opts.Chrome.Executable = "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"
+		case "darwin":
+			opts.Chrome.Executable = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+		case "linux":
+			opts.Chrome.Executable = "/usr/bin/chrome"
+		}
 	}
 
 	// --------------------------------------------------
