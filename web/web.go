@@ -23,9 +23,9 @@ import (
 )
 
 // Setup sets up the server for remote connections
-func Setup(opts *cnf.Options) (err error) {
+func Setup() (err error) {
 
-	log.WithPrefix("web").Infof("Starting web server on %s", opts.Conn.Web)
+	log.WithPrefix("web").Infof("Starting web server on %s", cnf.Settings.Conn)
 
 	s := fibre.Server()
 
@@ -41,23 +41,12 @@ func Setup(opts *cnf.Options) (err error) {
 	s.Use(mw.Uniq()) // Add uniq id
 	s.Use(mw.Fail()) // Catch panics
 	s.Use(mw.Logs()) // Log requests
-	s.Use(mw.Sock()) // Log requests
-	s.Use(mw.Cors()) // Add cors headers
-
-	// Add trace information
-
-	s.Use(tracer())
+	s.Use(mw.Sock()) // Setup sockets
 
 	// Add server information
 
 	s.Use(mw.Info(&mw.InfoOpts{
-		PoweredBy: "cirrius.io",
-	}))
-
-	// Check body size
-
-	s.Use(mw.Size(&mw.SizeOpts{
-		AllowedLength: 1 << 24, // 16mb
+		PoweredBy: "Cirrius",
 	}))
 
 	// Compress responses
@@ -66,16 +55,18 @@ func Setup(opts *cnf.Options) (err error) {
 
 	// Log successful start
 
-	log.WithPrefix("web").Infof("Started web server on %s", opts.Conn.Web)
+	log.WithPrefix("web").Infof("Started web server on %s", cnf.Settings.Conn)
 
 	// Run the server
 
-	if len(opts.Cert.Crt) == 0 || len(opts.Cert.Key) == 0 {
-		s.Run(opts.Conn.Web)
+	if len(cnf.Settings.Cert.Crt) == 0 || len(cnf.Settings.Cert.Key) == 0 {
+		log.WithPrefix("web").Infof("Running at http://%s", cnf.Settings.Conn)
+		s.Run(cnf.Settings.Conn)
 	}
 
-	if len(opts.Cert.Crt) != 0 && len(opts.Cert.Key) != 0 {
-		s.Run(opts.Conn.Web, opts.Cert.Crt, opts.Cert.Key)
+	if len(cnf.Settings.Cert.Crt) != 0 && len(cnf.Settings.Cert.Key) != 0 {
+		log.WithPrefix("web").Infof("Running at https://%s", cnf.Settings.Conn)
+		s.Run(cnf.Settings.Conn, cnf.Settings.Cert.Crt, cnf.Settings.Cert.Key)
 	}
 
 	return nil

@@ -1,0 +1,44 @@
+---
+swagger: "2.0"
+info:
+  version: "2018-01-30T09:27:07Z"
+  title: "gamma"
+host: "pjrb7ev7dd.execute-api.eu-west-2.amazonaws.com"
+basePath: "/live"
+schemes:
+- "https"
+paths:
+  /:
+    x-amazon-apigateway-any-method:
+      responses: {}
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+        uri: "arn:aws:apigateway:eu-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-2:356122846370:function:gamma/invocations"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        contentHandling: "CONVERT_TO_TEXT"
+        type: "aws_proxy"
+  /{all+}:
+    x-amazon-apigateway-any-method:
+      parameters:
+      - name: "all"
+        in: "path"
+        required: true
+        type: "string"
+      responses: {}
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+        uri: "arn:aws:apigateway:eu-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-2:356122846370:function:gamma/invocations"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        cacheNamespace: "ij1yoa"
+        cacheKeyParameters:
+        - "method.request.path.all"
+        contentHandling: "CONVERT_TO_TEXT"
+        type: "aws_proxy"
+x-amazon-apigateway-binary-media-types:
+- "*/*"

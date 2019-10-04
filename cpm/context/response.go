@@ -15,15 +15,15 @@
 package context
 
 import (
-	"github.com/abcum/fibre"
 	"github.com/abcum/orbit"
 
+	"github.com/abcum/cirrius/cnf"
 	"github.com/abcum/cirrius/cpm/stream"
 )
 
 type Response struct {
 	orb *orbit.Orbit
-	fib *fibre.Context
+	res cnf.Response
 
 	// Body represents the http response body of the
 	// current function request. The body can be
@@ -33,16 +33,12 @@ type Response struct {
 
 func NewResponse(orb *orbit.Orbit) *Response {
 
-	fib := orb.Context().Value("fibre").(*fibre.Context)
+	res := orb.Context().Value("res").(cnf.Response)
 
 	return &Response{
 		orb:  orb,
-		fib:  fib,
-		Body: stream.NewWriter(orb, fib.Response()),
+		res:  res,
+		Body: stream.NewWriter(orb, res.Body()),
 	}
 
-}
-
-func (this *Response) Head(key, val string) {
-	this.fib.Response().Header().Set(key, val)
 }

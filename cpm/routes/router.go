@@ -103,7 +103,7 @@ func (r *route) test(path string) (map[string]string, bool) {
 		case r.path[i] == '*':
 			i++
 			v, j = consumeCatch(j, path)
-			param["*"] = v
+			param["*"], param["all"] = v, v
 
 		case r.path[i] == ':':
 			i++

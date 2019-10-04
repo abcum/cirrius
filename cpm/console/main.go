@@ -24,7 +24,6 @@ import (
 	"unicode"
 	"unicode/utf8"
 
-	"github.com/abcum/fibre"
 	"github.com/abcum/orbit"
 	"github.com/fatih/structs"
 	"github.com/robertkrimen/otto"
@@ -45,68 +44,17 @@ func init() {
 		orb.Def("console", New(orb))
 	})
 
-	orbit.OnExit(func(orb *orbit.Orbit) {
-
-		/*fib := orb.Context().Value("fibre").(*fibre.Context)
-
-		surreal.Query(REQ, map[string]interface{}{
-			"id":       fib.Get("id"),
-			"ip":       fib.IP().String(),
-			"url":      fib.Request().URL(),
-			"size":     fib.Request().Size(),
-			"time":     fib.Request().Start(),
-			"method":   fib.Request().Method,
-			"status":   fib.Response().Status(),
-			"response": fib.Response().Size(),
-			"duration": time.Since(fib.Request().Start()),
-		})*/
-
-	})
-
-	orbit.OnFail(func(orb *orbit.Orbit, err error) {
-
-		/*var info string
-
-		if err, ok := err.(*otto.Error); ok {
-			info = err.String()
-		} else {
-			info = err.Error()
-		}
-
-		fib := orb.Context().Value("fibre").(*fibre.Context)
-
-		fold, file := path.Split(orb.Otto.Context().Filename)
-		line := orb.Otto.Context().Line
-		char := orb.Otto.Context().Column
-		kind := "fatal"
-
-		surreal.Query(ERR, map[string]interface{}{
-			"p":    "",
-			"r":    fib.Get("id"),
-			"kind": kind,
-			"fold": fold,
-			"file": file,
-			"line": line,
-			"char": char,
-			"info": info,
-			"time": time.Now(),
-		})*/
-
-	})
-
 }
 
 func New(orb *orbit.Orbit) interface{} {
 	return &Module{
 		orb: orb,
 		stw: make(map[string]time.Time),
-		fib: orb.Context().Value("fibre").(*fibre.Context),
 	}
 }
 
 type Module struct {
 	orb *orbit.Orbit
-	fib *fibre.Context
 	stw map[string]time.Time
 }
 
@@ -221,18 +169,6 @@ func (this *Module) output(kind string, args ...interface{}) {
 
 	data := entry{kind, fold, file, line, char, args}
 
-	/*surreal.Query(LOG, map[string]interface{}{
-		"p":    "",
-		"r":    this.fib.Get("id"),
-		"kind": kind,
-		"fold": fold,
-		"file": file,
-		"line": line,
-		"char": char,
-		"args": args,
-		"time": time.Now(),
-	})*/
-
-	log.Printf("console.%s: %v in %s%s at %d:%d", data.kind, data.args, data.fold, data.file, data.line, data.char)
+	log.Printf("console.%s: %v in %s%s at %d:%d\n", data.kind, data.args, data.fold, data.file, data.line, data.char)
 
 }

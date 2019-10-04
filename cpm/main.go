@@ -18,48 +18,50 @@ import (
 	// Load globals
 	_ "github.com/abcum/cirrius/cpm/console"
 	_ "github.com/abcum/cirrius/cpm/context"
+	_ "github.com/abcum/cirrius/cpm/process"
 
 	// Load modules
-	_ "github.com/abcum/cirrius/cpm/browser"
 	_ "github.com/abcum/cirrius/cpm/colour"
 	_ "github.com/abcum/cirrius/cpm/dns"
 	_ "github.com/abcum/cirrius/cpm/fake"
+	_ "github.com/abcum/cirrius/cpm/fmt"
 	_ "github.com/abcum/cirrius/cpm/go"
-	_ "github.com/abcum/cirrius/cpm/hashids"
 	_ "github.com/abcum/cirrius/cpm/html"
 	_ "github.com/abcum/cirrius/cpm/http"
 	_ "github.com/abcum/cirrius/cpm/inflect"
 	_ "github.com/abcum/cirrius/cpm/path"
 	_ "github.com/abcum/cirrius/cpm/pdf"
 	_ "github.com/abcum/cirrius/cpm/routes"
-	_ "github.com/abcum/cirrius/cpm/shortid"
 	_ "github.com/abcum/cirrius/cpm/time"
-	_ "github.com/abcum/cirrius/cpm/uuid"
 	_ "github.com/abcum/cirrius/cpm/ws"
+
+	// Load id modules
+	_ "github.com/abcum/cirrius/cpm/id/guid"
+	_ "github.com/abcum/cirrius/cpm/id/hashids"
+	_ "github.com/abcum/cirrius/cpm/id/shortid"
+	_ "github.com/abcum/cirrius/cpm/id/uuid"
 
 	// Load file modules
 	_ "github.com/abcum/cirrius/cpm/file"
-	_ "github.com/abcum/cirrius/cpm/file/csv"
-	_ "github.com/abcum/cirrius/cpm/file/xml"
+	_ "github.com/abcum/cirrius/cpm/file/s3"
+
+	// Load data modules
+	_ "github.com/abcum/cirrius/cpm/db/surreal"
 
 	// Load geo modules
 	_ "github.com/abcum/cirrius/cpm/geo/haversine"
-	_ "github.com/abcum/cirrius/cpm/geo/ip"
 
 	// Load file modules
 	_ "github.com/abcum/cirrius/cpm/text"
 	_ "github.com/abcum/cirrius/cpm/text/allot"
 	_ "github.com/abcum/cirrius/cpm/text/ascii"
 	_ "github.com/abcum/cirrius/cpm/text/diff"
-	_ "github.com/abcum/cirrius/cpm/text/guess"
 	_ "github.com/abcum/cirrius/cpm/text/levenshtein"
 	_ "github.com/abcum/cirrius/cpm/text/lorem"
-	_ "github.com/abcum/cirrius/cpm/text/normalize"
 	_ "github.com/abcum/cirrius/cpm/text/patch"
 	_ "github.com/abcum/cirrius/cpm/text/plain"
 	_ "github.com/abcum/cirrius/cpm/text/rake"
 	_ "github.com/abcum/cirrius/cpm/text/slug"
-	_ "github.com/abcum/cirrius/cpm/text/split"
 	_ "github.com/abcum/cirrius/cpm/text/urls"
 
 	// Load image modules
@@ -78,6 +80,10 @@ import (
 	_ "github.com/abcum/cirrius/cpm/image/placeholder"
 	_ "github.com/abcum/cirrius/cpm/image/qr"
 	_ "github.com/abcum/cirrius/cpm/image/twooffive"
+
+	// Load format modules
+	_ "github.com/abcum/cirrius/cpm/format/csv"
+	_ "github.com/abcum/cirrius/cpm/format/xml"
 
 	// Load minify modules
 	_ "github.com/abcum/cirrius/cpm/minify"
@@ -118,4 +124,5 @@ import (
 	// Load api modules
 	_ "github.com/abcum/cirrius/cpm/api/getaddress"
 	_ "github.com/abcum/cirrius/cpm/api/mailgun"
+	_ "github.com/abcum/cirrius/cpm/api/stripe"
 )

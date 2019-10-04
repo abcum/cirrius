@@ -17,7 +17,9 @@ package web
 import (
 	"mime"
 
-	"cloud.google.com/go/trace"
+	"context"
+
+	"github.com/abcum/cirrius/exe"
 
 	"github.com/abcum/fibre"
 	"github.com/tdewolff/minify"
@@ -27,8 +29,6 @@ import (
 	"github.com/tdewolff/minify/json"
 	"github.com/tdewolff/minify/svg"
 	"github.com/tdewolff/minify/xml"
-
-	"github.com/abcum/cirrius/util/build"
 )
 
 func routes(s *fibre.Fibre) {
@@ -42,73 +42,75 @@ func routes(s *fibre.Fibre) {
 	mime.AddExtensionType(".scss", "text/css")
 	mime.AddExtensionType(".gcss", "text/css")
 
-	// --------------------------------------------------
-	// Endpoint for health checks
-	// --------------------------------------------------
-
-	s.Get("/info", func(c *fibre.Context) error {
-		return c.Send(200, build.GetInfo())
-	})
-
-	// --------------------------------------------------
-	// Endpoint for all other requests
-	// --------------------------------------------------
-
 	s.Any("/*", func(c *fibre.Context) (err error) {
 
-		span := trace.FromContext(c.Context()).NewChild("route")
-		nctx := trace.NewContext(c.Context(), span)
-		c = c.WithContext(nctx)
-		defer span.Finish()
+		// --------------------------------------------------
+		// Specify context
+		// --------------------------------------------------
 
-		if err, ok := render(c); ok {
-			return err
-		}
+		ctx := c.Context()
+		ctx = context.WithValue(ctx, "req", &Req{c})
+		ctx = context.WithValue(ctx, "res", &Res{c})
 
-		info, err := load(c.Request().URL().Path)
+		// --------------------------------------------------
+		// Find the file
+		// --------------------------------------------------
+
+		file, err := find(ctx, nil, c.Request().URL().Path)
 		if err != nil {
 			return err
 		}
 
-		if info.path == "main.js" {
-			return processJS(c, info)
+		// --------------------------------------------------
+		// Setup the runtime
+		// --------------------------------------------------
+
+		run := exe.NewExecutable(load)
+
+		// --------------------------------------------------
+		// Execute the file
+		// --------------------------------------------------
+
+		if file.Path == "main.js" {
+			return run.LoadJS(ctx, file)
 		}
 
-		switch info.extn {
+		switch file.Extn {
 		case ".md":
-			info.data, err = processMD(info.data)
+			file, err = run.LoadMD(ctx, file)
 		case ".css":
-			info.data, err = processCSS(info.data)
+			file, err = run.LoadCSS(ctx, file)
 		case ".less":
-			info.data, err = processLESS(info.data)
+			file, err = run.LoadLESS(ctx, file)
 		case ".scss":
-			info.data, err = processSCSS(info.data)
+			file, err = run.LoadSCSS(ctx, file)
 		case ".sass":
-			info.data, err = processSASS(info.data)
+			file, err = run.LoadSASS(ctx, file)
 		case ".gcss":
-			info.data, err = processGCSS(info.data)
+			file, err = run.LoadGCSS(ctx, file)
 		case ".html":
-			info.data, err = processHTML(info.data)
+			file, err = run.LoadHTML(ctx, file)
 		}
 
 		if err != nil {
 			return err
 		}
 
-		switch info.extn {
-		case ".md", ".tpl", ".hbs", ".htm", ".html":
-			m := minify.New()
-			m.AddFunc("text/css", css.Minify)
-			m.AddFunc("text/html", html.Minify)
-			m.AddFunc("text/javascript", js.Minify)
-			m.AddFunc("image/svg+xml", svg.Minify)
-			m.AddFunc("application/xml", xml.Minify)
-			m.AddFunc("application/json", json.Minify)
-			m.AddFunc("application/javascript", js.Minify)
-			info.data, _ = m.Bytes(info.mime, info.data)
-		}
+		// --------------------------------------------------
+		// Minify the output
+		// --------------------------------------------------
 
-		return c.Data(200, info.data, info.mime)
+		m := minify.New()
+		m.AddFunc("text/css", css.Minify)
+		m.AddFunc("text/html", html.Minify)
+		m.AddFunc("text/javascript", js.Minify)
+		m.AddFunc("image/svg+xml", svg.Minify)
+		m.AddFunc("application/xml", xml.Minify)
+		m.AddFunc("application/json", json.Minify)
+		m.AddFunc("application/javascript", js.Minify)
+		file.Data, _ = m.Bytes(file.Mime, file.Data)
+
+		return c.Data(200, file.Data, file.Mime)
 
 	})
 

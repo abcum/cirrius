@@ -12,10 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// +build !aws,!gce,!as3
+
 package ws
 
 import (
-	"github.com/abcum/fibre"
 	"github.com/abcum/orbit"
 )
 
@@ -28,8 +29,11 @@ func (t *task) Startup(orb *orbit.Orbit) {
 }
 
 func (t *task) Cleanup(orb *orbit.Orbit) {
-	session := orb.Context().Value("fibre").(*fibre.Context)
-	session.Socket().Close(1000)
+	if req, ok := orb.Context().Value("req").(fibrer); ok {
+		if req.Fibre().Socket() != nil {
+			req.Fibre().Socket().Close(1000)
+		}
+	}
 }
 
 func (t *task) Execute(orb *orbit.Orbit) (err error) {

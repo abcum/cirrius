@@ -15,62 +15,68 @@
 package context
 
 import (
-	"github.com/abcum/fibre"
 	"github.com/abcum/orbit"
 )
 
 type Status struct {
 	orb *orbit.Orbit
 	val int
-	fib *fibre.Context
+	req *Request
+	res *Response
 }
 
-func NewStatus(orb *orbit.Orbit, val int) *Status {
+func NewStatus(orb *orbit.Orbit, req *Request, res *Response, val int) *Status {
 	return &Status{
 		orb: orb,
 		val: val,
-		fib: orb.Context().Value("fibre").(*fibre.Context),
+		req: req,
+		res: res,
 	}
 }
 
+func (this *Status) Done() {
+	this.res.res.Code(this.val)
+	panic(nil)
+	return
+}
+
 func (this *Status) Xml(data interface{}) {
-	this.fib.XML(this.val, data)
+	this.res.res.Xml(this.val, data)
 	panic(nil)
 	return
 }
 
 func (this *Status) Text(data interface{}) {
-	this.fib.Text(this.val, data)
+	this.res.res.Text(this.val, data)
 	panic(nil)
 	return
 }
 
 func (this *Status) Html(data interface{}) {
-	this.fib.HTML(this.val, data)
+	this.res.res.Html(this.val, data)
 	panic(nil)
 	return
 }
 
 func (this *Status) Json(data interface{}) {
-	this.fib.JSON(this.val, data)
+	this.res.res.Json(this.val, data)
 	panic(nil)
 	return
 }
 
 func (this *Status) Cbor(data interface{}) {
-	this.fib.CBOR(this.val, data)
+	this.res.res.Cbor(this.val, data)
 	panic(nil)
 	return
 }
 
 func (this *Status) Pack(data interface{}) {
-	this.fib.PACK(this.val, data)
+	this.res.res.Pack(this.val, data)
 	panic(nil)
 	return
 }
 
-func (this *Status) Send(data interface{}) {
-	this.fib.Send(this.val, data)
-	panic(nil)
-	return
+func (this *Status) Head(key, val string) *Status {
+	this.res.res.Head(key, val)
+	return this
 }

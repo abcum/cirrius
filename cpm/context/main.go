@@ -17,7 +17,6 @@ package context
 import (
 	"fmt"
 
-	"github.com/abcum/fibre"
 	"github.com/abcum/orbit"
 	"github.com/aymerick/raymond"
 )
@@ -35,13 +34,11 @@ func New(orb *orbit.Orbit) interface{} {
 		orb: orb,
 		Req: NewRequest(orb),
 		Res: NewResponse(orb),
-		fib: orb.Context().Value("fibre").(*fibre.Context),
 	}
 }
 
 type Module struct {
 	orb *orbit.Orbit
-	fib *fibre.Context
 
 	// Req represents the http request of the
 	// function runtime, enabling processing
@@ -57,7 +54,7 @@ type Module struct {
 // Success enables sending only an http 200
 // success status code to the http client.
 func (this *Module) Success() {
-	this.fib.Code(200)
+	this.Res.res.Code(200)
 	panic(nil)
 	return
 }
@@ -65,16 +62,22 @@ func (this *Module) Success() {
 // Failure enables sending only an http 400
 // failure status code to the http client.
 func (this *Module) Failure() {
-	this.fib.Code(400)
+	this.Res.res.Code(400)
 	panic(nil)
 	return
+}
+
+// Head enables defining the http headers
+// which are to be sent with the response.
+func (this *Module) Head(key, val string) {
+	this.Res.res.Head(key, val)
 }
 
 // Status enables defining the http status
 // code, with a chained method to send the
 // data using different encoding types.
 func (this *Module) Status(code int) *Status {
-	return NewStatus(this.orb, code)
+	return NewStatus(this.orb, this.Req, this.Res, code)
 }
 
 // The following methods enable sending the
@@ -82,43 +85,37 @@ func (this *Module) Status(code int) *Status {
 // methods, with an http status code 200.
 
 func (this *Module) Xml(data interface{}) {
-	this.fib.XML(200, data)
+	this.Res.res.Xml(200, data)
 	panic(nil)
 	return
 }
 
 func (this *Module) Text(data interface{}) {
-	this.fib.Text(200, data)
+	this.Res.res.Text(200, data)
 	panic(nil)
 	return
 }
 
 func (this *Module) Html(data interface{}) {
-	this.fib.HTML(200, data)
+	this.Res.res.Html(200, data)
 	panic(nil)
 	return
 }
 
 func (this *Module) Json(data interface{}) {
-	this.fib.JSON(200, data)
+	this.Res.res.Json(200, data)
 	panic(nil)
 	return
 }
 
 func (this *Module) Cbor(data interface{}) {
-	this.fib.CBOR(200, data)
+	this.Res.res.Cbor(200, data)
 	panic(nil)
 	return
 }
 
 func (this *Module) Pack(data interface{}) {
-	this.fib.PACK(200, data)
-	panic(nil)
-	return
-}
-
-func (this *Module) Send(data interface{}) {
-	this.fib.Send(200, data)
+	this.Res.res.Pack(200, data)
 	panic(nil)
 	return
 }
@@ -158,7 +155,7 @@ func (this *Module) Render(file string, args ...interface{}) {
 		this.orb.Quit(err)
 	}
 
-	this.fib.HTML(200, html)
+	this.Res.res.Html(200, html)
 	panic(nil)
 	return
 

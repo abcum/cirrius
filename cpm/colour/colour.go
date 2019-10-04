@@ -15,7 +15,7 @@
 package colour
 
 import (
-	"math"
+	"fmt"
 
 	"image/color"
 
@@ -25,13 +25,31 @@ import (
 
 type Colour struct {
 	orb *orbit.Orbit
+	typ kind
 	col colorful.Color
+	c   float64
+	m   float64
+	y   float64
+	k   float64
 }
 
-func NewColour(orb *orbit.Orbit, col colorful.Color) *Colour {
+func NewColour(orb *orbit.Orbit, typ kind, col colorful.Color) *Colour {
 	return &Colour{
 		orb: orb,
 		col: col,
+		typ: typ,
+	}
+}
+
+func NewColourWithCMYK(orb *orbit.Orbit, typ kind, col colorful.Color, c, m, y, k float64) *Colour {
+	return &Colour{
+		orb: orb,
+		col: col,
+		typ: typ,
+		c:   c,
+		m:   m,
+		y:   y,
+		k:   k,
 	}
 }
 
@@ -47,6 +65,11 @@ func (this *Colour) Rgb() [3]uint8 {
 func (this *Colour) Rgba() [4]uint8 {
 	r, g, b := this.col.RGB255()
 	return [4]uint8{r, g, b, 255}
+}
+
+func (this *Colour) Hcl() [3]float64 {
+	h, c, l := this.col.Hcl()
+	return [3]float64{fixed(h), fixed(c * 100), fixed(l * 100)}
 }
 
 func (this *Colour) Hsl() [3]float64 {
@@ -80,13 +103,18 @@ func (this *Colour) Xyz() [3]float64 {
 }
 
 func (this *Colour) Cmyk() [4]float64 {
-	r, g, b := this.col.RGB255()
-	c, m, y, k := color.RGBToCMYK(r, g, b)
-	return [4]float64{
-		fixed(float64(c) / 2.55),
-		fixed(float64(m) / 2.55),
-		fixed(float64(y) / 2.55),
-		fixed(float64(k) / 2.55),
+	switch this.typ {
+	case cmyk:
+		return [4]float64{this.c, this.m, this.y, this.k}
+	default:
+		r, g, b := this.col.RGB255()
+		c, m, y, k := color.RGBToCMYK(r, g, b)
+		return [4]float64{
+			fixed(float64(c) / 2.55),
+			fixed(float64(m) / 2.55),
+			fixed(float64(y) / 2.55),
+			fixed(float64(k) / 2.55),
+		}
 	}
 }
 
@@ -101,11 +129,28 @@ func (this *Colour) ToCMYK() color.CMYK {
 	return color.CMYK{C: c, M: m, Y: y, K: k}
 }
 
-func round(num float64) int {
-	return int(num + math.Copysign(0.5, num))
+func (this *Colour) String() string {
+	switch this.typ {
+	default:
+		ru, gu, bu := this.col.RGB255()
+		rp, gp, bp := float64(ru), float64(gu), float64(bu)
+		return fmt.Sprintf("rgb %v %v %v", fixed(rp/255), fixed(gp/255), fixed(bp/255))
+	case cmyk:
+		cu, mu, yu, ku := this.c, this.m, this.y, this.k
+		cp, mp, yp, kp := float64(cu), float64(mu), float64(yu), float64(ku)
+		return fmt.Sprintf("cmyk %v %v %v %v", fixed(cp/100), fixed(mp/100), fixed(yp/100), fixed(kp/100))
+	}
 }
 
-func fixed(num float64) float64 {
-	output := math.Pow(10, float64(2))
-	return float64(round(num*output)) / output
+func (this *Colour) Output() (string, float64, float64, float64, float64) {
+	switch this.typ {
+	default:
+		ru, gu, bu := this.col.RGB255()
+		rp, gp, bp := float64(ru), float64(gu), float64(bu)
+		return "rgb", fixed(rp / 255), fixed(gp / 255), fixed(bp / 255), 0
+	case cmyk:
+		cu, mu, yu, ku := this.c, this.m, this.y, this.k
+		cp, mp, yp, kp := float64(cu), float64(mu), float64(yu), float64(ku)
+		return "cmyk", fixed(cp / 100), fixed(mp / 100), fixed(yp / 100), fixed(kp / 100)
+	}
 }

@@ -15,7 +15,7 @@
 package routes
 
 import (
-	"github.com/abcum/fibre"
+	"github.com/abcum/cirrius/cnf"
 	"github.com/abcum/orbit"
 	"github.com/robertkrimen/otto"
 )
@@ -28,14 +28,16 @@ func New(orb *orbit.Orbit) interface{} {
 	return &Module{
 		orb: orb,
 		rtr: &router{routes: make(map[string][]*route)},
-		ctx: orb.Context().Value("fibre").(*fibre.Context),
+		req: orb.Context().Value("req").(cnf.Request),
+		res: orb.Context().Value("res").(cnf.Response),
 	}
 }
 
 type Module struct {
 	orb *orbit.Orbit
 	rtr *router
-	ctx *fibre.Context
+	req cnf.Request
+	res cnf.Response
 }
 
 func (this *Module) add(meth, path string, call otto.Value) {
@@ -86,11 +88,11 @@ func (this *Module) Any(path string, call otto.Value) {
 }
 
 func (this *Module) Run() {
-	meth := this.ctx.Request().Method
-	path := this.ctx.Request().URL().Path
+	meth := this.req.Meth()
+	path := this.req.Path()
 	for _, route := range this.rtr.routes[meth] {
 		if vars, ok := route.test(path); ok {
-			route.handler.Call(route.handler, vars)
+			route.handler.Call(route.handler, path, vars)
 			return
 		}
 	}

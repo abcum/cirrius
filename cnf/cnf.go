@@ -18,26 +18,20 @@ var Settings *Options
 
 // Options defines global configuration options
 type Options struct {
-	Surreal string // Surreal host:port to connect to
+	Kind string `yaml:"kind"`
 
-	Port struct {
-		Web int // Web port as an number
-	}
+	Port int `yaml:"port"`
 
-	Conn struct {
-		Web string // Web port as a string
-	}
+	Host string `yaml:"host"`
+
+	Conn string `yaml:"-"`
 
 	Cert struct {
-		Crt string // File location of server crt
-		Key string // File location of server key
+		Crt string `yaml:"crt"`
+		Key string `yaml:"key"`
 	}
 
-	Node struct {
-		Host string // Node hostname
-		Name string // Name of this node
-		UUID string // UUID of this node
-	}
+	Cache map[string]string `yaml:"cache"`
 
 	Chrome struct {
 		Endpoint   string // URL endpoint of chromedriver
@@ -48,16 +42,5 @@ type Options struct {
 		Level  string // Stores the configured logging level
 		Output string // Stores the configured logging output
 		Format string // Stores the configured logging format
-		Google struct {
-			Name        string // Stores the GCE logging name
-			Project     string // Stores the GCE logging project
-			Credentials string // Store the path to the credentials file
-		}
-		Syslog struct {
-			Tag      string // Stores the syslog tag name
-			Host     string // Stores the syslog remote host:port
-			Protocol string // Stores the syslog protocol to use
-			Priority string // Stores the syslog logging priority
-		}
 	}
 }

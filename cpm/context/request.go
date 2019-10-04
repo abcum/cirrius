@@ -15,15 +15,15 @@
 package context
 
 import (
-	"github.com/abcum/fibre"
 	"github.com/abcum/orbit"
 
+	"github.com/abcum/cirrius/cnf"
 	"github.com/abcum/cirrius/cpm/stream"
 )
 
 type Request struct {
 	orb *orbit.Orbit
-	fib *fibre.Context
+	req cnf.Request
 
 	// Body represents the http request body of the
 	// current function request. THe body can be
@@ -73,28 +73,20 @@ type Request struct {
 
 func NewRequest(orb *orbit.Orbit) *Request {
 
-	fib := orb.Context().Value("fibre").(*fibre.Context)
+	req := orb.Context().Value("req").(cnf.Request)
 
 	return &Request{
 		orb:    orb,
-		fib:    fib,
-		Body:   stream.NewReader(orb, fib.Request().Body),
-		Head:   fib.Head(),
-		Method: fib.Request().Method,
-		User:   fib.Request().URL().User,
-		Pass:   fib.Request().URL().Pass,
-		Host:   fib.Request().URL().Host,
-		Path:   fib.Request().URL().Path,
-		Query:  fib.Request().URL().Query,
-		IP:     fib.IP().String(),
+		req:    req,
+		IP:     req.IP().String(),
+		Body:   stream.NewReader(orb, req.Body()),
+		Head:   req.Head(),
+		Method: req.Meth(),
+		User:   req.User(),
+		Pass:   req.Pass(),
+		Host:   req.Host(),
+		Path:   req.Path(),
+		Query:  req.Query(),
 	}
 
-}
-
-func (this *Request) Form(key string) *stream.ReadCloser {
-	fil, _, err := this.fib.Request().FormFile(key)
-	if err != nil {
-		this.orb.Quit(err)
-	}
-	return stream.NewReadCloser(this.orb, fil)
 }

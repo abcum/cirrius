@@ -120,7 +120,6 @@ func (this *ReadCloser) String() string {
 }
 
 func (this *ReadCloser) Pipe(w io.Writer) {
-	defer this.stm.Close()
 	io.Copy(w, this.stm)
 }
 
@@ -192,7 +191,6 @@ func (this *WriteCloser) Close() error {
 }
 
 func (this *WriteCloser) Consume(r io.Reader) {
-	defer this.stm.Close()
 	io.Copy(this.stm, r)
 }
 

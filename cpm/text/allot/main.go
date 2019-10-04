@@ -15,6 +15,8 @@
 package allot
 
 import (
+	"fmt"
+
 	"github.com/abcum/orbit"
 	"github.com/robertkrimen/otto"
 	"github.com/sbstjn/allot"
@@ -49,11 +51,20 @@ func (this *Module) Add(value string, cb otto.Value) {
 
 }
 
-func (this *Module) Run(value string) {
+func (this *Module) Run(value interface{}) {
+
+	var str string
+
+	switch v := value.(type) {
+	case fmt.Stringer:
+		str = v.String()
+	case string:
+		str = v
+	}
 
 	for _, cmd := range this.cmds {
 
-		if match, err := cmd.cmd.Match(value); err == nil {
+		if match, err := cmd.cmd.Match(str); err == nil {
 			_, err := cmd.fnc.Call(cmd.fnc, NewMatch(this.orb, match))
 			if err != nil {
 				this.orb.Quit(err)

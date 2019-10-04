@@ -19,10 +19,12 @@ import (
 	t "time"
 
 	"github.com/abcum/orbit"
+	"github.com/robertkrimen/otto"
 
 	"gopkg.in/mailgun/mailgun-go.v1"
 
 	"github.com/abcum/cirrius/cpm/time"
+	"github.com/abcum/cirrius/util/args"
 )
 
 type Email struct {
@@ -33,6 +35,7 @@ type Email struct {
 
 type email struct {
 	Atch    map[string]io.ReadCloser `validate:"-"`
+	Inln    map[string]io.ReadCloser `validate:"-"`
 	Bcc     []string                 `validate:"dive,required,email"`
 	Cc      []string                 `validate:"dive,required,email"`
 	From    string                   `validate:"required"`
@@ -44,7 +47,13 @@ type email struct {
 	Test    bool                     `validate:"-"`
 	Text    string                   `validate:"required"`
 	Time    t.Time                   `validate:"-"`
-	To      []string                 `validate:"required,gt=0,dive,required,email"`
+	To      []*recip                 `validate:"required,gt=0"`
+	Trck    bool                     `validate:"-"`
+}
+
+type recip struct {
+	Email string                 `validate:"required,email"`
+	Vars  map[string]interface{} `validate:"-"`
 }
 
 func NewEmail(orb *orbit.Orbit, api mailgun.Mailgun) *Email {
@@ -52,6 +61,22 @@ func NewEmail(orb *orbit.Orbit, api mailgun.Mailgun) *Email {
 		orb: orb,
 		api: api,
 	}
+}
+
+func (this *Email) Attach(name string, r io.ReadCloser) *Email {
+	if this.Info.Atch == nil {
+		this.Info.Atch = make(map[string]io.ReadCloser)
+	}
+	this.Info.Atch[name] = r
+	return this
+}
+
+func (this *Email) Inline(name string, r io.ReadCloser) *Email {
+	if this.Info.Inln == nil {
+		this.Info.Inln = make(map[string]io.ReadCloser)
+	}
+	this.Info.Inln[name] = r
+	return this
 }
 
 func (this *Email) Attachment(name string, r io.ReadCloser) *Email {
@@ -90,6 +115,11 @@ func (this *Email) Html(html string) *Email {
 	return this
 }
 
+func (this *Email) Replyto(email string) *Email {
+	this.Info.Reply = email
+	return this
+}
+
 func (this *Email) ReplyTo(email string) *Email {
 	this.Info.Reply = email
 	return this
@@ -120,8 +150,19 @@ func (this *Email) Time(when *time.Time) *Email {
 	return this
 }
 
-func (this *Email) To(email string) *Email {
-	this.Info.To = append(this.Info.To, email)
+func (this *Email) To(call otto.FunctionCall) otto.Value {
+	args.Size(this.orb, call, 1, 2)
+	e := args.String(this.orb, call, 0)
+	v := args.Object(this.orb, call, 1)
+	this.Info.To = append(this.Info.To, &recip{
+		Email: e,
+		Vars:  v,
+	})
+	return args.Value(this.orb, this)
+}
+
+func (this *Email) Tracking(enabled bool) *Email {
+	this.Info.Trck = enabled
 	return this
 }
 
@@ -137,6 +178,10 @@ func (this *Email) Send() (id string) {
 
 	if this.Info.Test {
 		m.EnableTestMode()
+	}
+
+	if this.Info.Trck {
+		m.SetTracking(this.Info.Trck)
 	}
 
 	if this.Info.Html != "" {
@@ -155,6 +200,10 @@ func (this *Email) Send() (id string) {
 		m.AddHeader(hdr, val)
 	}
 
+	for txt, att := range this.Info.Inln {
+		m.AddReaderInline(txt, att)
+	}
+
 	for txt, att := range this.Info.Atch {
 		m.AddReaderAttachment(txt, att)
 	}
@@ -168,7 +217,7 @@ func (this *Email) Send() (id string) {
 	}
 
 	for _, recipient := range this.Info.To {
-		m.AddRecipientAndVariables(recipient, nil)
+		m.AddRecipientAndVariables(recipient.Email, recipient.Vars)
 	}
 
 	_, id, err := this.api.Send(m)
@@ -176,7 +225,7 @@ func (this *Email) Send() (id string) {
 		this.orb.Quit(authError)
 	}
 
-	this.Info.To = []string{}
+	this.Info.To = []*recip{}
 
 	return id
 

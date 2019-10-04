@@ -24,9 +24,7 @@ func init() {
 }
 
 func New(orb *orbit.Orbit) interface{} {
-	return &Module{
-		orb: orb,
-	}
+	return (&Module{orb: orb}).Init
 }
 
 type Module struct {

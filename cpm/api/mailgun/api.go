@@ -32,6 +32,6 @@ func NewAPI(orb *orbit.Orbit, dom, prv, pub string) *API {
 	}
 }
 
-func (this *API) ComposeEmail() *Email {
+func (this *API) Compose() *Email {
 	return NewEmail(this.orb, this.val)
 }

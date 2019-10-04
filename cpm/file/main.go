@@ -15,21 +15,17 @@
 package file
 
 import (
-	"errors"
 	"os"
-	"path"
 
-	"github.com/abcum/fibre"
 	"github.com/abcum/orbit"
-
-	"github.com/abcum/cirrius/cpm/stream"
+	"github.com/spf13/afero"
 )
 
 func init() {
 	orbit.Add("file", New)
 }
 
-var pathErr = errors.New("Path not allowed")
+var fs = afero.NewOsFs()
 
 func New(orb *orbit.Orbit) interface{} {
 	return (&Module{
@@ -39,57 +35,24 @@ func New(orb *orbit.Orbit) interface{} {
 
 type Module struct {
 	orb *orbit.Orbit
-	dir string
 }
 
 func (this *Module) init() *Module {
-
-	this.orb.Once("exit", func() {
-		os.RemoveAll(this.dir)
-	})
-
-	fib := this.orb.Context().Value("fibre").(*fibre.Context)
-
-	dir := path.Join(os.TempDir(), fib.Get("id").(string))
-
-	os.Mkdir(dir, 0744)
-
-	this.dir = dir
-
 	return this
-
 }
 
-func (this *Module) Read(file string) *stream.ReadCloser {
+func (this *Module) Temp() *File {
+	return NewTemp(this.orb)
+}
 
-	file = path.Join(this.dir, path.Clean(file))
+func (this *Module) Open(file string) *File {
+	return NewFile(this.orb, file)
+}
 
-	if ok, _ := path.Match(path.Join(this.dir, "*"), file); !ok {
-		this.orb.Quit(pathErr)
-	}
-
-	stm, err := os.OpenFile(file, os.O_RDONLY, 0)
+func (this *Module) Load(file string) *File {
+	fil, err := fs.OpenFile(file, os.O_RDONLY, 0)
 	if err != nil {
 		this.orb.Quit(err)
 	}
-
-	return stream.NewReadCloser(this.orb, stm)
-
-}
-
-func (this *Module) Write(file string) *stream.WriteCloser {
-
-	file = path.Join(this.dir, path.Clean(file))
-
-	if ok, _ := path.Match(path.Join(this.dir, "*"), file); !ok {
-		this.orb.Quit(pathErr)
-	}
-
-	stm, err := os.OpenFile(file, os.O_WRONLY|os.O_CREATE, 0744)
-	if err != nil {
-		this.orb.Quit(err)
-	}
-
-	return stream.NewWriteCloser(this.orb, stm)
-
+	return (&File{orb: this.orb, File: fil}).init()
 }

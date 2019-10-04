@@ -24,8 +24,6 @@ import (
 
 	"github.com/abcum/orbit"
 
-	"github.com/abcum/cirrius/cpm/stream"
-
 	"github.com/disintegration/imaging"
 
 	"github.com/anthonynsimon/bild/adjust"
@@ -39,6 +37,7 @@ import (
 
 type Image struct {
 	orb *orbit.Orbit
+	rdr *bytes.Reader
 	Val image.Image `console:"-"`
 }
 
@@ -285,12 +284,56 @@ func (this *Image) Pipe(w io.Writer, format ...int) {
 	return
 }
 
-func (this *Image) Reader() *stream.Reader {
+func (this *Image) Len() int {
+	if this.rdr == nil {
+		this.rdr = this.reader()
+	}
+	return this.rdr.Len()
+}
+
+func (this *Image) Read(b []byte) (int, error) {
+	if this.rdr == nil {
+		this.rdr = this.reader()
+	}
+	return this.rdr.Read(b)
+}
+
+func (this *Image) ReadAt(b []byte, off int64) (int, error) {
+	if this.rdr == nil {
+		this.rdr = this.reader()
+	}
+	return this.rdr.ReadAt(b, off)
+}
+
+func (this *Image) Seek(offset int64, whence int) (int64, error) {
+	if this.rdr == nil {
+		this.rdr = this.reader()
+	}
+	return this.rdr.Seek(offset, whence)
+}
+
+func (this *Image) reader(format ...int) *bytes.Reader {
+	f := imaging.PNG
+	if len(format) > 0 {
+		f = imaging.Format(format[0])
+	}
 	b := bytes.NewBuffer(nil)
-	if err := imaging.Encode(b, this.Val, imaging.PNG); err != nil {
+	if err := imaging.Encode(b, this.Val, imaging.Format(f)); err != nil {
 		this.orb.Quit(err)
 	}
-	return stream.NewReader(this.orb, b)
+	return bytes.NewReader(b.Bytes())
+}
+
+func (this *Image) Bytes(format ...int) []byte {
+	f := imaging.PNG
+	if len(format) > 0 {
+		f = imaging.Format(format[0])
+	}
+	b := bytes.NewBuffer(nil)
+	if err := imaging.Encode(b, this.Val, imaging.Format(f)); err != nil {
+		this.orb.Quit(err)
+	}
+	return b.Bytes()
 }
 
 func (this *Image) String(format ...int) string {

@@ -12,10 +12,31 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// +build cgo
+
+/*
+
+The pdf package enables creating and manipulating PDF documents.
+
+	var lib = require('pdf');
+	var pdf = lib("xxxxxxx-xxxxxx-xxxxxx-xxxxxx-xxxxxx");
+	var doc = new pdf({
+		masterpassword: '123456',
+		permissions: "noprint nohiresprint nocopy nomodify noaccessible noassemble",
+	});
+
+	doc.page(595, 842);
+
+	doc.pipe(context.res.body);
+
+*/
 package pdf
 
 import (
 	"github.com/abcum/orbit"
+	"github.com/robertkrimen/otto"
+
+	"github.com/abcum/cirrius/util/args"
 )
 
 func init() {
@@ -23,11 +44,21 @@ func init() {
 }
 
 func New(orb *orbit.Orbit) interface{} {
-	return &Module{
-		orb: orb,
-	}
+	return (&Module{orb: orb}).Init
 }
 
 type Module struct {
 	orb *orbit.Orbit
+}
+
+func (this *Module) Init(call otto.FunctionCall) otto.Value {
+
+	args.Size(this.orb, call, 0, 1)
+
+	key := args.String(this.orb, call, 0)
+
+	lib := NewLib(this.orb, key).New
+
+	return args.Value(this.orb, lib)
+
 }

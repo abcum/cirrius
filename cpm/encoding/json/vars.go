@@ -27,7 +27,6 @@ func init() {
 	opt.InternString = true
 	opt.HTMLCharsAsIs = true
 	opt.CheckCircularRef = false
-	opt.AsSymbols = codec.AsSymbolDefault
 	opt.SliceType = reflect.TypeOf([]interface{}(nil))
 	opt.MapType = reflect.TypeOf(map[string]interface{}(nil))
 }

@@ -15,79 +15,97 @@
 package web
 
 import (
+	"context"
 	"io/ioutil"
 	"mime"
 	"os"
-	"path"
+	"path/filepath"
+	"regexp"
 
 	"github.com/abcum/fibre"
+
+	"github.com/abcum/cirrius/exe"
 )
 
-type info struct {
-	path string
-	fold string
-	file string
-	extn string
-	mime string
-	data []byte
-}
+var cacher = regexp.MustCompile("-v[0-9]+")
 
-func load(url string) (*info, error) {
+func find(ctx context.Context, prev *exe.File, url string) (file *exe.File, err error) {
 
-	var files []string
+	var paths []string
 
 	// Clean the url
-	url = path.Clean(url)
+	url = filepath.Clean(url)
 
 	// Check for the exact file name
-	files = append(files, url)
-
-	// Check for the default file extensions in a folder
-	if path.Base(url) == "/" || path.Ext(url) == "" {
-		files = append(files, path.Join(url, "index.html"))
+	if filepath.Base(url) != "." {
+		paths = append(paths, url)
 	}
 
 	// Check for the file with default extensions
-	if path.Base(url) != "/" && path.Ext(url) == "" {
-		files = append(files, url+".html")
+	if filepath.Base(url) != "." && filepath.Ext(url) == "" {
+		paths = append(paths, url+".html")
 	}
 
-	// Check for a single page app
-	if path.Ext(url) == "" {
-		files = append(files, "index.html")
+	// Check for the default file extensions in a folder
+	if filepath.Base(url) == "." || filepath.Ext(url) == "" {
+		paths = append(paths, filepath.Join(url, "index.html"))
 	}
 
 	// Check for a main js file
-	files = append(files, "main.js")
+	paths = append(paths, "main.js")
 
 	// Check for a custom 404 file
-	files = append(files, "404.html")
+	paths = append(paths, "404.html")
 
-	return find(files...)
+	// Fetch the files
+	return load(ctx, prev, paths...)
 
 }
 
-func find(files ...string) (*info, error) {
+func load(ctx context.Context, prev *exe.File, paths ...string) (file *exe.File, err error) {
 
-	for _, file := range files {
+	for _, path := range paths {
 
-		full := path.Join("dev", file)
+		switch {
+		case path[0] == '/':
+			path = filepath.Join(".", path)
+		case prev == nil:
+			path = filepath.Join(".", path)
+		case prev != nil:
+			path = filepath.Join(prev.Fold, path)
+		}
 
-		if hand, err := os.Stat(full); err == nil {
+		if cacher.MatchString(path) {
+			path = cacher.ReplaceAllString(path, "")
+		}
 
-			if !hand.IsDir() && path.Base(full)[0] != '.' {
+		if hand, err := os.Stat(path); err == nil {
 
-				info := &info{}
-				info.path = path.Clean(file)
-				info.fold = path.Dir(info.path)
-				info.file = path.Base(info.path)
-				info.extn = path.Ext(info.path)
-				info.mime = mime.TypeByExtension(info.extn)
-				info.data, _ = ioutil.ReadFile(full)
+			// Ignore if the path is a folder
 
-				return info, err
-
+			if hand.IsDir() {
+				continue
 			}
+
+			// Ignore if the path is invisible
+
+			if filepath.Base(path)[0] == '.' {
+				continue
+			}
+
+			// Otherwise load the file
+
+			file = &exe.File{}
+			file.Path = filepath.Clean(path)
+			file.Fold = filepath.Dir(file.Path)
+			file.File = filepath.Base(file.Path)
+			file.Extn = filepath.Ext(file.Path)
+			file.Name = file.File[:len(file.File)-len(file.Extn)]
+			file.Mime = mime.TypeByExtension(file.Extn)
+			file.Time = hand.ModTime()
+			file.Data, _ = ioutil.ReadFile(path)
+
+			return file, nil
 
 		}
 
