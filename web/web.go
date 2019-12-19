@@ -30,7 +30,6 @@ func Setup() (err error) {
 	s := fibre.Server()
 
 	routes(s)
-	s.SetWait("15s")
 	s.SetName("web")
 	s.SetIdleTimeout("60s")
 	s.SetHTTPErrorHandler(errors)
@@ -38,20 +37,8 @@ func Setup() (err error) {
 
 	// Setup middleware
 
-	s.Use(mw.Uniq()) // Add uniq id
 	s.Use(mw.Fail()) // Catch panics
 	s.Use(mw.Logs()) // Log requests
-	s.Use(mw.Sock()) // Setup sockets
-
-	// Add server information
-
-	s.Use(mw.Info(&mw.InfoOpts{
-		PoweredBy: "Cirrius",
-	}))
-
-	// Compress responses
-
-	s.Use(mw.Gzip())
 
 	// Log successful start
 

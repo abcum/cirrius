@@ -18,11 +18,11 @@ import (
 	"time"
 
 	"github.com/abcum/orbit"
+	"github.com/abcum/otto"
 	"github.com/olebedev/when"
 	"github.com/olebedev/when/rules/common"
 	"github.com/olebedev/when/rules/en"
 	"github.com/olebedev/when/rules/ru"
-	"github.com/robertkrimen/otto"
 )
 
 func init() {

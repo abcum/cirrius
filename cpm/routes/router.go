@@ -17,7 +17,7 @@ package routes
 import (
 	"sort"
 
-	"github.com/robertkrimen/otto"
+	"github.com/abcum/otto"
 )
 
 type ranker []*route

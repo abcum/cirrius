@@ -17,7 +17,7 @@ package routes
 import (
 	"github.com/abcum/cirrius/cnf"
 	"github.com/abcum/orbit"
-	"github.com/robertkrimen/otto"
+	"github.com/abcum/otto"
 )
 
 func init() {

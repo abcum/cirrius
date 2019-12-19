@@ -25,8 +25,8 @@ import (
 	"unicode/utf8"
 
 	"github.com/abcum/orbit"
+	"github.com/abcum/otto"
 	"github.com/fatih/structs"
-	"github.com/robertkrimen/otto"
 )
 
 type entry struct {

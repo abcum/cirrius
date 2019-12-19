@@ -16,7 +16,7 @@ package surreal
 
 import (
 	"github.com/abcum/orbit"
-	"github.com/robertkrimen/otto"
+	"github.com/abcum/otto"
 	"github.com/surrealdb/surreal.go"
 
 	"github.com/abcum/cirrius/util/args"

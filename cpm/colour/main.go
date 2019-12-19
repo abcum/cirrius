@@ -16,7 +16,7 @@ package colour
 
 import (
 	"github.com/abcum/orbit"
-	"github.com/robertkrimen/otto"
+	"github.com/abcum/otto"
 
 	"github.com/lucasb-eyer/go-colorful"
 

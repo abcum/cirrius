@@ -120,9 +120,4 @@ import (
 	_ "github.com/abcum/cirrius/cpm/check/spam"
 	_ "github.com/abcum/cirrius/cpm/check/vat"
 	_ "github.com/abcum/cirrius/cpm/check/whois"
-
-	// Load api modules
-	_ "github.com/abcum/cirrius/cpm/api/getaddress"
-	_ "github.com/abcum/cirrius/cpm/api/mailgun"
-	_ "github.com/abcum/cirrius/cpm/api/stripe"
 )

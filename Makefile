@@ -28,10 +28,6 @@ kill:
 clean:
 	$(GO) clean -i -n
 
-.PHONY: patch
-patch:
-	git apply build/patch.txt
-
 .PHONY: tests
 tests:
 	$(GO) test ./...
