@@ -62,7 +62,7 @@ func (this *Leaf) done() {
 
 func (this *Leaf) Width() float64 {
 
-	val, err := this.lib.val.PcosGetNumber(this.ref, fmt.Sprintf("pages[%d]/width", this.pge-1))
+	val, err := this.lib.val.PcosGetNumber(this.doc, fmt.Sprintf("pages[%d]/width", this.pge-1))
 	if err != nil {
 		this.orb.Quit(err)
 	}

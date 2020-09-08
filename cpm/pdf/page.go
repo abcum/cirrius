@@ -168,6 +168,10 @@ func (this *Page) Block(call otto.FunctionCall) otto.Value {
 		this.orb.Quit(err)
 	}
 
+	if err = this.lib.val.DeletePvf(id); err != nil {
+		this.orb.Quit(err)
+	}
+
 	return args.Value(this.orb, this)
 
 }
