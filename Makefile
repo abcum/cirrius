@@ -58,14 +58,14 @@ compile-osx:
 	$(GO) install -v -tags 'pdflib8' -ldflags '$(LDF)'
 	$(GO) build -o main-osx -v -tags 'pdflib8' -ldflags '$(LDF)'
 	upx main-osx
-	aws s3 cp --cache-control "public, max-age=30" main-osx s3://pkg.cirrius.io/osx
+	aws s3 cp --cache-control "no-store" main-osx s3://pkg.cirrius.io/osx
 	rm -rf main-osx
 
 .PHONY: compile-aws
 compile-aws: LDF += $(shell GOPATH=${GOPATH} build/flags.sh)
 compile-aws:
 	go get github.com/karalabe/xgo
-	xgo -x -v -out main-aws -tags 'aws pdflib8' -ldflags '$(LDF)' --targets=linux/amd64 .
+	xgo -x -v -out main-aws -tags 'aws pdflib8' -ldflags '$(LDF)' --targets=linux/amd64 github.com/abcum/cirrius
 	upx main-aws-linux-amd64
-	aws s3 cp --cache-control "public, max-age=30" main-aws-linux-amd64 s3://pkg.cirrius.io/aws
+	aws s3 cp --cache-control "no-store" main-aws-linux-amd64 s3://pkg.cirrius.io/aws
 	rm -rf main-aws-linux-amd64
