@@ -94,18 +94,12 @@ func Handler(ctx context.Context, req *events.APIGatewayProxyRequest) (res *even
 	// --------------------------------------------------
 
 	switch file.Extn {
-	case ".md":
-		file, err = run.LoadMD(ctx, file)
 	case ".css":
 		file, err = run.LoadCSS(ctx, file)
 	case ".less":
 		file, err = run.LoadLESS(ctx, file)
 	case ".scss":
 		file, err = run.LoadSCSS(ctx, file)
-	case ".sass":
-		file, err = run.LoadSASS(ctx, file)
-	case ".gcss":
-		file, err = run.LoadGCSS(ctx, file)
 	case ".html":
 		file, err = run.LoadHTML(ctx, file)
 	}

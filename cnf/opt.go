@@ -84,7 +84,7 @@ func Setup() {
 		var doc *os.File
 		var out string = path.Join(os.TempDir(), "cirrius.key")
 		if doc, err = os.Create(out); err != nil {
-			log.Fatalf("Can not decode PEM encoded private key into %s: %s", out)
+			log.Fatalf("Can not decode PEM encoded private key into %s", out)
 		}
 		doc.Write([]byte(opts.Cert.Key))
 		doc.Close()
