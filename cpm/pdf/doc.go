@@ -38,6 +38,7 @@ type Doc struct {
 		p []*Page
 		f []*File
 		t []*Flow
+		n []string
 	}
 	Graphics *Graphics
 }
@@ -163,6 +164,8 @@ func (this *Doc) Embed(call otto.FunctionCall) otto.Value {
 		this.orb.Quit(err)
 	}
 
+	this.trk.n = append(this.trk.n, n)
+
 	return args.Value(this.orb, n)
 
 }
@@ -206,6 +209,13 @@ func (this *Doc) Pipe(wtr io.Writer) {
 
 	var err error
 	var out []byte
+
+	// Close PVFs
+
+	for i := len(this.trk.t) - 1; i >= 0; i-- {
+		this.lib.val.DeletePvf(this.trk.n[i])
+		this.trk.n = this.trk.n[:len(this.trk.n)-1]
+	}
 
 	// Close flows
 
