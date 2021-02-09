@@ -41,7 +41,7 @@ func NewLib(orb *orbit.Orbit, key string) *Lib {
 
 func (this *Lib) init() *Lib {
 
-	this.val.SetParameter("errorpolicy", "return")
+	this.val.SetParameter("errorpolicy", "exception")
 	this.val.SetParameter("textformat", "utf8")
 	this.val.SetParameter("charref", "false")
 	this.val.SetParameter("glyphcheck", "replace")

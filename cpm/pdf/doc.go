@@ -150,6 +150,23 @@ func (this *Doc) Load(rdr io.Reader) *File {
 
 }
 
+func (this *Doc) Embed(call otto.FunctionCall) otto.Value {
+
+	var err error
+
+	args.Size(this.orb, call, 2, 2)
+
+	i := args.Image(this.orb, call, 0)
+	n := args.String(this.orb, call, 1)
+
+	if err = this.lib.val.CreatePvf(n, i.Bytes(), ""); err != nil {
+		this.orb.Quit(err)
+	}
+
+	return args.Value(this.orb, n)
+
+}
+
 func (this *Doc) Page(call otto.FunctionCall) otto.Value {
 
 	args.Size(this.orb, call, 2, 2)

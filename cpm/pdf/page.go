@@ -94,33 +94,52 @@ func (this *Page) Image(call otto.FunctionCall) otto.Value {
 	var ref int
 	var err error
 
-	args.Size(this.orb, call, 3, 4)
+	args.Size(this.orb, call, 3, 5)
 
 	i := args.Image(this.orb, call, 0)
 	x := args.Double(this.orb, call, 1)
 	y := args.Double(this.orb, call, 2)
 	o := args.Object(this.orb, call, 3)
+	n := args.String(this.orb, call, 4)
 
-	id := uniq()
+	if n != "" {
 
-	if err = this.lib.val.CreatePvf(id, i.Bytes(), ""); err != nil {
-		this.orb.Quit(err)
-	}
+		if ref, err = this.lib.val.LoadImage("auto", n, cull(o, loadOpts)); err != nil {
+			this.orb.Quit(err)
+		}
 
-	if ref, err = this.lib.val.LoadImage("auto", id, cull(o, loadOpts)); err != nil {
-		this.orb.Quit(err)
-	}
+		if err = this.lib.val.FitImage(ref, x, y, cull(o, imageOpts)); err != nil {
+			this.orb.Quit(err)
+		}
 
-	if err = this.lib.val.FitImage(ref, x, y, cull(o, imageOpts)); err != nil {
-		this.orb.Quit(err)
-	}
+		if this.lib.val.CloseImage(ref); err != nil {
+			this.orb.Quit(err)
+		}
 
-	if this.lib.val.CloseImage(ref); err != nil {
-		this.orb.Quit(err)
-	}
+	} else {
 
-	if err = this.lib.val.DeletePvf(id); err != nil {
-		this.orb.Quit(err)
+		id := uniq()
+
+		if err = this.lib.val.CreatePvf(id, i.Bytes(), ""); err != nil {
+			this.orb.Quit(err)
+		}
+
+		if ref, err = this.lib.val.LoadImage("auto", id, cull(o, loadOpts)); err != nil {
+			this.orb.Quit(err)
+		}
+
+		if err = this.lib.val.FitImage(ref, x, y, cull(o, imageOpts)); err != nil {
+			this.orb.Quit(err)
+		}
+
+		if this.lib.val.CloseImage(ref); err != nil {
+			this.orb.Quit(err)
+		}
+
+		if err = this.lib.val.DeletePvf(id); err != nil {
+			this.orb.Quit(err)
+		}
+
 	}
 
 	return args.Value(this.orb, this)
