@@ -34,6 +34,7 @@ type Doc struct {
 	sch otto.Value
 	fnt map[string]bool
 	trk struct {
+		i []int
 		m []*Font
 		p []*Page
 		f []*File
@@ -153,17 +154,24 @@ func (this *Doc) Load(rdr io.Reader) *File {
 
 func (this *Doc) Embed(call otto.FunctionCall) otto.Value {
 
+	var ref int
 	var err error
 
-	args.Size(this.orb, call, 2, 2)
+	args.Size(this.orb, call, 3, 3)
 
 	i := args.Image(this.orb, call, 0)
 	n := args.String(this.orb, call, 1)
+	o := args.Object(this.orb, call, 2)
 
 	if err = this.lib.val.CreatePvf(n, i.Bytes(), ""); err != nil {
 		this.orb.Quit(err)
 	}
 
+	if ref, err = this.lib.val.LoadImage("auto", n, cull(o, loadOpts)); err != nil {
+		this.orb.Quit(err)
+	}
+
+	this.trk.i = append(this.trk.i, ref);
 	this.trk.n = append(this.trk.n, n)
 
 	return args.Value(this.orb, n)
@@ -209,6 +217,13 @@ func (this *Doc) Pipe(wtr io.Writer) {
 
 	var err error
 	var out []byte
+
+	// Close images
+
+	for i := len(this.trk.i) - 1; i >= 0; i-- {
+		this.lib.val.CloseImage(this.trk.i[i])
+		this.trk.i = this.trk.i[:len(this.trk.i)-1]
+	}
 
 	// Close PVFs
 

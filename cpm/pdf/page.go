@@ -104,15 +104,7 @@ func (this *Page) Image(call otto.FunctionCall) otto.Value {
 
 	if n != "" {
 
-		if ref, err = this.lib.val.LoadImage("auto", n, cull(o, loadOpts)); err != nil {
-			this.orb.Quit(err)
-		}
-
 		if err = this.lib.val.FitImage(ref, x, y, cull(o, imageOpts)); err != nil {
-			this.orb.Quit(err)
-		}
-
-		if this.lib.val.CloseImage(ref); err != nil {
 			this.orb.Quit(err)
 		}
 
