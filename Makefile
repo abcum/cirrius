@@ -35,12 +35,12 @@ tests:
 .PHONY: build
 build: LDF += $(shell GOPATH=${GOPATH} build/flags.sh)
 build:
-	$(GO) build -v -tags 'pdflib8' -ldflags '$(LDF)'
+	$(GO) build -v -tags 'pdflib9' -ldflags '$(LDF)'
 
 .PHONY: install
 install: LDF += $(shell GOPATH=${GOPATH} build/flags.sh)
 install:
-	$(GO) install -v -tags 'pdflib8' -ldflags '$(LDF)'
+	$(GO) install -v -tags 'pdflib9' -ldflags '$(LDF)'
 
 .PHONY: compile
 compile:

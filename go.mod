@@ -11,7 +11,7 @@ require (
 	github.com/abcum/fibre v0.0.0-20201123182515-d9eac7ca56b5
 	github.com/abcum/orbit v0.0.0-20191210124545-812e132c41bc
 	github.com/abcum/otto v0.0.0-20191210124503-be416f5b897b
-	github.com/abcum/pdflib v0.0.0-20191025164642-0aa38baf69e8
+	github.com/abcum/pdflib v0.0.0-20210310232743-e2ee41a66416
 	github.com/andybalholm/cascadia v1.2.0 // indirect
 	github.com/anthonynsimon/bild v0.13.0
 	github.com/arbovm/levenshtein v0.0.0-20160628152529-48b4e1c0c4d0
