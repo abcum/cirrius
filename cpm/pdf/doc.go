@@ -174,7 +174,7 @@ func (this *Doc) Embed(call otto.FunctionCall) otto.Value {
 	this.trk.i = append(this.trk.i, ref);
 	this.trk.n = append(this.trk.n, n)
 
-	return args.Value(this.orb, n)
+	return args.Value(this.orb, ref)
 
 }
 

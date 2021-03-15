@@ -100,11 +100,11 @@ func (this *Page) Image(call otto.FunctionCall) otto.Value {
 	x := args.Double(this.orb, call, 1)
 	y := args.Double(this.orb, call, 2)
 	o := args.Object(this.orb, call, 3)
-	n := args.String(this.orb, call, 4)
+	n := args.Number(this.orb, call, 4)
 
-	if n != "" {
+	if len(call.ArgumentList) == 5  {
 
-		if err = this.lib.val.FitImage(ref, x, y, cull(o, imageOpts)); err != nil {
+		if err = this.lib.val.FitImage(n, x, y, cull(o, imageOpts)); err != nil {
 			this.orb.Quit(err)
 		}
 
