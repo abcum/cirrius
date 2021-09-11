@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//go:build cgo
 // +build cgo
 
 package pdf
@@ -47,15 +48,11 @@ func NewFlow(orb *orbit.Orbit, lib *Lib, doc *Doc, txt string, opt optlist) *Flo
 
 func (this *Flow) init() *Flow {
 
-	var err error
-
 	if val, ok := this.opt["fontname"].(string); ok {
 		this.doc.find(val)
 	}
 
-	if this.ref, err = this.lib.val.CreateTextflow(this.txt, cull(this.opt, textOpts)); err != nil {
-		this.orb.Quit(err)
-	}
+	this.ref, _ = this.lib.val.CreateTextflow(this.txt, cull(this.opt, textOpts))
 
 	return this
 

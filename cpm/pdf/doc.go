@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//go:build cgo
 // +build cgo
 
 package pdf
@@ -163,7 +164,7 @@ func (this *Doc) Embed(call otto.FunctionCall) otto.Value {
 	n := args.String(this.orb, call, 1)
 	o := args.Object(this.orb, call, 2)
 
-	if err = this.lib.val.CreatePvf(n, i.Bytes(), ""); err != nil {
+	if err = this.lib.val.CreatePvf(n, i.Bytes(), "copy"); err != nil {
 		this.orb.Quit(err)
 	}
 
@@ -171,7 +172,7 @@ func (this *Doc) Embed(call otto.FunctionCall) otto.Value {
 		this.orb.Quit(err)
 	}
 
-	this.trk.i = append(this.trk.i, ref);
+	this.trk.i = append(this.trk.i, ref)
 	this.trk.n = append(this.trk.n, n)
 
 	return args.Value(this.orb, ref)

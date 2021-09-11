@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//go:build cgo
 // +build cgo
 
 package pdf
@@ -40,13 +41,16 @@ var textOpts = map[string]bool{
 	"charspacing":     true,
 	"embedding":       true,
 	"encoding":        true,
+	"fallbackfonts":   true,
 	"fillcolor":       true,
 	"fontname":        true,
 	"fontsize":        true,
+	"glyphcheck":      true,
 	"hortabmethod":    true,
 	"hortabsize":      true,
 	"leading":         true,
 	"matchbox":        true,
+	"replacementchar": true,
 	"ruler":           true,
 	"shrinklimit":     true,
 	"stamp":           true,

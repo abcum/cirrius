@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//go:build cgo
 // +build cgo
 
 package pdf
@@ -41,13 +42,12 @@ func NewLib(orb *orbit.Orbit, key string) *Lib {
 
 func (this *Lib) init() *Lib {
 
-	this.val.SetParameter("errorpolicy", "exception")
-	this.val.SetParameter("textformat", "utf8")
 	this.val.SetParameter("charref", "false")
+	this.val.SetParameter("errorpolicy", "return")
+	this.val.SetParameter("escapesequence", "false")
 	this.val.SetParameter("glyphcheck", "replace")
-	this.val.SetParameter("escapesequence", "true")
 	this.val.SetParameter("hypertextformat", "utf8")
-	this.val.SetParameter("hypertextencoding", "winansi")
+	this.val.SetParameter("textformat", "utf8")
 
 	if this.key != "" {
 		this.val.SetParameter("license", this.key)

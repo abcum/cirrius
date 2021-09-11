@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//go:build cgo
 // +build cgo
 
 package pdf
@@ -102,7 +103,7 @@ func (this *Page) Image(call otto.FunctionCall) otto.Value {
 	o := args.Object(this.orb, call, 3)
 	n := args.Number(this.orb, call, 4)
 
-	if len(call.ArgumentList) == 5  {
+	if len(call.ArgumentList) == 5 {
 
 		if err = this.lib.val.FitImage(n, x, y, cull(o, imageOpts)); err != nil {
 			this.orb.Quit(err)
@@ -112,7 +113,7 @@ func (this *Page) Image(call otto.FunctionCall) otto.Value {
 
 		id := uniq()
 
-		if err = this.lib.val.CreatePvf(id, i.Bytes(), ""); err != nil {
+		if err = this.lib.val.CreatePvf(id, i.Bytes(), "copy"); err != nil {
 			this.orb.Quit(err)
 		}
 
@@ -163,7 +164,7 @@ func (this *Page) Block(call otto.FunctionCall) otto.Value {
 		}
 	}
 
-	if err = this.lib.val.CreatePvf(id, i.Bytes(), ""); err != nil {
+	if err = this.lib.val.CreatePvf(id, i.Bytes(), "copy"); err != nil {
 		this.orb.Quit(err)
 	}
 

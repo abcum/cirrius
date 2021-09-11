@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//go:build cgo
 // +build cgo
 
 package pdf
@@ -58,7 +59,7 @@ func (this *File) init() *File {
 		this.orb.Quit(err)
 	}
 
-	if err = this.lib.val.CreatePvf(id, res, ""); err != nil {
+	if err = this.lib.val.CreatePvf(id, res, "copy"); err != nil {
 		this.orb.Quit(err)
 	}
 
