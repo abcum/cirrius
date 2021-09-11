@@ -20,10 +20,6 @@ default:
 	@echo "Choose a Makefile target:"
 	@$(MAKE) -pRrq -f $(lastword $(MAKEFILE_LIST)) : 2>/dev/null | awk -v RS= -F: '/^# File/,/^# Finished Make data base/ {if ($$1 !~ "^[#.]") {print "  - " $$1}}' | sort
 
-.PHONY: kill
-kill:
-	pkill -9 -f cirrius
-
 .PHONY: clean
 clean:
 	$(GO) clean -i -n
@@ -43,29 +39,14 @@ install:
 	$(GO) install -v -tags 'pdflib9' -ldflags '$(LDF)'
 
 .PHONY: compile
+compile: LDF += $(shell GOPATH=${GOPATH} build/flags.sh)
 compile:
-	make compile-pkg
-	make compile-osx
-	make compile-aws
-
-.PHONY: compile-pkg
-compile-pkg:
-	aws s3 cp --content-type 'text/plain' install.sh s3://pkg.cirrius.io/install.sh
-
-.PHONY: compile-osx
-compile-osx: LDF += $(shell GOPATH=${GOPATH} build/flags.sh)
-compile-osx:
-	$(GO) install -v -tags 'pdflib8' -ldflags '$(LDF)'
-	$(GO) build -o main-osx -v -tags 'pdflib8' -ldflags '$(LDF)'
-	upx main-osx
+	$(GO) install -v -tags 'pdflib9' -ldflags '$(LDF)'
+	$(GO) build -o main-osx -v -tags 'pdflib9' -ldflags '$(LDF)'
 	aws s3 cp --cache-control "no-store" main-osx s3://pkg.cirrius.io/osx
 	rm -rf main-osx
-
-.PHONY: compile-aws
-compile-aws: LDF += $(shell GOPATH=${GOPATH} build/flags.sh)
-compile-aws:
+	#
 	go get github.com/karalabe/xgo
 	xgo -x -v -out main-aws -tags 'aws pdflib8' -ldflags '$(LDF)' --targets=linux/amd64 github.com/abcum/cirrius
-	upx main-aws-linux-amd64
 	aws s3 cp --cache-control "no-store" main-aws-linux-amd64 s3://pkg.cirrius.io/aws
 	rm -rf main-aws-linux-amd64
