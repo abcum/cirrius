@@ -38,6 +38,7 @@ var textOpts = map[string]bool{
 	"avoidbreak":      true,
 	"avoidemptybegin": true,
 	"boxsize":         true,
+	"charref":         true,
 	"charspacing":     true,
 	"embedding":       true,
 	"encoding":        true,
