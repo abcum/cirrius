@@ -85,9 +85,7 @@ func (this *Flow) Box(call otto.FunctionCall) otto.Value {
 		}
 	}
 
-	if _, err := this.lib.val.FitTextflow(this.ref, x, y, r, t, cull(o, flowOpts)); err != nil {
-		this.orb.Quit(err)
-	}
+	this.lib.val.FitTextflow(this.ref, x, y, r, t, cull(o, flowOpts))
 
 	return args.Value(this.orb, this)
 
