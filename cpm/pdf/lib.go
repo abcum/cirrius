@@ -44,7 +44,7 @@ func (this *Lib) init() *Lib {
 
 	this.val.SetParameter("charref", "false")
 	this.val.SetParameter("errorpolicy", "return")
-	this.val.SetParameter("escapesequence", "false")
+	this.val.SetParameter("escapesequence", "true")
 	this.val.SetParameter("glyphcheck", "replace")
 	this.val.SetParameter("hypertextformat", "utf8")
 	this.val.SetParameter("textformat", "utf8")
